@@ -16,7 +16,6 @@ GO
 
 BEGIN TRANSACTION;
 
-
 CREATE TABLE styles
 (
 	id				int					identity(1,1),
@@ -25,14 +24,14 @@ CREATE TABLE styles
 	constraint		pk_styles_id		primary key(id)
 )
 
-
 CREATE TABLE beers
 (
 	id				int					identity(1,1),
 	name			nvarchar(100)		not null,
 	style_id		int					not null,
 	description		nvarchar(150)		not null,
-	abv				decimal(4,2)		not null
+	abv				decimal(4,2)		not null,
+	imgLocation		nvarchar(500)		not null,
 
 	constraint		pk_beer_id			primary key(id),
 	constraint		fk_beers_style_id	foreign key(style_id) references styles(id)
