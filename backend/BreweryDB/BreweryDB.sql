@@ -31,7 +31,7 @@ CREATE TABLE beers
 	style_id		int					not null,
 	description		nvarchar(150)		not null,
 	abv				decimal(4,2)		not null,
-	imgLocation		nvarchar(500)		not null,
+	imgSrc		nvarchar(500)		not null,
 
 	constraint		pk_beer_id			primary key(id),
 	constraint		fk_beers_style_id	foreign key(style_id) references styles(id)
