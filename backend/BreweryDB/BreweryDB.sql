@@ -46,6 +46,7 @@ CREATE TABLE breweries
 	established		int					not null,
 	address			nvarchar(250)		not null,
 	description		nvarchar(500)		not null,
+	barOrRestaurant	varchar(20)			not null
 
 	constraint		pk_brewery_id		primary key(id)
 )

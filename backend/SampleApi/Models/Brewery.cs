@@ -14,5 +14,8 @@ namespace SampleApi.Models
         public int Established { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
+        public string BarOrRestaurant { get; set; }
+
+        IList<Beer> beersAvailable { get; set; }
     }
 }
