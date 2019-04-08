@@ -5,11 +5,11 @@
       <a v-on:click="toggleForm">Register an Account</a>
       <div>
         <label for="username">Username:</label>
-        <input type="text" name="username" v-model.trim="this.loginForm.username" />
+        <input type="text" name="username" v-model.trim="loginForm.username" />
       </div>
       <div>
         <label for="password">Password:</label>
-        <input type="password" name="password" v-model.trim="this.loginForm.password" />
+        <input type="password" name="password" v-model.trim="loginForm.password" />
       </div>
       <input type="submit" value="Submit" />
     </form>
@@ -18,15 +18,15 @@
       <a v-on:click="toggleForm">Back to Login</a>
       <div>
         <label for="username">Username:</label>
-        <input type="text" name="username" v-model.trim="this.signupForm.username" />
+        <input type="text" name="username" v-model.trim="signupForm.username" />
       </div>
       <div>
         <label for="password">Password:</label>
-        <input type="password" name="password" v-model.trim="this.signupForm.password" />
+        <input type="password" name="password" v-model.trim="signupForm.password" />
       </div>
       <div>
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" v-model.trim="this.signupForm.confirmPassword" />
+        <input type="password" name="confirmPassword" v-model.trim="signupForm.confirmPassword" />
       </div>
       <input type="submit" value="Submit" />
     </form>
@@ -102,7 +102,7 @@ export default {
     /**
      * Signs the user up and then redirects them to the dashboard.
      */
-    async signup() {
+    async register() {
       this.error = "";
 
       try {
