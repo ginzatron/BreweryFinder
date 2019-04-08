@@ -52,7 +52,7 @@ namespace SampleApi.DAL
             beer.Abv = Convert.ToDecimal(reader["abv"]);
             beer.Description = Convert.ToString(reader["description"]);
             beer.ImgSrc = Convert.ToString(reader["imgSrc"]);
-            beer.Style_id = Convert.ToInt32(reader["style_id"]);
+            //beer.Style_id = Convert.ToInt32(reader["style_id"]);
             beer.Name = Convert.ToString(reader["name"]);
             
             return beer;
