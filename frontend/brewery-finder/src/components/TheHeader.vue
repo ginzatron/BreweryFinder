@@ -7,9 +7,7 @@
     <nav>
       <router-link to="/">SEARCH</router-link>
       <div>
-        <router-link to="/login">LOGIN</router-link>
-        <span>/</span>
-        <router-link to="/register">REGISTER</router-link>
+        <router-link to="/login">LOGIN / REGISTER</router-link>
       </div>
     </nav>
   </header>
@@ -38,9 +36,9 @@ h1 {
 }
 
 img {
-    display: inline-block;
-    width: 150px;
-    height: 150px;
+  display: inline-block;
+  width: 150px;
+  height: 150px;
 }
 
 nav {
@@ -48,9 +46,5 @@ nav {
   justify-content: space-evenly;
   font-size: 3rem;
   background-color: lightgreen;
-}
-
-span {
-  margin: 0 10px;
 }
 </style>
