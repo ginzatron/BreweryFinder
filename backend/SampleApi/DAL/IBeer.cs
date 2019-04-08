@@ -8,9 +8,9 @@ namespace SampleApi.DAL
 {
     interface IBeer
     {
-        Beer GetById(int id);
+        Beer GetByBeerId(int id);
         Beer GetByName(string name);
-        Beer GetAllByStyleId(int id);
+        IList<Beer> GetAllByStyleId(int id);
         IList<Beer> GetAll();
         IList<Beer> GetAll(int brewer_id);
     }

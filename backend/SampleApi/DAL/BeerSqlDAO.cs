@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SampleApi.Models;
+using System.Data.SqlClient;
 
 namespace SampleApi.DAL
 {
@@ -16,27 +17,167 @@ namespace SampleApi.DAL
 
         public IList<Beer> GetAll()
         {
-            throw new NotImplementedException();
+            IList<Beer> beers = new List<Beer>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers ", conn);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Beer beer = ConvertReaderToBeer(reader);
+                        beers.Add(beer);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+
+            return beers;
         }
 
-        public IList<Beer> GetAll(int brewer_id)
+        private Beer ConvertReaderToBeer(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            Beer beer = new Beer();
+
+            beer.Id = Convert.ToInt32(reader["id"]);
+            beer.Abv = Convert.ToDecimal(reader["abv"]);
+            beer.Description = Convert.ToString(reader["description"]);
+            beer.ImgSrc = Convert.ToString(reader["imgSrc"]);
+            beer.Style_id = Convert.ToInt32(reader["style_id"]);
+            beer.Name = Convert.ToString(reader["name"]);
+            
+            return beer;
         }
 
-        public Beer GetAllByStyleId(int id)
+        public IList<Beer> GetAll(int brewery_id)
         {
-            throw new NotImplementedException();
+            IList<Beer> beers = new List<Beer>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(@"SELECT * FROM beers
+                                                    JOIN beers_breweries ON beers.id = beers_breweries.beer_id
+                                                    JOIN breweries ON breweries.id = beers_breweries.brewery_id 
+                                                    WHERE breweries.id = @brewery_id;", conn);
+                    cmd.Parameters.AddWithValue("brewery_id", brewery_id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Beer beer = ConvertReaderToBeer(reader);
+                        beers.Add(beer);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+
+            return beers;
         }
 
-        public Beer GetById(int id)
+        public IList<Beer> GetAllByStyleId(int id)
         {
-            throw new NotImplementedException();
+            IList<Beer> beers = new List<Beer>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers WHERE style_id = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Beer beer = ConvertReaderToBeer(reader);
+                        beers.Add(beer);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+
+            return beers;
+        }
+
+        public Beer GetByBeerId(int id)
+        {
+            Beer beer = new Beer();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers WHERE id = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        beer = ConvertReaderToBeer(reader);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return beer;
         }
 
         public Beer GetByName(string name)
         {
-            throw new NotImplementedException();
+            Beer beer = new Beer();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers WHERE name = @name", conn);
+                    cmd.Parameters.AddWithValue("@name", name);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        beer = ConvertReaderToBeer(reader);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return beer;
         }
     }
 }

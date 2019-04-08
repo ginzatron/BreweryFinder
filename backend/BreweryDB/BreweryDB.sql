@@ -41,8 +41,8 @@ CREATE TABLE breweries
 (
 	id				int					identity(1,1),
 	name			nvarchar(100)		not null,
-	happyHour		datetime			not null,
-	operatingHours	datetime			not null,
+	happyHour		nvarchar(50)		not null,
+	operatingHours	nvarchar(50)		not null,
 	established		int					not null,
 	address			nvarchar(250)		not null,
 	description		nvarchar(500)		not null,
