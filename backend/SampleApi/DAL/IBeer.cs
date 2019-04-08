@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SampleApi.DAL
 {
-    interface IBeer
+    public interface IBeer
     {
         Beer GetByBeerId(int id);
         Beer GetByName(string name);
         IList<Beer> GetAllByStyleId(int id);
         IList<Beer> GetAll();
-        IList<Beer> GetAll(int brewer_id);
+        IList<Beer> GetAll(int brewery_id);
     }
 }
