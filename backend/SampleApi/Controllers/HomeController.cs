@@ -25,5 +25,19 @@ namespace SampleApi.Controllers
             IList<Beer> beers = beerDao.GetAll();
             return Ok(beers);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<List<Beer>> GetAllByStyleId(int id)
+        {
+            IList<Beer> beers = beerDao.GetAllByStyleId(id);
+            return Ok(beers);
+        }
+
+        [HttpGet("{name}")]
+        public ActionResult<Beer> GetOneBeer(string name)
+        {
+            Beer beer = beerDao.GetByName(name);
+            return Ok(beer);
+        }
     }
 }
