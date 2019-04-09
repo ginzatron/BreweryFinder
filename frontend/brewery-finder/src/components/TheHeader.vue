@@ -7,14 +7,40 @@
     <nav>
       <router-link to="/">SEARCH</router-link>
       <div>
-        <router-link to="/login">LOGIN / REGISTER</router-link>
+        <router-link v-if="!isLoggedIn" to="/login">LOGIN / REGISTER</router-link>
+        <p v-else>Welcome {{username}}</p>
       </div>
     </nav>
   </header>
 </template>
 
 <script>
-export default {};
+import auth from "@/shared/auth.js"
+export default {
+  data() {
+    return {
+      username: ""
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return auth.getToken();
+    }
+  },
+  created() {
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/account/currentUser`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + auth.getToken()
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        this.username = json;
+      });
+  }
+};
 </script>
 
 <style scoped>

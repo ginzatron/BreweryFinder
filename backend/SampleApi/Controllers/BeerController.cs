@@ -19,34 +19,11 @@ namespace SampleApi.Controllers
             this.beerDao = beerDao;
         }
 
-        //[HttpGet]
-        //public ActionResult<List<Beer>> GetAll()
-        //{
-        //    IList<Beer> beers = beerDao.GetAll();
-        //    return Ok(beers);
-        //}
-
         [HttpGet]
         public ActionResult<List<Beer>> GetBeers([FromQuery]string name,[FromQuery]int style)
         {
-
             IList<Beer> beers = beerDao.GetBeers(name, style);
             return Ok(beers);
         }
-
-        //[HttpGet("{id}")]
-        //public ActionResult<List<Beer>> GetAllByStyleId(int id)
-        //{
-        //    IList<Beer> beers = beerDao.GetAllByStyleId(id);
-        //    return Ok(beers);
-        //}
-
-        //[HttpGet("{name}")]
-        //[Route("api/[controller]/getbyname")]
-        //public ActionResult<Beer> GetOneBeer(string name)
-        //{
-        //    Beer beer = beerDao.GetByName(name);
-        //    return Ok(beer);
-        //}
     }
 }

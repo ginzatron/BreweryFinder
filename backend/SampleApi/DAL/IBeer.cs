@@ -10,8 +10,6 @@ namespace SampleApi.DAL
     {
         Beer GetByBeerId(int id);
         IList<Beer> GetBeers(string name, int style);
-        IList<Beer> GetAllByStyleId(int id);
-        IList<Beer> GetAll();
         IList<Beer> GetAll(int brewery_id);
     }
 }
