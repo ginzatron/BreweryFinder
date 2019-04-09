@@ -1,7 +1,6 @@
 <template>
     <footer>
         <p>Footer stuff goes here</p>
-        <img src="#" alt="Footer Image">
     </footer>
 </template>
 
@@ -11,6 +10,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+img {
+    position: absolute;
+    left: 0%;
+    top: 150%;
+    width: 100%;
+}
 
+footer {
+  background-color: var(--burgundy);
+  color: var(--lightGrey);
+  border-top: 3px solid #777;
+  height: 50px;
+  font-family: archivo;
+}
 </style>

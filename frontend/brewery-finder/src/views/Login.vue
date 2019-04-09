@@ -3,7 +3,7 @@
     <div class="form-div"  v-if="showLoginForm">
       <form v-on:submit.prevent="login">
         <h2>Login</h2>
-        <button v-on:click="toggleForm">Register an Account</button>
+        <a v-on:click="toggleForm">Register an Account</a>
         <div>
           <label for="username">Username:</label>
           <input type="text" name="username" v-model.trim="loginForm.username">
@@ -18,7 +18,7 @@
     <div class="form-div"  v-if="!showLoginForm">
       <form v-on:submit.prevent="register">
         <h2>Register</h2>
-        <button v-on:click="toggleForm">Back to Login</button>
+        <a v-on:click="toggleForm">Back to Login</a>
         <div>
           <label for="username">Username:</label>
           <input type="text" name="username" v-model.trim="signupForm.username">
@@ -129,6 +129,7 @@ export default {
           this.error = data.message;
         } else {
           auth.saveToken(data);
+          EventBus.$emit("login", auth.getUser().sub);
           this.goHome();
         }
       } catch (error) {

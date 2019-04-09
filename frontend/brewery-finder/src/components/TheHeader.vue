@@ -1,7 +1,6 @@
 <template>
   <header>
-    <div>
-      <img src="#" alt="Header Image">
+    <div class="centered">
       <h1>Brewery Finder</h1>
     </div>
     <nav>
@@ -73,6 +72,10 @@ div {
   display: flex;
 }
 
+.centered {
+  justify-content: center;
+}
+
 header a {
   text-decoration: none;
   color: var(--lightGrey);
@@ -102,5 +105,6 @@ nav {
   justify-content: space-evenly;
   font-size: 3rem;
   background-color: var(--darkGrey);
+  padding: 5px 0;
 }
 </style>
