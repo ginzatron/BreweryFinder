@@ -25,8 +25,8 @@ namespace SampleApi.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers ", conn);
-
+                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name 
+                                                      FROM beers JOIN styles ON beers.style_id = styles.id", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -52,7 +52,8 @@ namespace SampleApi.DAL
             beer.Abv = Convert.ToDecimal(reader["abv"]);
             beer.Description = Convert.ToString(reader["description"]);
             beer.ImgSrc = Convert.ToString(reader["imgSrc"]);
-            //beer.Style_id = Convert.ToInt32(reader["style_id"]);
+            beer.Style_id = Convert.ToInt32(reader["style_id"]);
+            beer.Style = Convert.ToString(reader["styles_name"]);
             beer.Name = Convert.ToString(reader["name"]);
             
             return beer;
@@ -68,9 +69,10 @@ namespace SampleApi.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(@"SELECT * FROM beers
+                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
                                                     JOIN beers_breweries ON beers.id = beers_breweries.beer_id
                                                     JOIN breweries ON breweries.id = beers_breweries.brewery_id 
+                                                    JOIN styles ON beers.style_id = styles.id
                                                     WHERE breweries.id = @brewery_id;", conn);
                     cmd.Parameters.AddWithValue("brewery_id", brewery_id);
 
@@ -101,7 +103,9 @@ namespace SampleApi.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers WHERE style_id = @id", conn);
+                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name  
+                                                    FROM beers JOIN styles ON beers.style_id = styles.id 
+                                                    WHERE style_id = @id", conn);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -131,7 +135,9 @@ namespace SampleApi.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers WHERE id = @id", conn);
+                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
+                                                      JOIN styles ON beers.style_id = styles.id
+                                                      WHERE id = @id", conn);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -161,7 +167,8 @@ namespace SampleApi.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM beers WHERE name = @name", conn);
+                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
+                                                      JOIN styles ON beers.style_id = styles.id WHERE name = @name", conn);
                     cmd.Parameters.AddWithValue("@name", name);
 
                     SqlDataReader reader = cmd.ExecuteReader();
