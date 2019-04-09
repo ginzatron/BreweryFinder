@@ -15,35 +15,6 @@ namespace SampleApi.DAL
             this.connectionString = connectionString;
         }
 
-        public IList<Beer> GetAll()
-        {
-            IList<Beer> beers = new List<Beer>();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name 
-                                                      FROM beers JOIN styles ON beers.style_id = styles.id", conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        Beer beer = ConvertReaderToBeer(reader);
-                        beers.Add(beer);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
-
-            return beers;
-        }
-
         private Beer ConvertReaderToBeer(SqlDataReader reader)
         {
             Beer beer = new Beer();
@@ -75,38 +46,6 @@ namespace SampleApi.DAL
                                                     JOIN styles ON beers.style_id = styles.id
                                                     WHERE breweries.id = @brewery_id;", conn);
                     cmd.Parameters.AddWithValue("brewery_id", brewery_id);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        Beer beer = ConvertReaderToBeer(reader);
-                        beers.Add(beer);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
-
-            return beers;
-        }
-
-        public IList<Beer> GetAllByStyleId(int id)
-        {
-            IList<Beer> beers = new List<Beer>();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name  
-                                                    FROM beers JOIN styles ON beers.style_id = styles.id 
-                                                    WHERE style_id = @id", conn);
-                    cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -157,9 +96,9 @@ namespace SampleApi.DAL
             return beer;
         }
 
-        public Beer GetByName(string name)
+        public IList<Beer> GetBeers(string name, int style)
         {
-            Beer beer = new Beer();
+            IList<Beer> beers = new List<Beer>();
 
             try
             {
@@ -168,14 +107,17 @@ namespace SampleApi.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
-                                                      JOIN styles ON beers.style_id = styles.id WHERE beers.name = @name", conn);
-                    cmd.Parameters.AddWithValue("@name", name);
+                                                      JOIN styles ON beers.style_id = styles.id WHERE beers.name LIKE @name AND (@style=0 OR style_id=@style)", conn);
+                    cmd.Parameters.AddWithValue("@name", '%'+name+'%');
+                    cmd.Parameters.AddWithValue("@style", style);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
+
+                    while (reader.Read())
                     {
-                        beer = ConvertReaderToBeer(reader);
+                        Beer beer = ConvertReaderToBeer(reader);
+                        beers.Add(beer);
                     }
                 }
             }
@@ -184,7 +126,7 @@ namespace SampleApi.DAL
                 throw;
             }
 
-            return beer;
+            return beers;
         }
     }
 }

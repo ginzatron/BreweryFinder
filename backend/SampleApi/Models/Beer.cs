@@ -14,5 +14,7 @@ namespace SampleApi.Models
         public string Description { get; set; }
         public decimal Abv { get; set; }
         public string ImgSrc { get; set; }
+
+        public IList<Brewery> Locations { get; set; }
     }
 }
