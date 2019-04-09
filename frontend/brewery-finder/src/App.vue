@@ -20,6 +20,8 @@ export default {
 
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Archivo");
+
 :root {
   --darkGrey: #2f3030;
   --goldFish: #a06500;
@@ -46,5 +48,10 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+section {
+  background-image: url('assets/vats.jpg');
+  min-height: 1325px;
 }
 </style>

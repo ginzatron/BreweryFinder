@@ -7,15 +7,18 @@
     <nav>
       <router-link to="/">SEARCH</router-link>
       <div>
-        <router-link v-if="!isLoggedIn" to="/login">LOGIN / REGISTER</router-link>
-        <h3 v-else>Welcome, {{username}}</h3>
+        <router-link v-if="!username" to="/login">Login / Register</router-link>
+        <a v-else>Welcome {{username}}</a>
       </div>
+      <a v-if="username" @click="logout">Logout</a>
     </nav>
   </header>
 </template>
 
 <script>
 import auth from "@/shared/auth.js"
+import {EventBus} from "@/shared/event-bus"
+
 export default {
   data() {
     return {
@@ -24,10 +27,13 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return auth.getToken();
+      return auth.getUser() !== null;
     }
   },
   created() {
+    EventBus.$on('login', (ev) => {
+      this.username = ev;
+    }),
 
     fetch(`${process.env.VUE_APP_REMOTE_API}/account/currentUser`, {
       method: "GET",
@@ -35,11 +41,21 @@ export default {
         Authorization: "Bearer " + auth.getToken()
       }
     })
-      .then(response => response.json())
+      .then(response => {
+        if(response.ok) {
+          response.json();
+        }
+      })
       .then(json => {
         this.username = json;
         this.$router.push("/");
-      });
+    });
+  },
+  methods: {
+    logout() {
+      auth.destroyToken();
+      this.username = null;
+    }
   }
 };
 </script>
@@ -50,6 +66,7 @@ header {
   color: var(--lightGrey);
   border-bottom: 3px solid #777;
   height: 200px;
+  font-family: archivo;
 }
 
 div {
@@ -60,6 +77,7 @@ header a {
   text-decoration: none;
   color: var(--lightGrey);
   font-weight: bolder;
+  cursor: pointer;
 }
 
 h1 {
@@ -69,7 +87,7 @@ h1 {
   margin-bottom: 0;
 }
 
-h3 {
+h2 {
   margin: 0;
 }
 

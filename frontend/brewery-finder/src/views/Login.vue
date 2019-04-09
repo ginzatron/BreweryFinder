@@ -1,40 +1,45 @@
 <template>
-  <div>
-    <form v-if="showLoginForm" v-on:submit.prevent="login">
-      <h2>Login</h2>
-      <a v-on:click="toggleForm">Register an Account</a>
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" name="username" v-model.trim="loginForm.username" />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" name="password" v-model.trim="loginForm.password" />
-      </div>
-      <input type="submit" value="Submit" />
-    </form>
-    <form v-else v-on:submit.prevent="register">
-      <h2>Register</h2>
-      <a v-on:click="toggleForm">Back to Login</a>
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" name="username" v-model.trim="signupForm.username" />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" name="password" v-model.trim="signupForm.password" />
-      </div>
-      <div>
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" v-model.trim="signupForm.confirmPassword" />
-      </div>
-      <input type="submit" value="Submit" />
-    </form>
-  </div>
+  <section>
+    <div class="form-div"  v-if="showLoginForm">
+      <form v-on:submit.prevent="login">
+        <h2>Login</h2>
+        <button v-on:click="toggleForm">Register an Account</button>
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" name="username" v-model.trim="loginForm.username">
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" name="password" v-model.trim="loginForm.password">
+        </div>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <div class="form-div"  v-if="!showLoginForm">
+      <form v-on:submit.prevent="register">
+        <h2>Register</h2>
+        <button v-on:click="toggleForm">Back to Login</button>
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" name="username" v-model.trim="signupForm.username">
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" name="password" v-model.trim="signupForm.password">
+        </div>
+        <div>
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" name="confirmPassword" v-model.trim="signupForm.confirmPassword">
+        </div>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </section>
 </template>
 
 <script>
 import auth from "@/shared/auth";
+import { EventBus } from "@/shared/event-bus";
 
 export default {
   name: "login",
@@ -92,6 +97,7 @@ export default {
           // Parse output and save authentication token
           const token = await response.json();
           auth.saveToken(token);
+          EventBus.$emit("login", auth.getUser().sub);
           this.goHome();
         }
       } catch (error) {
@@ -129,7 +135,7 @@ export default {
         console.error(error);
         this.error = "There was an error attempting to register";
       }
-    },
+    }
   }
 };
 </script>
@@ -139,6 +145,27 @@ form {
   display: flex;
   flex-flow: column;
   align-items: center;
+  color: black;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+}
+
+input[type="text"], input[type="password"] {
+  margin-right: 75px;
+}
+
+input[name="confirmPassword"] {
+  margin-right: 135px;
+}
+
+.form-div {
+  margin: 20px;
+  background-color: rgba(167, 176, 173, 0.6);
+  width: 30%;
+  height: 200px;
 }
 
 input[type="submit"] {
@@ -151,6 +178,14 @@ input {
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+h2 {
+  margin: 10px 0;
+}
+
+button {
+  margin-bottom: 10px;
 }
 </style>

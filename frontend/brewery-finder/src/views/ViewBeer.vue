@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <section>
         <a href="">
             <img src="#" alt="Beer Image">
             <p>Name</p>
         </a>
         <p>ABV</p>
         <p>Style</p>
-    </div>
+    </section>
 </template>
 
 <script>
