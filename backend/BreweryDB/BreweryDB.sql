@@ -64,17 +64,19 @@ CREATE TABLE beers_breweries
 SET IDENTITY_INSERT styles ON;
 
 INSERT INTO styles (id,name) VALUES (1,'IPA');
-INSERT INTO styles (id,name) VALUES (2,'Bach');
-INSERT INTO styles (id,name) VALUES (3,'Blond Ale');
-INSERT INTO styles (id,name) VALUES (4,'Stout')
+INSERT INTO styles (id,name) VALUES (2,'Stout');
+INSERT INTO styles (id,name) VALUES (3,'Brown Ale');
+INSERT INTO styles (id,name) VALUES (4,'Pilsner')
+INSERT INTO styles (id,name) VALUES (5,'Porter')
+INSERT INTO styles (id,name) VALUES (6,'Dortmunder')
 
 SET IDENTITY_INSERT styles OFF;
 
 SET IDENTITY_INSERT beers ON;
 
-INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (1,'Cosmic Coaco',1,'Brewed with cocoa nibs, aged on oak spirals, spiced with Mexican vanilla for a nice milky finish', 6.6,'http://later');
-INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (2,'Pecan Brown Ale',2,'Full-bodied American, smooth brown ale brewed with candied pecans, brown sugar, and lactose.', 6.4,'http://later');
-INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (3,'Irish Dry Stout',4,'Traditional, low gravity Irish stout brewed with barley flakes for added body. Roasted aroma with a little sweet malt. Finishes dry with chocolate undertones.', 4.2,'http://later')
+INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (1,'Cosmic Coaco',2,'Brewed with cocoa nibs, aged on oak spirals, spiced with Mexican vanilla for a nice milky finish', 6.6,'http://later');
+INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (2,'Pecan Brown Ale',3,'Full-bodied American, smooth brown ale brewed with candied pecans, brown sugar, and lactose.', 6.4,'http://later');
+INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (3,'Irish Dry Stout',2,'Traditional, low gravity Irish stout brewed with barley flakes for added body. Roasted aroma with a little sweet malt. Finishes dry with chocolate undertones.', 4.2,'http://later')
 
 SET IDENTITY_INSERT beers OFF;
 
