@@ -20,6 +20,14 @@ export default {
 
 
 <style>
+:root {
+  --darkGrey: #2f3030;
+  --goldFish: #a06500;
+  --burgundy: #490000;
+  --lightGrey: #a7b0ad;
+  --ghostWhite: #ffffff;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

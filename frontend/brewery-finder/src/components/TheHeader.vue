@@ -8,7 +8,7 @@
       <router-link to="/">SEARCH</router-link>
       <div>
         <router-link v-if="!isLoggedIn" to="/login">LOGIN / REGISTER</router-link>
-        <h3 v-else>Welcome {{username}}</h3>
+        <h3 v-else>Welcome, {{username}}</h3>
       </div>
     </nav>
   </header>
@@ -38,6 +38,7 @@ export default {
       .then(response => response.json())
       .then(json => {
         this.username = json;
+        this.$router.push("/");
       });
   }
 };
@@ -45,7 +46,8 @@ export default {
 
 <style scoped>
 header {
-  background-color: lightblue;
+  background-color: var(--burgundy);
+  color: var(--lightGrey);
   border-bottom: 3px solid #777;
   height: 200px;
 }
@@ -54,11 +56,21 @@ div {
   display: flex;
 }
 
+header a {
+  text-decoration: none;
+  color: var(--lightGrey);
+  font-weight: bolder;
+}
+
 h1 {
   display: inline-block;
   font-size: 7rem;
   margin-top: 0;
   margin-bottom: 0;
+}
+
+h3 {
+  margin: 0;
 }
 
 img {
@@ -71,6 +83,6 @@ nav {
   display: flex;
   justify-content: space-evenly;
   font-size: 3rem;
-  background-color: lightgreen;
+  background-color: var(--darkGrey);
 }
 </style>
