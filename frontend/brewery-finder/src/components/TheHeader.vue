@@ -8,7 +8,7 @@
       <router-link to="/">SEARCH</router-link>
       <div>
         <router-link v-if="!isLoggedIn" to="/login">LOGIN / REGISTER</router-link>
-        <h3 v-else>Welcome {{username}}</h3>
+        <h2 v-else>Welcome {{username}}</h2>
       </div>
     </nav>
   </header>
