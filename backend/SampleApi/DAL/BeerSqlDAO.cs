@@ -168,7 +168,7 @@ namespace SampleApi.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
-                                                      JOIN styles ON beers.style_id = styles.id WHERE name = @name", conn);
+                                                      JOIN styles ON beers.style_id = styles.id WHERE beers.name = @name", conn);
                     cmd.Parameters.AddWithValue("@name", name);
 
                     SqlDataReader reader = cmd.ExecuteReader();
