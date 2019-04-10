@@ -66,7 +66,7 @@ namespace SampleApi.DAL
 
         public Beer GetByBeerId(int id)
         {
-            Beer beer = new Beer();
+            Beer beer = null;
 
             try
             {
@@ -76,7 +76,7 @@ namespace SampleApi.DAL
 
                     SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
                                                       JOIN styles ON beers.style_id = styles.id
-                                                      WHERE id = @id", conn);
+                                                      WHERE beers.id = @id", conn);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -96,7 +96,7 @@ namespace SampleApi.DAL
             return beer;
         }
 
-        public IList<Beer> GetBeers(string name, int style)
+        public IList<Beer> GetBeers(string name, int styleId)
         {
             IList<Beer> beers = new List<Beer>();
 
@@ -109,7 +109,7 @@ namespace SampleApi.DAL
                     SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
                                                       JOIN styles ON beers.style_id = styles.id WHERE beers.name LIKE @name AND (@style=0 OR style_id=@style)", conn);
                     cmd.Parameters.AddWithValue("@name", '%'+name+'%');
-                    cmd.Parameters.AddWithValue("@style", style);
+                    cmd.Parameters.AddWithValue("@style", styleId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
