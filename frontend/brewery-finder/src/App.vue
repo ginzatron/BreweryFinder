@@ -1,14 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <the-header></the-header>
     <router-view />
+    <the-footer></the-footer>
   </div>
 </template>
 
+<script>
+import TheHeader from "@/components/TheHeader.vue"
+import TheFooter from "@/components/TheFooter.vue"
+
+export default {
+    components: {
+    TheHeader,
+    TheFooter
+  }
+}
+</script>
+
+
 <style>
+@import url("https://fonts.googleapis.com/css?family=Archivo");
+
+:root {
+  --darkGrey: #2f3030;
+  --goldFish: #a06500;
+  --burgundy: #490000;
+  --lightGrey: #a7b0ad;
+  --ghostWhite: #ffffff;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,5 +48,10 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+section {
+  background-image: url('assets/vats.jpg');
+  min-height: 1325px;
 }
 </style>
