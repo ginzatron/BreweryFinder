@@ -2,6 +2,7 @@
   <div id="app">
     <the-header></the-header>
     <router-view />
+    <the-map name="example"></the-map>
     <the-footer></the-footer>
   </div>
 </template>
@@ -9,15 +10,16 @@
 <script>
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
+import TheMap       from "@/components/TheMap.vue"
 
 export default {
     components: {
     TheHeader,
-    TheFooter
-  }
+    TheFooter,
+    TheMap
+  },
 }
 </script>
-
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Archivo");
@@ -50,7 +52,7 @@ export default {
   color: #42b983;
 }
 
-section {
+body {
   background-image: url('assets/vats.jpg');
   min-height: 1325px;
 }
