@@ -13,7 +13,7 @@
         
     <p>Beers Available</p>
     
-    <beer-info v-for="beer in beers" v-bind:key="beer.id"></beer-info>
+    <beer-info v-for="beer in beers" v-bind:key="beer.id" v-bind:beer="beer"></beer-info>
 
 
 
