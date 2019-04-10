@@ -41,7 +41,9 @@ export default {
       breweries: [
         {
             "name": "Sibling Revelry",
-            "address": "29305 Clemens Rd, Westlake, OH 44145"
+            "address": "29305 Clemens Rd, Westlake, OH 44145",
+            "lat": "41.4700513",
+            "lng": "-81.94677650000001"
         },
     
         {
@@ -50,9 +52,24 @@ export default {
         }
     ],
       center: { lat: 41.5038148, lng: -81.6408804 },
-      markers: [],
+      markers: [
+          {
+              position: 
+              {
+                lat: 41.4700513,
+                lng:-81.94677650000001
+              }
+          },
+          {
+              position:
+              {
+                lat: 41.5008803,
+                lng: -81.5926564
+              }
+          }
+      ],
       places: [],
-      currentPlace: null
+      currentPlace: null,
     };
   },
 
