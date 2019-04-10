@@ -41,15 +41,16 @@ CREATE TABLE breweries
 (
 	id				int					identity(1,1),
 	name			nvarchar(100)		not null,
-	happyHour		nvarchar(50)		not null,
-	operatingHours	nvarchar(50)		not null,
+	happyHourFrom	Time		            null,
+	happyHourTo  	Time		            null,
 	established		int					not null,
 	address			nvarchar(250)		not null,
 	city			nvarchar(100)		not null,
 	state			varchar(2)			not null,
 	zip				int					not null,
 	description		nvarchar(500)		not null,
-	barOrRestaurant	varchar(20)			not null
+	isBar			bit					not null,
+	isBrewery       bit					not null
 
 	constraint		pk_brewery_id		primary key(id)
 )
@@ -113,6 +114,11 @@ SET IDENTITY_INSERT beers OFF;
 
 COMMIT;
 
-INSERT INTO breweries ('Great Lakes Brewing', '5:00 PM - 7:00 PM', '11:00 AM - 12:00 PM',  1986, '2516 Market Ave', 'Cleveland', 'OH', 44113, 'www.greatlakesbrewing.com', 'Great Lakes Brewing Company is a brewery and brewpub in Cleveland, Ohio. The first brewpub and microbrewery in the state, Great Lakes Brewing has been noted as important to Cleveland''s local identity and as one of the initial forces behind the revival of the Ohio City neighborhood on Cleveland''s near West Side', 'bar and restaurant') 
-INSERT INTO breweries ('Platform Beer Company', '4:00 PM - 8:00 PM', '11:00 AM - 1:00 AM', 2014, '4125 Lorain Ave', 'Cleveland', 'OH', 44113, 'www.platformbeerco.com',   'Platform Beer Co. occupies a building that previously housed the Leisy Brewing Company (est. 1873). Platform produces beer for the Northeast Ohio market and is known for its wide variety and often avante-garde style offerings.', 'bar and restaurant')
-INSERT INTO breweries ('Willoughby Brewing Co.', '5:00 PM - 7:00 PM', '12:00 PM - 11: 00 PM', 1995, '4057 Erie St.', 'Willoughby', 'OH', 44094, 'www.willoughbybrewing.com', ' ', 'bar and restaurant')
+INSERT INTO breweries ('Great Lakes Brewing', 4:00, 7:00, 1986, '2516 Market Ave', 'Cleveland', 'OH', 44113, 'www.greatlakesbrewing.com', 'Great Lakes Brewing Company is a brewery and brewpub in Cleveland, Ohio. The first brewpub and microbrewery in the state, Great Lakes Brewing has been noted as important to Cleveland''s local identity and as one of the initial forces behind the revival of the Ohio City neighborhood on Cleveland''s near West Side.', 1, 1) 
+INSERT INTO breweries ('Platform Beer Company', null, null, 2014, '4125 Lorain Ave', 'Cleveland', 'OH', 44113, 'www.platformbeerco.com',   'Platform Beer Co. occupies a building that previously housed the Leisy Brewing Company (est. 1873). Platform produces beer for the Northeast Ohio market and is known for its wide variety and often avante-garde style offerings.',1,1)
+INSERT INTO breweries ('Willoughby Brewing Co.', 4:00, 7:00, 1995, '4057 Erie St.', 'Willoughby', 'OH', 44094, 'www.willoughbybrewing.com', 'Nestled in the heart of Historic Downtown Willoughby, Ohio lies Willoughby Brewing Co. Established in February of 1998, we are a full-service restaurant, bar and award-winning brewery in a 100-year-old building that was originally a rail-car repair depot for the Cleveland to Ashtabula Interurban Rail Line.',1,1)
+INSERT INTO breweries ('Sibling Revelry Brewery', null, null, 1995, '29305 Clemens Road', 'Westlake', 'OH', 44145, 'www.siblingrevelrybrewing.com', 'Sibling Revelry Brewing was founded by a family of brothers and cousins from Cleveland who wanted to share their passion for great beer with others. ... Pair beers with a rotating selection of food trucks with great foods like sandwiches, burgers, and more.',1,1)
+INSERT INTO breweries ('Market Garden Brewery', null, null, 2011, '1947 W 25TH ST', 'Cleveland', 'OH', 44113, 'www.marketgardenbrewery.com', 'Market Garden Brewery,  located next door to the 100 year old West Side Market, has been stocked with a lineup of tasty, session beers like our award-winning Progress Pilsner, our organically hopped Citramax IPA, as well as Prosperity, our Bavarian style Hefeweizen, since 2011.',1,1)
+INSERT INTO breweries ('Fat Head''s Brewery', 2:00, 6:00, 2009, '17450 Engle Lake Dr', 'Middleburg Hts.', 'OH', 44143, 'www.fatheads.com', 'Brewmaster Matt Cole partnered with Glenn Benigni, owner of Fat Head''s Saloon in Pittsburgh, Pennsylvania, to open Fat Head''s Brewery & Saloon in Cleveland, Ohio in 2009. They grew to be known for their selection of craft beer and large sandwiches, called "headwiches." ,',1,1)
+
+
