@@ -14,10 +14,10 @@ namespace SampleApi.Controllers
     [ApiController]
     public class BeerController : ControllerBase
     {
-        private IBeer beerDao;
+        private IBeerDAO beerDao;
         private IFavoriteDAO favoriteDAO;
 
-        public BeerController(IBeer beerDao, IFavoriteDAO favoriteDAO)
+        public BeerController(IBeerDAO beerDao, IFavoriteDAO favoriteDAO)
         {
             this.beerDao = beerDao;
             this.favoriteDAO = favoriteDAO;
@@ -29,14 +29,6 @@ namespace SampleApi.Controllers
             IList<Beer> beers = beerDao.GetBeers(name, styleId);
             return Ok(beers);
         }
-
-        //[HttpGet]
-        //[Route("{id}")]
-        //public ActionResult<Beer> GetBeer([FromQuery]int id)
-        //{
-        //    Beer beer = beerDao.GetByBeerId(id);
-        //    return Ok(beer);
-        //}
 
         [HttpPost]
         [Authorize]

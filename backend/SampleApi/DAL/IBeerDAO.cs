@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SampleApi.DAL
 {
-    public interface IBeer
+    public interface IBeerDAO
     {
-        Beer GetByBeerId(int id);
         IList<Beer> GetBeers(string name, int style);
-        IList<Beer> GetAll(int brewery_id);
+        IList<Beer> GetBeerByBrewery(int brewery_id);
     }
 }

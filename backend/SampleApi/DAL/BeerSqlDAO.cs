@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace SampleApi.DAL
 {
-    public class BeerSqlDAO : IBeer
+    public class BeerSqlDAO : IBeerDAO
     {
         private string connectionString;
         public BeerSqlDAO(string connectionString)
@@ -30,7 +30,7 @@ namespace SampleApi.DAL
             return beer;
         }
 
-        public IList<Beer> GetAll(int brewery_id)
+        public IList<Beer> GetBeerByBrewery(int brewery_id)
         {
             IList<Beer> beers = new List<Beer>();
 
@@ -63,38 +63,6 @@ namespace SampleApi.DAL
 
             return beers;
         }
-
-        //public Beer GetByBeerId(int id)
-        //{
-        //    Beer beer = null;
-
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-
-        //            SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
-        //                                              JOIN styles ON beers.style_id = styles.id
-        //                                              WHERE beers.id = @id", conn);
-        //            cmd.Parameters.AddWithValue("@id", id);
-
-        //            SqlDataReader reader = cmd.ExecuteReader();
-
-        //            if (reader.Read())
-        //            {
-        //                beer = ConvertReaderToBeer(reader);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-
-        //    return beer;
-        //}
 
         public IList<Beer> GetBeers(string name, int styleId)
         {
