@@ -24,17 +24,32 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
+    <div v-for="brewery in this.breweries" v-bind:key="brewery.name">
+        <h3>{{brewery.name}} {{brewery.address}}</h3>
+    </div>    
   </div>
 </template>
 
 <script>
 export default {
   name: "GoogleMap",
+  props: {
+    apiURL: String
+  },
   data() {
     return {
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
-      center: { lat: 45.508, lng: -73.587 },
+      breweries: [
+        {
+            "name": "Sibling Revelry",
+            "address": "29305 Clemens Rd, Westlake, OH 44145"
+        },
+    
+        {
+            "name": "Brandon Ties One on",
+            "address" : "25032 Maidstone Ln, Beachwood, OH 44122"
+        }
+    ],
+      center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
       places: [],
       currentPlace: null
@@ -44,6 +59,16 @@ export default {
   mounted() {
     this.geolocate();
   },
+
+//   created() {
+//       fetch("breweries.json"
+//       ).then((response) => {
+//           return response.json();
+//       }).then((json) => {
+//           console.table(json);
+//           this.breweries = json;
+//       }).catch((error => console.error(error)));
+//     },
 
   methods: {
     // receives a place object via the autocomplete component
