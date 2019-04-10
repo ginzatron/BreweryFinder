@@ -64,37 +64,37 @@ namespace SampleApi.DAL
             return beers;
         }
 
-        public Beer GetByBeerId(int id)
-        {
-            Beer beer = null;
+        //public Beer GetByBeerId(int id)
+        //{
+        //    Beer beer = null;
 
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
-                                                      JOIN styles ON beers.style_id = styles.id
-                                                      WHERE beers.id = @id", conn);
-                    cmd.Parameters.AddWithValue("@id", id);
+        //            SqlCommand cmd = new SqlCommand(@"SELECT *, styles.name as styles_name FROM beers
+        //                                              JOIN styles ON beers.style_id = styles.id
+        //                                              WHERE beers.id = @id", conn);
+        //            cmd.Parameters.AddWithValue("@id", id);
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+        //            SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
-                    {
-                        beer = ConvertReaderToBeer(reader);
-                    }
-                }
-            }
-            catch (Exception)
-            {
+        //            if (reader.Read())
+        //            {
+        //                beer = ConvertReaderToBeer(reader);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
+        //        throw;
+        //    }
 
-            return beer;
-        }
+        //    return beer;
+        //}
 
         public IList<Beer> GetBeers(string name, int styleId)
         {

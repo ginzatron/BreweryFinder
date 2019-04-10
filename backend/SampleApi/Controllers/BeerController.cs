@@ -24,20 +24,19 @@ namespace SampleApi.Controllers
         }
 
         [HttpGet]
-        [Route("{name}/{styleId}")]
         public ActionResult<List<Beer>> GetBeers([FromQuery]string name,[FromQuery]int styleId)
         {
             IList<Beer> beers = beerDao.GetBeers(name, styleId);
             return Ok(beers);
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public ActionResult<Beer> GetBeer([FromQuery]int id)
-        {
-            Beer beer = beerDao.GetByBeerId(id);
-            return Ok(beer);
-        }
+        //[HttpGet]
+        //[Route("{id}")]
+        //public ActionResult<Beer> GetBeer([FromQuery]int id)
+        //{
+        //    Beer beer = beerDao.GetByBeerId(id);
+        //    return Ok(beer);
+        //}
 
         [HttpPost]
         [Authorize]
