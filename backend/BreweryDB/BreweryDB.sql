@@ -77,25 +77,22 @@ INSERT INTO styles (id,name) VALUES (6,'Dortmunder')
 
 SET IDENTITY_INSERT styles OFF;
 
-
-
---INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (1,'Cosmic Coaco',2,'Brewed with cocoa nibs, aged on oak spirals, spiced with Mexican vanilla for a nice milky finish', 6.6,'http://later');
---INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (2,'Pecan Brown Ale',3,'Full-bodied American, smooth brown ale brewed with candied pecans, brown sugar, and lactose.', 6.4,'http://later');
---INSERT INTO beers (id,name, style_id, description, abv, imgSrc) VALUES (3,'Irish Dry Stout',2,'Traditional, low gravity Irish stout brewed with barley flakes for added body. Roasted aroma with a little sweet malt. Finishes dry with chocolate undertones.', 4.2,'http://later')
-
 --Sibling Revelry
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Tangelo IPA', 1, 'Big pine flavor with aromas of citrus and stone fruits. Clean, dry finish', 6.6 );
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Cosmic Coaco', 2, 'Brewed with cocoa nibs, aged on oak spirals, spiced with Mexican vanilla for a nice milky finish', 6.6 );
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Pecan Brown Ale', 3, 'Full-bodied American, smooth brown ale brewed with candied pecans, brown sugar, and lactose.', 6.4);
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Irish Dry Stout', 2, 'Traditional, low gravity Irish stout brewed with barley flakes for added body. Roasted aroma with a little sweet malt. Finishes dry with chocolate undertones.', 4.2)
+
 --Fatheads
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Head Hunter', 1, 'Head Hunter is an aggressively dry-hopped, West Coast-style IPA with a huge hop display of pine, grapefruit, citrus and pineapple. A brew for those who truly love their hops! Award-Winning.', 7.5)
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Bushwhacker Brown Ale', 3, 'The "Hefe" prefix means "with yeast" which gives this unfiltered wheat beer a somewhat cloudy or "foggy" appearance. Light aromas of wheat, bubblegum, clove and spice.', 5)
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Up In Smoke', 5, 'A robust porter brewed with malted barley and coffee. Smoked over Adler wood. Finishes nice and dry.', 9)
+
 --Market Garden
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Progress', 4, 'Great American Beer Festival Award Winning Brew! Inspired by the Pilsners of the Rhine region, this lager is a tribute to the spicy, crisp and clean character of German noble hops and has just the right malt body to balance.', 4)
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Midnight Vorlauf', 5, 'This beer is brewed with brown, chocolate and crystalized malts then blended with rich and clean cold brewed coffee, yielding a smooth, robust character of a dark Porter.', 6)
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Particle Accelerator', 1, 'A bold floral and fruity hop profile courtesy of Centennial and Citra hops. Flaked rye and crystal malt provide a nice balance and round mouthfeel, obscuring a high ABV punch.', 9.2)
+
 --GL
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Edmund Fitzgerald', 5, 'Brewed in memory of the sunken freighter with rich, roasted barley with bittersweet chocolate-coffee notes.', 6)
 INSERT INTO beers (name, style_id, description, abv) VALUES ('Dortmunder', 6, 'A smooth, award-winning (and deceptively unassuming) balance of sweet malt and dry hop flavors. Smooth. Balanced. Charmingly unpretentious.' , 5.8)
@@ -114,9 +111,25 @@ INSERT INTO breweries  (name, happyHourFrom, happyHourTo,established,address,cit
 INSERT INTO breweries  (name, happyHourFrom, happyHourTo,established,address,city,state,zip,siteURL,description,isBar,isBrewery) Values ('Market Garden Brewery', null, null, 2011, '1947 W 25TH ST', 'Cleveland', 'OH', 44113, 'www.marketgardenbrewery.com', 'Market Garden Brewery,  located next door to the 100 year old West Side Market, has been stocked with a lineup of tasty, session beers like our award-winning Progress Pilsner, our organically hopped Citramax IPA, as well as Prosperity, our Bavarian style Hefeweizen, since 2011.',1,1)
 INSERT INTO breweries  (name, happyHourFrom, happyHourTo,established,address,city,state,zip,siteURL,description,isBar,isBrewery) Values ('Fat Head''s Brewery', '02:00', '06:00', 2009, '17450 Engle Lake Dr', 'Middleburg Hts.', 'OH', 44143, 'www.fatheads.com', 'Brewmaster Matt Cole partnered with Glenn Benigni, owner of Fat Head''s Saloon in Pittsburgh, Pennsylvania, to open Fat Head''s Brewery & Saloon in Cleveland, Ohio in 2009. They grew to be known for their selection of craft beer and large sandwiches, called "headwiches."',1,1)
 
+INSERT INTO beers_breweries Values (1, 11 )
+INSERT INTO beers_breweries Values (1, 12 )
+INSERT INTO beers_breweries Values (1, 13 )
+INSERT INTO beers_breweries Values (1, 14 )
+--INSERT INTO beers_breweries Values (2, 11 )
+--INSERT INTO beers_breweries Values (2, 11 )
+--INSERT INTO beers_breweries Values (2, 11 )
+INSERT INTO beers_breweries Values (3, 15 )
+INSERT INTO beers_breweries Values (3, 16 )
+INSERT INTO beers_breweries Values (3, 17 )
+INSERT INTO beers_breweries Values (4, 1 )
+INSERT INTO beers_breweries Values (4, 2 )
+INSERT INTO beers_breweries Values (4, 3 )
+INSERT INTO beers_breweries Values (4, 4 )
+INSERT INTO beers_breweries Values (5, 8 )
+INSERT INTO beers_breweries Values (5, 9 )
+INSERT INTO beers_breweries Values (5, 10 )
+INSERT INTO beers_breweries Values (6, 5 )
+INSERT INTO beers_breweries Values (6, 6 )
+INSERT INTO beers_breweries Values (6, 7 )
 
 COMMIT;
-
-
-select * from beers
-select * from breweries
