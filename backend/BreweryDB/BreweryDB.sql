@@ -61,6 +61,15 @@ CREATE TABLE beers_breweries
 	constraint		fk_beers_breweries_beer		foreign key(beer_id) references beers(id)
 )
 
+CREATE TABLE favorites
+(
+	beer_id			int							not null,
+	username		nvarchar(60)				not null
+
+	constraint		pk_favorites				primary key(beer_id,username)
+	constraint		fk_favorites_beer			foreign key(beer_id) references beers(id)
+)
+
 SET IDENTITY_INSERT styles ON;
 
 INSERT INTO styles (id,name) VALUES (1,'IPA');
