@@ -10,7 +10,7 @@ GO
 CREATE DATABASE BreweryDB;
 GO
 
--- Switch to the FlyInventory
+-- Switch to the BrewerDB
 USE BreweryDB;
 GO
 
