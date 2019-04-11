@@ -20,6 +20,8 @@ namespace SampleApi.Models
         public string Description { get; set; }
         public bool IsBar { get; set; }
         public bool IsBrewery { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
 
         IList<Beer> beersAvailable { get; set; }
     }

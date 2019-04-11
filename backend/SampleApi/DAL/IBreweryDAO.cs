@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SampleApi.DAL
 {
-    interface IBrewery
+    public interface IBreweryDAO
     {
         Brewery GetById(int id);
         Brewery GetNyName(string name);
