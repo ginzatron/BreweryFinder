@@ -21,23 +21,9 @@ export default {
   },
   data() {
     return {
-      breweries: [
-        // {
-        //     "name": "Sibling Revelry",
-        //     "address": "29305 Clemens Rd, Westlake, OH 44145",
-        //     "lat": 41.4700513,
-        //     "lng": -81.94677650000001
-        // },
-    
-        // {
-        //     "name": "Brandon Ties One on",
-        //     "address" : "25032 Maidstone Ln, Beachwood, OH 44122"
-        // }
-    ],
+      breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
-      places: [],
-      currentPlace: null,
     };
   },
 
@@ -49,15 +35,14 @@ export default {
     addMarker() {
       this.breweries.forEach((brewery) => {
         const marker = {
-          lat: brewery.lat,
-          lng: brewery.lng
+          lat: brewery.latitude,
+          lng: brewery.longitude
         }
         this.markers.push({ position: marker });
       })
     }
   },
   created() {
-      this.addMarker();
 
       fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=44113`
       ).then((response) => {
@@ -65,6 +50,7 @@ export default {
       }).then((json) => {
           console.table(json);
           this.breweries = json;
+          this.addMarker();
       }).catch((error => console.error(error)));
   },
     geolocate: function() {
@@ -75,6 +61,5 @@ export default {
         };
       });
     }
-  
 };
 </script>
