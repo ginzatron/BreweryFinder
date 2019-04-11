@@ -9,8 +9,8 @@ namespace SampleApi.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime HappyHourFrom { get; set; }
-        public DateTime  HappyHourTo { get; set; }
+        public TimeSpan HappyHourFrom { get; set; }
+        public TimeSpan HappyHourTo { get; set; }
         public int Established { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
@@ -20,6 +20,8 @@ namespace SampleApi.Models
         public string Description { get; set; }
         public bool IsBar { get; set; }
         public bool IsBrewery { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
 
         IList<Beer> beersAvailable { get; set; }
     }
