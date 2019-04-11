@@ -39,7 +39,7 @@ namespace SampleApi.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("select * from breweries where zip = @zip and bar = @bar and brewery = @brewery", conn);
+                    SqlCommand cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@bar", isBar);
                     cmd.Parameters.AddWithValue("@brewery", isBrewery);
@@ -64,9 +64,8 @@ namespace SampleApi.DAL
         private Brewery ConvertReaderToBrewery(SqlDataReader reader)
         {
             Brewery brewery = new Brewery();
+            brewery.Id = Convert.ToInt32(reader["id"]);
             brewery.Name = Convert.ToString(reader["name"]);
-            brewery.HappyHourFrom = Convert.ToDateTime(reader["happyhourfrom"]);
-            brewery.HappyHourTo = Convert.ToDateTime(reader["happyhourto"]);
             brewery.Established = Convert.ToInt32(reader["established"]);
             brewery.Address = Convert.ToString(reader["address"]);
             brewery.City = Convert.ToString(reader["city"]);
@@ -78,6 +77,12 @@ namespace SampleApi.DAL
             brewery.IsBrewery = Convert.ToBoolean(reader["isbrewery"]);
             brewery.Latitude = Convert.ToDecimal(reader["latitude"]);
             brewery.Longitude = Convert.ToDecimal(reader["longitude"]);
+            
+            if (!String.IsNullOrEmpty(Convert.ToString(reader["happyhourfrom"])))
+            {
+                brewery.HappyHourFrom = TimeSpan.Parse(Convert.ToString(reader["happyhourfrom"]));
+                brewery.HappyHourTo = TimeSpan.Parse(Convert.ToString(reader["happyhourto"]));
+            }
 
             return brewery;
         }
