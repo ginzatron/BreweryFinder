@@ -82,8 +82,9 @@ namespace SampleApi
             services.AddSingleton<ITokenGenerator>(tk => new JwtGenerator(Configuration["JwtSecret"]));
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDAO>(m => new UserSqlDAO(Configuration.GetConnectionString("DemoDB")));
-            services.AddTransient<IBeer>(i => new BeerSqlDAO(Configuration.GetConnectionString("Brewery")));
+            services.AddTransient<IBeerDAO>(i => new BeerSqlDAO(Configuration.GetConnectionString("Brewery")));
             services.AddTransient<IBrewery>(i => new BrewerySqlDAO(Configuration.GetConnectionString("Brewery")));
+            services.AddTransient<IFavoriteDAO>(i => new FavoriteSqlDAO(Configuration.GetConnectionString("Brewery")));
 
 
 

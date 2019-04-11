@@ -102,7 +102,6 @@ namespace SampleApi.Controllers
         [Authorize]
         public ActionResult<string> GetLoggedInUser()
         {
-            //return Ok($"\"{base.User.Identity.Name}\"");
             return Ok(base.User.Identity.Name.ToString());
         }
     }

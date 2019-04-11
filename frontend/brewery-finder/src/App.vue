@@ -10,14 +10,14 @@
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
 
+
 export default {
     components: {
     TheHeader,
     TheFooter
-  }
+  },
 }
 </script>
-
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Archivo");
@@ -50,7 +50,7 @@ export default {
   color: #42b983;
 }
 
-section {
+body {
   background-image: url('assets/vats.jpg');
   min-height: 1325px;
 }

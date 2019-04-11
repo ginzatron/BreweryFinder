@@ -9,12 +9,17 @@ namespace SampleApi.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime HappyHour { get; set; }
-        public DateTime OperatingHours { get; set; }
+        public DateTime HappyHourFrom { get; set; }
+        public DateTime  HappyHourTo { get; set; }
         public int Established { get; set; }
         public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public int Zip { get; set; }
+        public string SiteURL { get; set; }
         public string Description { get; set; }
-        public string BarOrRestaurant { get; set; }
+        public bool IsBar { get; set; }
+        public bool IsBrewery { get; set; }
 
         IList<Beer> beersAvailable { get; set; }
     }
