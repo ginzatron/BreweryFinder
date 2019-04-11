@@ -17,11 +17,7 @@
       :zoom="12"
       style="width:100%;  height: 400px;"
     >
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        @click="center=m.position"
+      <gmap-marker v-for="(m, index) in markers" :key="index" :position="m.position" @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
     <div v-for="brewery in this.breweries" v-bind:key="brewery.name">
@@ -77,15 +73,15 @@ export default {
     this.geolocate();
   },
 
-//   created() {
-//       fetch("breweries.json"
-//       ).then((response) => {
-//           return response.json();
-//       }).then((json) => {
-//           console.table(json);
-//           this.breweries = json;
-//       }).catch((error => console.error(error)));
-//     },
+  created() {
+      fetch("breweries.json"
+      ).then((response) => {
+          return response.json();
+      }).then((json) => {
+          console.table(json);
+          this.breweries = json;
+      }).catch((error => console.error(error)));
+    },
 
   methods: {
     // receives a place object via the autocomplete component
