@@ -37,7 +37,7 @@
 
 <script>
 import TheMap from "@/components/TheMap.vue";
-
+import {EventBus} from "@/shared/event-bus";
 export default {
     components:{
         TheMap
@@ -64,6 +64,8 @@ export default {
       )
         .then(response => response.json())
         .then(json => (this.breweries = json));
+
+        EventBus.$emit('zipClick');
     },
   }
 };
