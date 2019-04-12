@@ -4,10 +4,13 @@
       <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)">
       </gmap-marker>
       <gmap-info-window
+                :options="infoOptions"
                 :position="this.windowPosition"
                 :opened="windowOpen"
       >
       {{description}}
+      <br>
+      {{address}}
       </gmap-info-window>
     </gmap-map>
   </div>
@@ -26,7 +29,14 @@ export default {
       markers: [],
       windowOpen: false,
       description: '',
-      windowPosition: null
+      address: '',
+      windowPosition: null,
+      infoOptions: {
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        },
     };
   },
 
@@ -38,6 +48,7 @@ export default {
     toggleInfoWindow: function(marker,i) {
       this.windowOpen = this.windowOpen ? false :true;
       this.description = this.breweries[i].name;
+      this.address = this.breweries[i].address;
       this.windowPosition = marker.position;
     },
 
@@ -53,7 +64,7 @@ export default {
   },
   created() {
 
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=44113`
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=0`
       ).then((response) => {
           return response.json();
       }).then((json) => {

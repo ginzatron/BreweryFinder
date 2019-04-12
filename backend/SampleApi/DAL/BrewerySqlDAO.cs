@@ -38,8 +38,17 @@ namespace SampleApi.DAL
                 using (SqlConnection conn = new SqlConnection(this.connectionString))
                 {
                     conn.Open();
+                    SqlCommand cmd = new SqlCommand();
 
-                    SqlCommand cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
+                    if (zip == 0)
+                    {
+                        cmd = new SqlCommand("select * from breweries ", conn);
+                    }
+                    else
+                    {
+                        cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
+
+                    }
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@bar", isBar);
                     cmd.Parameters.AddWithValue("@brewery", isBrewery);
