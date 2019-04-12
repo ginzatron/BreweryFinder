@@ -13,6 +13,26 @@
       {{address}}
       </gmap-info-window>
     </gmap-map>
+    <table v-if="zipcode">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Happy Hour(s)</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="brewery in filteredBreweries" v-bind:key="brewery.id">
+            <td>
+              <router-link
+                v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
+              >{{brewery.name}}</router-link>
+            </td>
+            <td>{{brewery.happyHourFrom}} to {{brewery.happyHourTo}}</td>
+            <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
+          </tr>
+        </tbody>
+      </table>
   </div>
 </template>
 
@@ -83,7 +103,7 @@ export default {
         return this.breweries;
       } else {
           return  this.breweries.filter(brewery => {
-           return brewery.zip == Number(this.zipcode);
+           return brewery.zip == this.zipcode;
           })
     }
   }

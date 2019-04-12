@@ -11,7 +11,7 @@
     </div>
     <div>
       <the-map v-bind:zipcode="formData.zipCode"></the-map>
-      <table>
+      <!-- <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -30,7 +30,7 @@
             <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </section>
 </template>
