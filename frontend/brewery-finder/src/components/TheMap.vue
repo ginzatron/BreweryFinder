@@ -17,10 +17,12 @@
 </template>
 
 <script>
+import {EventBus} from "@/shared/event-bus";
+
 export default {
   name: "GoogleMap",
   props: {
-    zipcode: Number
+    zipcode: String
   },
   data() {
     return {
@@ -53,7 +55,7 @@ export default {
     },
 
     addMarker() {
-      this.breweries.forEach((brewery) => {
+      this.filteredBreweries.forEach((brewery) => {
         const marker = {
           lat: brewery.latitude,
           lng: brewery.longitude,
@@ -70,12 +72,21 @@ export default {
           this.breweries = json;
           this.addMarker();
       }).catch((error => console.error(error)));
+      EventBus.$on('zipClick',() => {
+        this.markers = [];
+        this.addMarker();
+      });
   },
-  computed() {
-    this.breweries = this.breweries.filter(brewery => {
-      return brewery.zipcode == this.props.zipcode;
-    addMarker();
-    })
+  computed: {
+    filteredBreweries() {
+      if (!this.zipcode) {
+        return this.breweries;
+      } else {
+          return  this.breweries.filter(brewery => {
+           return brewery.zip == Number(this.zipcode);
+          })
+    }
+  }
   },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
