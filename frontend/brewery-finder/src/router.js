@@ -4,6 +4,8 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import ViewBeer from "./views/ViewBeer.vue";
 import ViewBrewery from "./views/ViewBrewery.vue";
+import BeerResults from "./views/BeerResults.vue";
+import BreweryResults from "./views/BreweryResults.vue";
 import auth from "./shared/auth";
 
 Vue.use(Router);
@@ -41,7 +43,23 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: "/beer/results",
+      name: "beerResults",
+      component: BeerResults,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/brewery/results",
+      name: "breweryResults",
+      component: BreweryResults,
+      meta: {
+        requiresAuth: false
+      }
+    },
 
   ]
 });
