@@ -1,12 +1,12 @@
 <template>
   <section>
     <div>
-      <form v-on:submit="loadBreweries">
-          <label>Name</label>
-          <input type="text" placeholder="Brewery Name" v-model="formData.name"/>
-          <label>Zip Code</label>
-          <input type="text" placeholder="Zip Code" v-model="formData.zipCode"/>
-          <button type="submit">Submit</button>
+      <form v-on:submit.prevent="loadBreweries">
+        <label>Name</label>
+        <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
+        <label>Zip Code</label>
+        <input type="text" placeholder="Zip Code" v-model.trim="formData.zipCode">
+        <button type="submit">Submit</button>
       </form>
     </div>
     <div>
@@ -21,7 +21,11 @@
         </thead>
         <tbody>
           <tr v-for="brewery in breweries" v-bind:key="brewery.id">
-            <td><router-link v-bind:brewery="brewery" v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}">{{brewery.name}}</router-link></td>
+            <td>
+              <router-link
+                v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
+              >{{brewery.name}}</router-link>
+            </td>
             <td>{{brewery.happyHourFrom}} to {{brewery.happyHourTo}}</td>
             <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
           </tr>
@@ -33,25 +37,31 @@
 
 <script>
 import TheMap from "@/components/TheMap.vue";
+
 export default {
   data() {
     return {
       breweries: [],
-      formData:{
-          name:"",
-          zipCode:""
+      formData: {
+        name: "",
+        zipCode: ""
       }
     };
   },
 
   methods: {
     loadBreweries() {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}`, {
-        method: "GET"
-      })
+      fetch(
+        `${process.env.VUE_APP_REMOTE_API}/brewery?zip=${
+          this.formData.zipCode
+        }`,
+        {
+          method: "GET"
+        }
+      )
         .then(response => response.json())
         .then(json => (this.breweries = json));
-    }
+    },
   }
 };
 </script>
