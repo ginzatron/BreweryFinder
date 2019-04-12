@@ -10,7 +10,7 @@
       </form>
     </div>
     <div>
-      <the-map></the-map>
+      <the-map v-bind:zipcode="formData.zipCode"></the-map>
       <table>
         <thead>
           <tr>
@@ -39,6 +39,9 @@
 import TheMap from "@/components/TheMap.vue";
 
 export default {
+    components:{
+        TheMap
+    },
   data() {
     return {
       breweries: [],
