@@ -98,10 +98,33 @@ namespace SampleApi.DAL
 
         public Brewery GetById(int id)
         {
-            throw new NotImplementedException();
+            Brewery brewery = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM BREWERIES br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id WHERE br.id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        brewery = ConvertReaderToBrewery(reader);
+                    }
+     
+
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            return brewery;
         }
 
-        public Brewery GetNyName(string name)
+        public Brewery GetByName(string name)
         {
             throw new NotImplementedException();
         }
