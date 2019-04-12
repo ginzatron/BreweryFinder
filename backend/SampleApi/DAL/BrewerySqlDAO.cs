@@ -125,9 +125,34 @@ namespace SampleApi.DAL
             return brewery;
         }
 
-        public Brewery GetByName(string name)
+        public IList<Brewery> GetByName(string substring)
         {
-            throw new NotImplementedException();
+            IList<Brewery> breweries = new List<Brewery>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("select * from breweries where name like @name", conn);
+                    cmd.Parameters.AddWithValue("@name", '%' + substring + '%');
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Brewery brewery = ConvertReaderToBrewery(reader);
+                        breweries.Add(brewery);
+                    }
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return breweries;
         }
     }
 }
