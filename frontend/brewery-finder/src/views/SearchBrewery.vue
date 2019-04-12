@@ -21,7 +21,7 @@
         </thead>
         <tbody>
           <tr v-for="brewery in breweries" v-bind:key="brewery.id">
-            <td>{{brewery.name}}</td>
+            <td><router-link v-bind:brewery="brewery" v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}">{{brewery.name}}</router-link></td>
             <td>{{brewery.happyHourFrom}} to {{brewery.happyHourTo}}</td>
             <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
           </tr>
