@@ -20,8 +20,7 @@
 export default {
   name: "GoogleMap",
   props: {
-    apiURL: String,
-    zipcode: int
+    zipcode: Number
   },
   data() {
     return {
@@ -64,14 +63,19 @@ export default {
     },
   },
   created() {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?${zipcode}`
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery`
       ).then((response) => {
           return response.json();
       }).then((json) => {
-          console.table(json);
           this.breweries = json;
           this.addMarker();
       }).catch((error => console.error(error)));
+  },
+  computed() {
+    this.breweries = this.breweries.filter(brewery => {
+      return brewery.zipcode == this.props.zipcode;
+    addMarker();
+    })
   },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
