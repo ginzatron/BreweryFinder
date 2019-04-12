@@ -1,32 +1,11 @@
 <template>
   <div>
-    <div>
-      <h2>Search and add a pin</h2>
-      <label>
-        <gmap-autocomplete
-          @place_changed="setPlace">
-        </gmap-autocomplete>
-        <button @click="addMarker">Add</button>
-      </label>
-      <br/>
-
-    </div>
-    <br>
-    <gmap-map
-      :center="center"
-      :zoom="12"
-      style="width:100%;  height: 400px;"
-    >
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        @click="center=m.position"
-      ></gmap-marker>
+    <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
+      
+      <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)"> <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=true">
+        {{infoContent}}
+      </gmap-info-window> ></gmap-marker>
     </gmap-map>
-    <div v-for="brewery in this.breweries" v-bind:key="brewery.name">
-        <h3>{{brewery.name}} {{brewery.address}}</h3>
-    </div>    
   </div>
 </template>
 
@@ -38,38 +17,20 @@ export default {
   },
   data() {
     return {
-      breweries: [
-        {
-            "name": "Sibling Revelry",
-            "address": "29305 Clemens Rd, Westlake, OH 44145",
-            "lat": "41.4700513",
-            "lng": "-81.94677650000001"
-        },
-    
-        {
-            "name": "Brandon Ties One on",
-            "address" : "25032 Maidstone Ln, Beachwood, OH 44122"
-        }
-    ],
+      breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
-      markers: [
-          {
-              position: 
-              {
-                lat: 41.4700513,
-                lng:-81.94677650000001
-              }
-          },
-          {
-              position:
-              {
-                lat: 41.5008803,
-                lng: -81.5926564
-              }
+      markers: [],
+      infoContent: {
+        infoWindowPos: null,
+        infoWinOpen: false,
+        currentMidx:null,
+        infoOptions: {
+          pixelOffset: {
+            width: 0,
+            height: -35
           }
-      ],
-      places: [],
-      currentPlace: null,
+        },
+      }
     };
   },
 
@@ -77,33 +38,42 @@ export default {
     this.geolocate();
   },
 
-//   created() {
-//       fetch("breweries.json"
-//       ).then((response) => {
-//           return response.json();
-//       }).then((json) => {
-//           console.table(json);
-//           this.breweries = json;
-//       }).catch((error => console.error(error)));
-//     },
-
   methods: {
-    // receives a place object via the autocomplete component
-    setPlace(place) {
-      this.currentPlace = place;
+    toggleInfoWindow: function(marker, idx) {
+            this.infoWindowPos = marker.position;
+            this.infoContent = marker.name;
+            //check if its the same marker that was selected if yes toggle
+            if (this.currentMidx == idx) {
+              this.infoWinOpen = !this.infoWinOpen;
+            }
+            //if different marker set infowindow to open and reset current marker index
+            else {
+              this.infoWinOpen = true;
+              this.currentMidx = idx;
+            }
     },
+
     addMarker() {
-      if (this.currentPlace) {
+      this.breweries.forEach((brewery) => {
         const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
-        };
+          lat: brewery.latitude,
+          lng: brewery.longitude
+        }
         this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
-      }
+      })
     },
+  },
+  created() {
+
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=44113`
+      ).then((response) => {
+          return response.json();
+      }).then((json) => {
+          console.table(json);
+          this.breweries = json;
+          this.addMarker();
+      }).catch((error => console.error(error)));
+  },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
         this.center = {
@@ -112,6 +82,5 @@ export default {
         };
       });
     }
-  }
 };
 </script>

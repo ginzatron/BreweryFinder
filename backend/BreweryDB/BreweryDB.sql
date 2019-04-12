@@ -51,7 +51,7 @@ CREATE TABLE breweries
 	latitude        decimal(8,6)        not null,
 	longitude		decimal(8,6)        not null,
 	siteURL			nvarchar(100)		null,
-	description		nvarchar(1000)		not null,
+	description		nvarchar(500)		not null,
 	isBar			bit					not null,
 	isBrewery       bit					not null
 
@@ -132,7 +132,9 @@ INSERT INTO beers_breweries Values (1, 11 )
 INSERT INTO beers_breweries Values (1, 12 )
 INSERT INTO beers_breweries Values (1, 13 )
 INSERT INTO beers_breweries Values (1, 14 )
-
+--INSERT INTO beers_breweries Values (2, 11 )
+--INSERT INTO beers_breweries Values (2, 11 )
+--INSERT INTO beers_breweries Values (2, 11 )
 INSERT INTO beers_breweries Values (3, 15 )
 INSERT INTO beers_breweries Values (3, 16 )
 INSERT INTO beers_breweries Values (3, 17 )
@@ -146,10 +148,6 @@ INSERT INTO beers_breweries Values (5, 10 )
 INSERT INTO beers_breweries Values (6, 5 )
 INSERT INTO beers_breweries Values (6, 6 )
 INSERT INTO beers_breweries Values (6, 7 )
-INSERT INTO beers_breweries Values (2, 18 )
-INSERT INTO beers_breweries Values (2, 19)
-INSERT INTO beers_breweries Values (2, 20)
-
 
 COMMIT;
 
