@@ -5,7 +5,7 @@
     </div>
     <nav>
       <router-link to="/">Home</router-link>
-      <router-link to="/">Search</router-link>
+      <router-link to="/brewery/search">Search</router-link>
       <div>
         <router-link v-if="!username" to="/login">Login / Register</router-link>
         <a v-else>Welcome {{username}}</a>

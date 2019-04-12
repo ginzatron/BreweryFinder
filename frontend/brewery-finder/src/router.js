@@ -5,7 +5,7 @@ import Login from "./views/Login.vue";
 import ViewBeer from "./views/ViewBeer.vue";
 import ViewBrewery from "./views/ViewBrewery.vue";
 import BeerResults from "./views/BeerResults.vue";
-import BreweryResults from "./views/BreweryResults.vue";
+import SearchBrewery from "./views/SearchBrewery.vue";
 import auth from "./shared/auth";
 
 Vue.use(Router);
@@ -53,9 +53,9 @@ const router = new Router({
       }
     },
     {
-      path: "/brewery/results",
-      name: "breweryResults",
-      component: BreweryResults,
+      path: "/brewery/search",
+      name: "SearchBrewery",
+      component: SearchBrewery,
       meta: {
         requiresAuth: false
       }
