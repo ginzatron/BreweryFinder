@@ -1,10 +1,14 @@
 <template>
   <div>
     <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
-      
-      <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)"> <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=true">
-        {{infoContent}}
-      </gmap-info-window> ></gmap-marker>
+      <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)">
+      </gmap-marker>
+      <gmap-info-window
+                :position="this.windowPosition"
+                :opened="windowOpen"
+      >
+      {{description}}
+      </gmap-info-window>
     </gmap-map>
   </div>
 </template>
@@ -20,17 +24,9 @@ export default {
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
-      infoContent: {
-        infoWindowPos: null,
-        infoWinOpen: false,
-        currentMidx:null,
-        infoOptions: {
-          pixelOffset: {
-            width: 0,
-            height: -35
-          }
-        },
-      }
+      windowOpen: false,
+      description: '',
+      windowPosition: null
     };
   },
 
@@ -39,25 +35,17 @@ export default {
   },
 
   methods: {
-    toggleInfoWindow: function(marker, idx) {
-            this.infoWindowPos = marker.position;
-            this.infoContent = marker.name;
-            //check if its the same marker that was selected if yes toggle
-            if (this.currentMidx == idx) {
-              this.infoWinOpen = !this.infoWinOpen;
-            }
-            //if different marker set infowindow to open and reset current marker index
-            else {
-              this.infoWinOpen = true;
-              this.currentMidx = idx;
-            }
+    toggleInfoWindow: function(marker,i) {
+      this.windowOpen = this.windowOpen ? false :true;
+      this.description = this.breweries[i].name;
+      this.windowPosition = marker.position;
     },
 
     addMarker() {
       this.breweries.forEach((brewery) => {
         const marker = {
           lat: brewery.latitude,
-          lng: brewery.longitude
+          lng: brewery.longitude,
         }
         this.markers.push({ position: marker });
       })
