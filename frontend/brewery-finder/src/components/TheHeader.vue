@@ -4,6 +4,7 @@
       <h1>Brewery Finder</h1>
     </div>
     <nav>
+      <router-link to="/">Home</router-link>
       <router-link to="/">Search</router-link>
       <div>
         <router-link v-if="!username" to="/login">Login / Register</router-link>
