@@ -17,7 +17,7 @@ export default {
 props:{
     beer: Object
 }
-
+}
 
 </script>
 
