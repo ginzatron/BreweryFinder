@@ -42,11 +42,11 @@ namespace SampleApi.DAL
 
                     if (zip == 0)
                     {
-                        cmd = new SqlCommand("select *, b.id beerId, b.description beerDesc, b.name beerName from breweries br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id ", conn);
+                        cmd = new SqlCommand("select * from breweries", conn);
                     }
                     else
                     {
-                        cmd = new SqlCommand("select *, b.id beerId, b.description beerDesc, b.name beerName from breweries br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
+                        cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
 
                     }
                     cmd.Parameters.AddWithValue("@zip", zip);
