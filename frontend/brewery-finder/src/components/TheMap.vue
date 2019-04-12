@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
+  <div id="map">
+    <gmap-map :center="center" :zoom="12" style="width:90%;  height: 400px;">
       <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)">
       </gmap-marker>
       <gmap-info-window
@@ -41,11 +41,9 @@ import {EventBus} from "@/shared/event-bus";
 
 export default {
   name: "GoogleMap",
-  props: {
-    zipcode: String
-  },
   data() {
     return {
+      zipcode: '',
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
@@ -92,7 +90,8 @@ export default {
           this.breweries = json;
           this.addMarker();
       }).catch((error => console.error(error)));
-      EventBus.$on('zipClick',() => {
+      EventBus.$on('zipClick',(z) => {
+        this.zipcode = z;
         this.markers = [];
         this.addMarker();
       });
@@ -118,3 +117,9 @@ export default {
     }
 };
 </script>
+<style>
+  #map {
+    display: flex;
+    justify-content: center;
+  }
+</style>
