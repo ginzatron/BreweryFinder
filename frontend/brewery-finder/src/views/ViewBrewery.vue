@@ -26,7 +26,7 @@ export default {
   created() {
     const breweryId = this.$route.params.id;
       fetch(
-        `${process.env.VUE_APP_REMOTE_API}/brewery/id?id=${
+        `${process.env.VUE_APP_REMOTE_API}/brewery/id?brewId=${
           breweryId
         }`,
         {

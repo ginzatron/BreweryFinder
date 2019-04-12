@@ -42,11 +42,11 @@ namespace SampleApi.DAL
 
                     if (zip == 0)
                     {
-                        cmd = new SqlCommand("select * from breweries ", conn);
+                        cmd = new SqlCommand("select *, b.id beerId, b.description beerDesc, b.name beerName from breweries br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id ", conn);
                     }
                     else
                     {
-                        cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
+                        cmd = new SqlCommand("select *, b.id beerId, b.description beerDesc, b.name beerName from breweries br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
 
                     }
                     cmd.Parameters.AddWithValue("@zip", zip);
@@ -73,6 +73,7 @@ namespace SampleApi.DAL
         private Brewery ConvertReaderToBrewery(SqlDataReader reader)
         {
             Brewery brewery = new Brewery();
+
             brewery.Id = Convert.ToInt32(reader["id"]);
             brewery.Name = Convert.ToString(reader["name"]);
             brewery.Established = Convert.ToInt32(reader["established"]);
@@ -93,24 +94,53 @@ namespace SampleApi.DAL
                 brewery.HappyHourTo = TimeSpan.Parse(Convert.ToString(reader["happyhourto"]));
             }
 
+            Beer beer = new Beer();
+
+            beer.Id = Convert.ToInt32(reader["beerId"]);
+            beer.Abv = Convert.ToDecimal(reader["abv"]);
+            beer.Description = Convert.ToString(reader["beerDesc"]);
+            //beer.ImgSrc = Convert.ToString(reader["imgSrc"]);
+            beer.Style_id = Convert.ToInt32(reader["style_id"]);
+            beer.Name = Convert.ToString(reader["beerName"]);
+
+            brewery.beersAvailable = new List<Beer>();
+            brewery.beersAvailable.Add(beer);
+
             return brewery;
         }
 
         public Brewery GetById(int id)
         {
-            Brewery brewery = null;
+            Brewery brewery = new Brewery();
             try
             {
                 using (SqlConnection conn = new SqlConnection(this.connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM BREWERIES br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id WHERE br.id = @id;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT *, b.id beerId, b.description beerDesc, b.name beerName FROM BREWERIES br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id WHERE br.id = @id;", conn);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        brewery = ConvertReaderToBrewery(reader);
+                        if (brewery.Id != Convert.ToInt32(reader["id"]))
+                        {
+                            brewery = ConvertReaderToBrewery(reader);
+                        }
+                        else
+                        {
+                            Beer beer = new Beer();
+
+                            beer.Id = Convert.ToInt32(reader["beerId"]);
+                            beer.Abv = Convert.ToDecimal(reader["abv"]);
+                            beer.Description = Convert.ToString(reader["beerDesc"]);
+                            //beer.ImgSrc = Convert.ToString(reader["imgSrc"]);
+                            beer.Style_id = Convert.ToInt32(reader["style_id"]);
+                            //beer.Style = Convert.ToString(reader["styles_name"]);
+                            beer.Name = Convert.ToString(reader["beerName"]);
+
+                            brewery.beersAvailable.Add(beer);
+                        }
                     }
      
 
