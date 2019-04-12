@@ -4,6 +4,7 @@
       <h1>Brewery Finder</h1>
     </div>
     <nav>
+      <router-link to="/">Home</router-link>
       <router-link to="/">Search</router-link>
       <div>
         <router-link v-if="!username" to="/login">Login / Register</router-link>
@@ -63,8 +64,8 @@ export default {
 header {
   background-color: var(--burgundy);
   color: var(--lightGrey);
-  border-bottom: 3px solid #777;
-  height: 200px;
+  /* border-bottom: 3px solid #777; */
+  height: 120px;
   font-family: archivo;
 }
 
@@ -85,7 +86,7 @@ header a {
 
 h1 {
   display: inline-block;
-  font-size: 7rem;
+  font-size: 4rem;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -103,8 +104,10 @@ img {
 nav {
   display: flex;
   justify-content: space-evenly;
-  font-size: 3rem;
+  font-size: 1.5rem;
   background-color: var(--darkGrey);
   padding: 5px 0;
+  margin-top:15px;
+
 }
 </style>
