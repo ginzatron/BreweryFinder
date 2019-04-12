@@ -38,7 +38,7 @@ namespace SampleApi.DAL
                 using (SqlConnection conn = new SqlConnection(this.connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand();
+                    SqlCommand cmd = new SqlCommand();  
 
                     if (zip == 0)
                     {

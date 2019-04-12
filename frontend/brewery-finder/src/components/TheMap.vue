@@ -20,7 +20,8 @@
 export default {
   name: "GoogleMap",
   props: {
-    apiURL: String
+    apiURL: String,
+    zipcode: int
   },
   data() {
     return {
@@ -63,8 +64,7 @@ export default {
     },
   },
   created() {
-
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=0`
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?${zipcode}`
       ).then((response) => {
           return response.json();
       }).then((json) => {
