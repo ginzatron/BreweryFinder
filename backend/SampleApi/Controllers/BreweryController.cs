@@ -26,6 +26,12 @@ namespace SampleApi.Controllers
             IList<Brewery> breweries = breweryDao.GetAllByZip(zip, brewOrBar);
             return Ok(breweries);
         }
-
+        [HttpGet]
+        [Route("id/{id}")]
+        public ActionResult<Brewery> GetBreweryById([FromQuery]int id)
+        {
+            Brewery brewery = breweryDao.GetById(id);
+            return Ok(brewery);
+        }
     }
 }
