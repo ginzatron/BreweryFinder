@@ -23,6 +23,6 @@ namespace SampleApi.Models
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
 
-        IList<Beer> beersAvailable { get; set; }
+        public IList<Beer> beersAvailable { get; set; }
     }
 }

@@ -27,5 +27,12 @@ namespace SampleApi.Controllers
             return Ok(breweries);
         }
 
+        [HttpGet("id")]
+        [Route("{brewId}")]
+        public ActionResult<Brewery> GetBreweryById([FromQuery]int brewId)
+        {
+            Brewery brewery = breweryDao.GetById(brewId);
+            return Ok(brewery);
+        }
     }
 }
