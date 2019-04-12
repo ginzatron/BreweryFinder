@@ -37,5 +37,13 @@ namespace SampleApi.Controllers
             brewery.beersAvailable = beerDao.GetBeerByBrewery(brewId);
             return Ok(brewery);
         }
+
+        [HttpGet("name")]
+        [Route("{brewName}")]
+        public ActionResult<List<Brewery>> GetBreweriesByName([FromQuery]string brewName)
+        {
+            IList<Brewery> breweries = breweryDao.GetByName(brewName);
+            return Ok(breweries);
+        }
     }
 }

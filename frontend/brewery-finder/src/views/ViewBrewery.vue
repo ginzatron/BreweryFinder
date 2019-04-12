@@ -18,6 +18,9 @@
 import BeerInfo from "@/components/BeerInfo.vue";
 
 export default {
+  components: {
+    BeerInfo,
+  },
   data() {
     return {
       brewery: {}

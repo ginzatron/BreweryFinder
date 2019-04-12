@@ -9,7 +9,7 @@ namespace SampleApi.DAL
     public interface IBreweryDAO
     {
         Brewery GetById(int id);
-        Brewery GetByName(string name);
+        IList<Brewery> GetByName(string substring);
         IList<Brewery> GetAllByZip(int zip, string brewOrBar = "BarRestaurant");
     }
 }
