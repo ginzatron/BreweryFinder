@@ -29,7 +29,7 @@ const router = new Router({
       }
     },
     {
-      path: "/brewery/:id",
+      path: "/brewery/search/:id",
       name: "view-brewery",
       component: ViewBrewery,
       meta: {
