@@ -94,18 +94,6 @@ namespace SampleApi.DAL
                 brewery.HappyHourTo = TimeSpan.Parse(Convert.ToString(reader["happyhourto"]));
             }
 
-            Beer beer = new Beer();
-
-            beer.Id = Convert.ToInt32(reader["beerId"]);
-            beer.Abv = Convert.ToDecimal(reader["abv"]);
-            beer.Description = Convert.ToString(reader["beerDesc"]);
-            //beer.ImgSrc = Convert.ToString(reader["imgSrc"]);
-            beer.Style_id = Convert.ToInt32(reader["style_id"]);
-            beer.Name = Convert.ToString(reader["beerName"]);
-
-            brewery.beersAvailable = new List<Beer>();
-            brewery.beersAvailable.Add(beer);
-
             return brewery;
         }
 
@@ -123,24 +111,7 @@ namespace SampleApi.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        if (brewery.Id != Convert.ToInt32(reader["id"]))
-                        {
-                            brewery = ConvertReaderToBrewery(reader);
-                        }
-                        else
-                        {
-                            Beer beer = new Beer();
-
-                            beer.Id = Convert.ToInt32(reader["beerId"]);
-                            beer.Abv = Convert.ToDecimal(reader["abv"]);
-                            beer.Description = Convert.ToString(reader["beerDesc"]);
-                            //beer.ImgSrc = Convert.ToString(reader["imgSrc"]);
-                            beer.Style_id = Convert.ToInt32(reader["style_id"]);
-                            //beer.Style = Convert.ToString(reader["styles_name"]);
-                            beer.Name = Convert.ToString(reader["beerName"]);
-
-                            brewery.beersAvailable.Add(beer);
-                        }
+                        brewery = ConvertReaderToBrewery(reader);
                     }
      
 

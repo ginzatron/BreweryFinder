@@ -14,10 +14,12 @@ namespace SampleApi.Controllers
     public class BreweryController : ControllerBase
     {
         private IBreweryDAO breweryDao;
+        private IBeerDAO beerDao;
 
-        public BreweryController(IBreweryDAO breweryDao)
+        public BreweryController(IBreweryDAO breweryDao, IBeerDAO beerDao)
         {
             this.breweryDao = breweryDao;
+            this.beerDao = beerDao;
         }
 
         [HttpGet]
@@ -32,6 +34,7 @@ namespace SampleApi.Controllers
         public ActionResult<Brewery> GetBreweryById([FromQuery]int brewId)
         {
             Brewery brewery = breweryDao.GetById(brewId);
+            brewery.beersAvailable = beerDao.GetBeerByBrewery(brewId);
             return Ok(brewery);
         }
     }
