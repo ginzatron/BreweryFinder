@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="brewery-deet">
-      <img src="#" alt="Brewery Image">
+      <img v-bind:src="`~/assets/images/${brewery.imgSrc}`" alt="Brewery Image">
       <p>{{brewery.Name}}</p>
       <p>{{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
       <p>{{brewery.established}}</p>
