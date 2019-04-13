@@ -11,5 +11,9 @@ namespace SampleApi.DAL
         Brewery GetById(int id);
         IList<Brewery> GetByName(string substring);
         IList<Brewery> GetAllByZip(int zip, string brewOrBar = "BarRestaurant");
+
+        Brewery CreateBrewery(Brewery brewery);
+
     }
+
 }
