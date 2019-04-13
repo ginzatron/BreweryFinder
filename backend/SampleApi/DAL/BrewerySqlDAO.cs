@@ -85,6 +85,7 @@ namespace SampleApi.DAL
             brewery.Description = Convert.ToString(reader["description"]);
             brewery.IsBar = Convert.ToBoolean(reader["isbar"]);
             brewery.IsBrewery = Convert.ToBoolean(reader["isbrewery"]);
+            brewery.imgSrc = Convert.ToString(reader["imgSrc"]);
             brewery.Latitude = Convert.ToDecimal(reader["latitude"]);
             brewery.Longitude = Convert.ToDecimal(reader["longitude"]);
             
