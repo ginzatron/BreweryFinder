@@ -109,7 +109,8 @@ export default {
       let timeA = a.split(":").shift();
       let timeB = b.split(":").shift();
       if (timeA > 12) return (`${timeA-12} pm - ${timeB-12} pm`);
-      else return "nope";
+      else if (timeA > 0 && timeB <12) return (`${timeA} am - ${timeB} am`);
+      else if (timeA == 0) return "nope";
     },
     barRestaurant(a,b){
       if (a && b) return ("Bar/Brewery");
@@ -173,6 +174,9 @@ export default {
 .description {
   margin-bottom: 10px;
 }
+table {
+  padding-bottom: 25px
+}
 img {
   height: 100px;
   width: 75px;
@@ -199,5 +203,7 @@ div.transbox {
 div.transbox p {
   font-weight: bold;
   color: #000000;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 </style>
