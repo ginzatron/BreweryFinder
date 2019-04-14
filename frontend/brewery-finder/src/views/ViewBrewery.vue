@@ -1,11 +1,15 @@
 <template>
   <section>
     <div class="brewery-deet">
+<<<<<<< HEAD
       <div class="brewery-details-top">
       <div id="brewery-img">
        <img v-bind:src="`~/assets/images/${brewery.imgSrc}`" alt="`${brewery.Name} image`">
        </div>
       <div id="brewery-info">
+=======
+      <img v-bind:src="`${brewery.imgSrc}`" alt="Brewery Image">
+>>>>>>> dfa449aa0531c212475f5de919ce26caaa856430
       <p>{{brewery.Name}}</p>
       <p>Happy Hour(s) {{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
       <p>Established: {{brewery.established}}</p>

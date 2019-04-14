@@ -15,6 +15,7 @@ namespace SampleApi.DAL
             this.connectionString = connectionString;
         }
 
+<<<<<<< HEAD
         /// <summary>
         /// Creates a New Brewery
         /// </summary>
@@ -50,22 +51,13 @@ namespace SampleApi.DAL
             }
         }
         public IList<Brewery> GetAllByZip(int zip, string brewOrBar = "BarRestaurant")
+=======
+        public IList<Brewery> GetAllByQuery(int? zip = 0, string brewOrBar = "Both", string happyHour = "00:00", string name = "")
+>>>>>>> dfa449aa0531c212475f5de919ce26caaa856430
         {
             IList<Brewery> breweries = new List<Brewery>();
-            bool isBar = true;
-            bool isBrewery = true;
-
-            switch (brewOrBar)
-            {
-                case "bar":
-                    isBar = true;
-                    isBrewery = false;
-                    break;
-                case "brewery":
-                    isBar = false;
-                    isBrewery = true;
-                    break;
-            }
+            bool isBar = brewOrBar != "brewery";
+            bool isBrewery = brewOrBar != "bar";
 
             try
             {
@@ -74,18 +66,13 @@ namespace SampleApi.DAL
                     conn.Open();
                     SqlCommand cmd = new SqlCommand();  
 
-                    if (zip == 0)
-                    {
-                        cmd = new SqlCommand("select * from breweries", conn);
-                    }
-                    else
-                    {
-                        cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
-
-                    }
+                    cmd = new SqlCommand("select * from breweries where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))", conn);
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@bar", isBar);
                     cmd.Parameters.AddWithValue("@brewery", isBrewery);
+                    cmd.Parameters.AddWithValue("@name", '%' + name + '%');
+                    cmd.Parameters.AddWithValue("@happyHour", happyHour);
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())

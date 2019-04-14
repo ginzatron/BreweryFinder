@@ -49,9 +49,9 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-/*Mike M suggested that we remove background image given the new prominence of the map*/
-/* body {
-  /* background-image: url('assets/vats.jpg');
-  min-height: 1325px;
-} */
+
+#footer {
+  position: absolute;
+}
+
 </style>
