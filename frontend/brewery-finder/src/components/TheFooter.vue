@@ -1,6 +1,7 @@
 <template>
     <footer>
-        <p>Footer stuff goes here</p>
+        <p>In 2019 we set out to make a brewery finder.We ran on high hops and dreams and found ourselves for foam home. 
+          We got the Okeg from our brew/scrum master and long hours and not enough drinking later, we're tapped. </p>
     </footer>
 </template>
 
@@ -19,10 +20,16 @@ img {
 }
 
 footer {
+  display: flex;
   background-color: var(--burgundy);
   color: var(--lightGrey);
   border-top: 3px solid #777;
-  height: 50px;
+  height: 300px;
   font-family: archivo;
+  justify-content: center;
+}
+p {
+  width: 20%;
+  line-height: 2rem;
 }
 </style>

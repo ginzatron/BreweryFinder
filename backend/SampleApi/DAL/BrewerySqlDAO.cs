@@ -15,45 +15,7 @@ namespace SampleApi.DAL
             this.connectionString = connectionString;
         }
 
-<<<<<<< HEAD
-        /// <summary>
-        /// Creates a New Brewery
-        /// </summary>
-        /// <param name="brewery">The brewery object</param>
-        /// <returns>If successful, the newly created brewery with its primary key id</returns>
-        public Brewery CreateBrewery (Brewery brewery)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO breweries(name, address, city, latitude, longitude, siteUrl) VALUES (@name, @address, @city,  @latitude, @longitude, @siteUrl); SELECT @@IDENTITY;", conn);
-                    cmd.Parameters.AddWithValue("@name", brewery.Name);
-                    cmd.Parameters.AddWithValue("@address", brewery.Address);
-                    cmd.Parameters.AddWithValue("@city", brewery.State);
-                    //cmd.Parameters.AddWithValue("@zip", brewery.Zip);
-                    cmd.Parameters.AddWithValue("@latitude", brewery.Longitude);
-                    cmd.Parameters.AddWithValue("@longitude", brewery.Latitude);
-                    cmd.Parameters.AddWithValue("@siteUrl", brewery.SiteURL);
-
-                    int id = Convert.ToInt32(cmd.ExecuteScalar());
-                    brewery.Id = id;
-                    return brewery;
-
-                }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Error occured while creating new brewery");
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-        }
-        public IList<Brewery> GetAllByZip(int zip, string brewOrBar = "BarRestaurant")
-=======
         public IList<Brewery> GetAllByQuery(int? zip = 0, string brewOrBar = "Both", string happyHour = "00:00", string name = "")
->>>>>>> dfa449aa0531c212475f5de919ce26caaa856430
         {
             IList<Brewery> breweries = new List<Brewery>();
             bool isBar = brewOrBar != "brewery";
@@ -106,7 +68,7 @@ namespace SampleApi.DAL
             brewery.Description = Convert.ToString(reader["description"]);
             brewery.IsBar = Convert.ToBoolean(reader["isbar"]);
             brewery.IsBrewery = Convert.ToBoolean(reader["isbrewery"]);
-            //brewery.imgSrc = Convert.ToString(reader["imgSrc"]);
+            brewery.imgSrc = Convert.ToString(reader["imgSrc"]);
             brewery.Latitude = Convert.ToDecimal(reader["latitude"]);
             brewery.Longitude = Convert.ToDecimal(reader["longitude"]);
             
@@ -175,6 +137,41 @@ namespace SampleApi.DAL
             }
 
             return breweries;
+        }
+
+        /// <summary>
+        /// Creates a New Brewery
+        /// </summary>
+        /// <param name="brewery">The brewery object</param>
+        /// <returns>If successful, the newly created brewery with its primary key id</returns>
+        public Brewery CreateBrewery(Brewery brewery)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO breweries(name, address, city, latitude, longitude, siteUrl) VALUES (@name, @address, @city,  @latitude, @longitude, @siteUrl); SELECT @@IDENTITY;", conn);
+                    cmd.Parameters.AddWithValue("@name", brewery.Name);
+                    cmd.Parameters.AddWithValue("@address", brewery.Address);
+                    cmd.Parameters.AddWithValue("@city", brewery.State);
+                    cmd.Parameters.AddWithValue("@zip", brewery.Zip);
+                    cmd.Parameters.AddWithValue("@latitude", brewery.Longitude);
+                    cmd.Parameters.AddWithValue("@longitude", brewery.Latitude);
+                    cmd.Parameters.AddWithValue("@siteUrl", brewery.SiteURL);
+
+                    int id = Convert.ToInt32(cmd.ExecuteScalar());
+                    brewery.Id = id;
+                    return brewery;
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error occured while creating new brewery");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
