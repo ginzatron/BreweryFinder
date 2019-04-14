@@ -48,7 +48,7 @@
             >{{brewery.name}}</router-link>
           </td>
           <td>{{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</td>
-          <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
+          <td>{{barRestaurant(brewery.isBar,brewery.isBrewery)}}</td>
         </tr>
       </tbody>
     </table>
@@ -110,6 +110,12 @@ export default {
       let timeB = b.split(":").shift();
       if (timeA > 12) return (`${timeA-12} pm - ${timeB-12} pm`);
       else return "nope";
+    },
+    barRestaurant(a,b){
+      if (a && b) return ("Bar/Brewery");
+      else if (a && !b) return ("Bar");
+      return ("Brewery");
+
     }
   },
   created() {
