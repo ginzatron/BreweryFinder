@@ -1,6 +1,6 @@
 <template>
   <section>
-    <img src="#">
+    <img :src="`${beer.imgSrc}`" alt="Beer Image">
     <ul>
       <li>{{beer.name}}</li>
       <li>{{beer.style}}</li>

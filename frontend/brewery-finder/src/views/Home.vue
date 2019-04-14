@@ -1,6 +1,10 @@
 <template>
   <section class="home">
-    <the-map></the-map>
+    
+    <the-map>
+      
+    </the-map>
+    
   </section>
 </template>
 
@@ -15,3 +19,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+section {
+    background-image: url('~@/assets/vats.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+</style>

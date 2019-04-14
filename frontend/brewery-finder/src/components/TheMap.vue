@@ -1,6 +1,7 @@
 <template>
   <div id="map">
-    <gmap-map :center="center" :zoom="12" style="width:90%;  height: 400px;">
+       
+    <gmap-map :center="center" :zoom="11" style="width:90%;  height: 700px; margin: 50px; position:relative">
       <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)">
       </gmap-marker>
       <gmap-info-window
@@ -13,6 +14,9 @@
       {{address}}
       </gmap-info-window>
     </gmap-map>
+    <div class=transbox>
+          <p>Map markers for local breweries</p>
+        </div>
     <table v-if="zipcode">
         <thead>
           <tr>
@@ -50,6 +54,7 @@ export default {
       windowOpen: false,
       description: '',
       address: '',
+      breweryLocId:'',
       windowPosition: null,
       infoOptions: {
           pixelOffset: {
@@ -117,9 +122,26 @@ export default {
     }
 };
 </script>
-<style>
+<style scoped>
   #map {
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
-</style>
+  a, td{
+    color:maroon;
+    font-weight:bolder;
+  }  
+  div.transbox {
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+    margin-top: 50px;
+}
+
+div.transbox p {
+  font-weight: bold;
+  color: #000000;
+}
+  </style>
