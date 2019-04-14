@@ -14,24 +14,52 @@ namespace SampleApi.Controllers
     public class BreweryController : ControllerBase
     {
         private IBreweryDAO breweryDao;
+        private IBeerDAO beerDao;
 
-        public BreweryController(IBreweryDAO breweryDao)
+        public BreweryController(IBreweryDAO breweryDao, IBeerDAO beerDao)
         {
             this.breweryDao = breweryDao;
+            this.beerDao = beerDao;
         }
 
         [HttpGet]
-        public ActionResult<List<Brewery>> GetBreweries([FromQuery]int zip, [FromQuery]string brewOrBar)
+        public ActionResult<List<Brewery>> GetBreweries([FromQuery]int? zip, [FromQuery]string brewOrBar, [FromQuery]string happyHour, [FromQuery]string name)
         {
-            IList<Brewery> breweries = breweryDao.GetAllByZip(zip, brewOrBar);
+            if (zip == null)
+            {
+                zip = 0;
+            }
+            if (String.IsNullOrEmpty(brewOrBar))
+            {
+                brewOrBar = "Both";
+            }
+            if (String.IsNullOrEmpty(happyHour))
+            {
+                happyHour = "00:00";
+            }
+            if (String.IsNullOrEmpty(name))
+            {
+                name = "";
+            }
+            IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, name);
             return Ok(breweries);
         }
-        [HttpGet]
-        [Route("id/{id}")]
-        public ActionResult<Brewery> GetBreweryById([FromQuery]int id)
+
+        [HttpGet("id")]
+        [Route("{brewId}")]
+        public ActionResult<Brewery> GetBreweryById([FromQuery]int brewId)
         {
-            Brewery brewery = breweryDao.GetById(id);
+            Brewery brewery = breweryDao.GetById(brewId);
+            brewery.beersAvailable = beerDao.GetBeerByBrewery(brewId);
             return Ok(brewery);
+        }
+
+        [HttpGet("name")]
+        [Route("{brewName}")]
+        public ActionResult<List<Brewery>> GetBreweriesByName([FromQuery]string brewName)
+        {
+            IList<Brewery> breweries = breweryDao.GetByName(brewName);
+            return Ok(breweries);
         }
     }
 }

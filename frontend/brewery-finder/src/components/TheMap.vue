@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
+  <div id="map">
+       <div class=transbox>
+          <p>Map markers show the local breweries</p>
+        </div>
+    <gmap-map :center="center" :zoom="11" style="width:90%;  height: 700px; margin: 50px">
       <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)">
       </gmap-marker>
       <gmap-info-window
@@ -13,6 +16,27 @@
       {{address}}
       </gmap-info-window>
     </gmap-map>
+ 
+    <table v-if="zipcode">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Happy Hour(s)</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="brewery in filteredBreweries" v-bind:key="brewery.id">
+            <td>
+              <router-link
+                v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
+              >{{brewery.name}}</router-link>
+            </td>
+            <td>{{brewery.happyHourFrom}} to {{brewery.happyHourTo}}</td>
+            <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
+          </tr>
+        </tbody>
+      </table>
   </div>
 </template>
 
@@ -21,17 +45,16 @@ import {EventBus} from "@/shared/event-bus";
 
 export default {
   name: "GoogleMap",
-  props: {
-    zipcode: String
-  },
   data() {
     return {
+      zipcode: '',
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
       windowOpen: false,
       description: '',
       address: '',
+      breweryLocId:'',
       windowPosition: null,
       infoOptions: {
           pixelOffset: {
@@ -72,7 +95,8 @@ export default {
           this.breweries = json;
           this.addMarker();
       }).catch((error => console.error(error)));
-      EventBus.$on('zipClick',() => {
+      EventBus.$on('zipClick',(z) => {
+        this.zipcode = z;
         this.markers = [];
         this.addMarker();
       });
@@ -83,7 +107,7 @@ export default {
         return this.breweries;
       } else {
           return  this.breweries.filter(brewery => {
-           return brewery.zip == Number(this.zipcode);
+           return brewery.zip == this.zipcode;
           })
     }
   }
@@ -98,3 +122,25 @@ export default {
     }
 };
 </script>
+<style scoped>
+  #map {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  a, td{
+    color:maroon;
+    font-weight:bolder;
+  }  
+  div.transbox {
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
+}
+
+div.transbox p {
+  font-weight: bold;
+  color: #000000;
+}
+  </style>

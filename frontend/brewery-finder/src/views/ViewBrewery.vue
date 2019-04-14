@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="brewery-deet">
-      <img src="#" alt="Brewery Image">
+      <img v-bind:src="`${brewery.imgSrc}`" alt="Brewery Image">
       <p>{{brewery.Name}}</p>
       <p>{{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
       <p>{{brewery.established}}</p>
@@ -18,6 +18,9 @@
 import BeerInfo from "@/components/BeerInfo.vue";
 
 export default {
+  components: {
+    BeerInfo,
+  },
   data() {
     return {
       brewery: {}
@@ -26,7 +29,7 @@ export default {
   created() {
     const breweryId = this.$route.params.id;
       fetch(
-        `${process.env.VUE_APP_REMOTE_API}/brewery/id?id=${
+        `${process.env.VUE_APP_REMOTE_API}/brewery/id?brewId=${
           breweryId
         }`,
         {

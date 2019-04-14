@@ -6,31 +6,13 @@
         <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
         <label>Zip Code</label>
         <input type="text" placeholder="Zip Code" v-model.trim="formData.zipCode">
+        <label>Happy Hour</label>
+        <input type="text" placeholder="Happy Hour" v-model.trim="formData.happyHour">
         <button type="submit">Submit</button>
       </form>
     </div>
     <div>
-      <the-map v-bind:zipcode="formData.zipCode"></the-map>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Happy Hour(s)</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="brewery in breweries" v-bind:key="brewery.id">
-            <td>
-              <router-link
-                v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
-              >{{brewery.name}}</router-link>
-            </td>
-            <td>{{brewery.happyHourFrom}} to {{brewery.happyHourTo}}</td>
-            <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <the-map></the-map>
     </div>
   </section>
 </template>
@@ -47,29 +29,28 @@ export default {
       breweries: [],
       formData: {
         name: "",
-        zipCode: ""
+        zipCode: "",
+        happyHour:""
       }
     };
   },
 
   methods: {
     loadBreweries() {
-      fetch(
-        `${process.env.VUE_APP_REMOTE_API}/brewery?zip=${
-          this.formData.zipCode
-        }`,
-        {
-          method: "GET"
-        }
-      )
-        .then(response => response.json())
-        .then(json => (this.breweries = json));
-
-        EventBus.$emit('zipClick');
+        EventBus.$emit('zipClick',this.formData.zipCode);
     },
   }
 };
 </script>
 
 <style>
+  form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  label{
+    color: black;
+    font-weight: bold;
+  }
 </style>

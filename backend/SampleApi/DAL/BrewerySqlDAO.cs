@@ -15,23 +15,11 @@ namespace SampleApi.DAL
             this.connectionString = connectionString;
         }
 
-        public IList<Brewery> GetAllByZip(int zip, string brewOrBar = "BarRestaurant")
+        public IList<Brewery> GetAllByQuery(int? zip = 0, string brewOrBar = "Both", string happyHour = "00:00", string name = "")
         {
             IList<Brewery> breweries = new List<Brewery>();
-            bool isBar = true;
-            bool isBrewery = true;
-
-            switch (brewOrBar)
-            {
-                case "bar":
-                    isBar = true;
-                    isBrewery = false;
-                    break;
-                case "brewery":
-                    isBar = false;
-                    isBrewery = true;
-                    break;
-            }
+            bool isBar = brewOrBar != "brewery";
+            bool isBrewery = brewOrBar != "bar";
 
             try
             {
@@ -40,18 +28,13 @@ namespace SampleApi.DAL
                     conn.Open();
                     SqlCommand cmd = new SqlCommand();  
 
-                    if (zip == 0)
-                    {
-                        cmd = new SqlCommand("select * from breweries ", conn);
-                    }
-                    else
-                    {
-                        cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
-
-                    }
+                    cmd = new SqlCommand("select * from breweries where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))", conn);
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@bar", isBar);
                     cmd.Parameters.AddWithValue("@brewery", isBrewery);
+                    cmd.Parameters.AddWithValue("@name", '%' + name + '%');
+                    cmd.Parameters.AddWithValue("@happyHour", happyHour);
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -73,6 +56,7 @@ namespace SampleApi.DAL
         private Brewery ConvertReaderToBrewery(SqlDataReader reader)
         {
             Brewery brewery = new Brewery();
+
             brewery.Id = Convert.ToInt32(reader["id"]);
             brewery.Name = Convert.ToString(reader["name"]);
             brewery.Established = Convert.ToInt32(reader["established"]);
@@ -84,6 +68,7 @@ namespace SampleApi.DAL
             brewery.Description = Convert.ToString(reader["description"]);
             brewery.IsBar = Convert.ToBoolean(reader["isbar"]);
             brewery.IsBrewery = Convert.ToBoolean(reader["isbrewery"]);
+            brewery.imgSrc = Convert.ToString(reader["imgSrc"]);
             brewery.Latitude = Convert.ToDecimal(reader["latitude"]);
             brewery.Longitude = Convert.ToDecimal(reader["longitude"]);
             
@@ -98,13 +83,13 @@ namespace SampleApi.DAL
 
         public Brewery GetById(int id)
         {
-            Brewery brewery = null;
+            Brewery brewery = new Brewery();
             try
             {
                 using (SqlConnection conn = new SqlConnection(this.connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM BREWERIES br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id WHERE br.id = @id;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT *, b.id beerId, b.description beerDesc, b.name beerName FROM BREWERIES br JOIN beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id=bb.beer_id WHERE br.id = @id;", conn);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -124,9 +109,34 @@ namespace SampleApi.DAL
             return brewery;
         }
 
-        public Brewery GetByName(string name)
+        public IList<Brewery> GetByName(string substring)
         {
-            throw new NotImplementedException();
+            IList<Brewery> breweries = new List<Brewery>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("select * from breweries where name like @name", conn);
+                    cmd.Parameters.AddWithValue("@name", '%' + substring + '%');
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Brewery brewery = ConvertReaderToBrewery(reader);
+                        breweries.Add(brewery);
+                    }
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return breweries;
         }
     }
 }
