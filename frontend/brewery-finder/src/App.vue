@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Archivo");
+@import url("https://fonts.googleapis.com/css?family=Archivo|Merriweather");
 
 :root {
   --darkGrey: #2f3030;

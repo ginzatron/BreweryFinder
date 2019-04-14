@@ -26,18 +26,5 @@ section {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    min-height: 1325px;
-}
-
-div.transbox {
-  margin: 30px;
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.6;
-}
-
-div.transbox p {
-  font-weight: bold;
-  color: #000000;
 }
 </style>
