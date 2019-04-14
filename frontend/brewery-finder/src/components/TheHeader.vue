@@ -1,16 +1,14 @@
 <template>
   <header>
-    <div class="centered">
-      <h1>Brewery Finder</h1>
-    </div>
     <nav>
       <router-link to="/">Home</router-link>
       <router-link to="/brewery/search">Search</router-link>
-      <div>
+      <h2>Brewery Finder</h2>
+      <div class='login'>
         <router-link v-if="!username" to="/login">Login / Register</router-link>
         <a v-else>Welcome {{username}}</a>
+        <a v-if="username" @click="logout">Logout</a>
       </div>
-      <a v-if="username" @click="logout">Logout</a>
     </nav>
   </header>
 </template>
@@ -77,6 +75,11 @@ div {
   justify-content: center;
 }
 
+.home-search {
+  display: flex;
+  justify-content: space-around;
+}
+
 header a {
   text-decoration: none;
   color: var(--lightGrey);
@@ -93,6 +96,8 @@ h1 {
 
 h2 {
   margin: 0;
+  padding-right: 100px;
+  font-size: 3em;
 }
 
 img {
@@ -105,9 +110,10 @@ nav {
   display: flex;
   justify-content: space-evenly;
   font-size: 1.5rem;
-  background-color: var(--darkGrey);
+  background-color: var(--burgundy);
   padding: 5px 0;
   margin-top:15px;
+  align-items: center;
 
 }
 </style>

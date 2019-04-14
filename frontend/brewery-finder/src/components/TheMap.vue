@@ -47,8 +47,8 @@
               v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
             >{{brewery.name}}</router-link>
           </td>
-          <td>{{brewery.happyHourFrom}} to {{brewery.happyHourTo}}</td>
-          <td>{{brewery.isBar}} {{brewery.isBrewery}}</td>
+          <td>{{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</td>
+          <td>{{barRestaurant(brewery.isBar,brewery.isBrewery)}}</td>
         </tr>
       </tbody>
     </table>
@@ -104,6 +104,19 @@ export default {
     },
     redirect(index) {
       this.$router.push("/brewery/search/" + this.filteredBreweries[index].id);
+    },
+    timeFormat(a,b) {
+      let timeA = a.split(":").shift();
+      let timeB = b.split(":").shift();
+      if (timeA > 12) return (`${timeA-12} pm - ${timeB-12} pm`);
+      else if (timeA > 0 && timeB <12) return (`${timeA} am - ${timeB} am`);
+      else if (timeA == 0) return "nope";
+    },
+    barRestaurant(a,b){
+      if (a && b) return ("Bar/Brewery");
+      else if (a && !b) return ("Bar");
+      return ("Brewery");
+
     }
   },
   created() {
@@ -132,6 +145,7 @@ export default {
         });
       }
     }
+
   },
   geolocate: function() {
     navigator.geolocation.getCurrentPosition(position => {
@@ -145,6 +159,7 @@ export default {
 </script>
 <style scoped>
 #infoWindow {
+  background-color: lightgoldenrodyellow;
   display: flex;
   flex-direction:row;
   justify-content: center;
@@ -158,6 +173,9 @@ export default {
 }
 .description {
   margin-bottom: 10px;
+}
+table {
+  padding-bottom: 25px
 }
 img {
   height: 100px;
@@ -185,5 +203,7 @@ div.transbox {
 div.transbox p {
   font-weight: bold;
   color: #000000;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 </style>
