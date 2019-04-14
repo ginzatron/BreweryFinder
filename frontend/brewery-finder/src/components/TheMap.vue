@@ -15,10 +15,18 @@
         @mouseout="toggleInfoWindow(marker,index)"
         @click="redirect(index)"
       ></gmap-marker>
-      <gmap-info-window :options="infoOptions" :position="this.windowPosition" :opened="windowOpen">
-        {{description}}
-        <br>
-        {{address}}
+      <gmap-info-window :options="infoOptions" :position="this.windowPosition" :opened="windowOpen" style="font-family: dokdo;">
+        <div id='infoWindow'>
+          <div class='info'>
+            <div class='description'>
+              {{description}}
+            </div>
+            <div class='address'>
+              {{address}}
+            </div>
+          </div>
+          <img :src="this.beerThumb"/>
+        </div>
       </gmap-info-window>
     </gmap-map>
     <div class="transbox">
@@ -61,6 +69,7 @@ export default {
       windowOpen: false,
       description: "",
       address: "",
+      beerThumb: null,
       windowPosition: null,
       infoOptions: {
         pixelOffset: {
@@ -81,15 +90,16 @@ export default {
       this.description = this.breweries[i].name;
       this.address = this.breweries[i].address;
       this.windowPosition = marker.position;
+      this.beerThumb = this.breweries[i].imgSrc;
     },
 
     addMarker() {
       this.filteredBreweries.forEach(brewery => {
         const marker = {
           lat: brewery.latitude,
-          lng: brewery.longitude
+          lng: brewery.longitude,
         };
-        this.markers.push({ position: marker, icon: {url: brewery.imgSrc, scaledSize: {width: 50, height:50} } });
+        this.markers.push({ position: marker});
       });
     },
     redirect(index) {
@@ -134,6 +144,26 @@ export default {
 };
 </script>
 <style scoped>
+#infoWindow {
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  font-family: Merriweather;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-right: 8px;
+}
+.description {
+  margin-bottom: 10px;
+}
+img {
+  height: 100px;
+  width: 75px;
+  align-self: center;
+}
 #map {
   display: flex;
   justify-content: center;
