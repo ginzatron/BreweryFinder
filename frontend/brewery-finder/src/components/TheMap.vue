@@ -1,7 +1,7 @@
 <template>
   <div id="map">
     <gmap-map :center="center" :zoom="11" style="width:90%;  height: 700px; margin: 50px; position:relative">
-      <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)">
+      <gmap-marker v-for="(marker, index) in markers" :key="index"  n} :icon="marker.icon" :position="marker.position" @click="toggleInfoWindow(marker,index)">
       </gmap-marker>
       <gmap-info-window
                 :options="infoOptions"
@@ -82,7 +82,7 @@ export default {
           lat: brewery.latitude,
           lng: brewery.longitude,
         }
-        this.markers.push({ position: marker });
+        this.markers.push({ position: marker, icon: brewery.imgSrc});
       })
     },
   },
