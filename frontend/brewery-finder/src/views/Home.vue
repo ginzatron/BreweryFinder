@@ -1,10 +1,6 @@
 <template>
   <section class="home">
-    
-    <the-map>
-      
-    </the-map>
-    
+    <the-map></the-map>
   </section>
 </template>
 
