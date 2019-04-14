@@ -15,7 +15,7 @@ namespace SampleApi.DAL
             this.connectionString = connectionString;
         }
 
-        public IList<Brewery> GetAllByZip(int zip, string brewOrBar = "BarRestaurant")
+        public IList<Brewery> GetAllByZip(int zip, string brewOrBar = "BarRestaurant", string happyHour = "00:00", string name = "")
         {
             IList<Brewery> breweries = new List<Brewery>();
             bool isBar = true;
@@ -46,12 +46,15 @@ namespace SampleApi.DAL
                     }
                     else
                     {
-                        cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery", conn);
+                        cmd = new SqlCommand("select * from breweries where zip = @zip and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))", conn);
 
                     }
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@bar", isBar);
                     cmd.Parameters.AddWithValue("@brewery", isBrewery);
+                    cmd.Parameters.AddWithValue("@name", '%' + name + '%');
+                    cmd.Parameters.AddWithValue("@happyHour", happyHour);
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
