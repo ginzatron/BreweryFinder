@@ -4,7 +4,7 @@
           <p>Map markers show the local breweries</p>
         </div>
     <gmap-map :center="center" :zoom="11" style="width:90%;  height: 700px; margin: 50px">
-      <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @click="toggleInfoWindow(marker,index)">
+      <gmap-marker v-for="(marker, index) in markers" :key="index" :position="marker.position" @mouseover="toggleInfoWindow(marker,index)" @mouseout="toggleInfoWindow(marker,index)" @click="redirect(index)">
       </gmap-marker>
       <gmap-info-window
                 :options="infoOptions"
@@ -85,6 +85,10 @@ export default {
         }
         this.markers.push({ position: marker });
       })
+    },
+
+    redirect(index) {
+      this.$router.push("/brewery/search/"+this.filteredBreweries[index].id)
     },
   },
   created() {
