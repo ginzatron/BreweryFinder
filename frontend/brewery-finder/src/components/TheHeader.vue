@@ -2,7 +2,7 @@
   <header>
     <nav>
       <router-link to="/">Home</router-link>
-      <router-link to="/brewery/search">Search</router-link>
+      <router-link to="/brewery/search">Search  <span><a href="#" class="fa fa-search"></a>  </span></router-link>
       <h2>Brewery Finder</h2>
       <div class='login'>
         <router-link v-if="!username" to="/login">Login / Register</router-link>
@@ -66,6 +66,9 @@ header {
   height: 120px;
   font-family: archivo;
 }
+.fa-search {
+  color: goldenrod;
+}
 
 div {
   display: flex;
@@ -96,6 +99,7 @@ h1 {
 
 h2 {
   margin: 0;
+  margin-top:15px;
   padding-right: 100px;
   font-size: 3em;
 }
