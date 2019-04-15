@@ -15,25 +15,36 @@ namespace SampleApi.DAL
             this.connectionString = connectionString;
         }
 
-        public IList<Brewery> GetAllByQuery(int? zip = 0, string brewOrBar = "Both", string happyHour = "00:00", string name = "")
+        public IList<Brewery> GetAllByQuery(int? zip, string brewOrBar, string happyHour, string name, string userLat, string userLng, int? range)
         {
             IList<Brewery> breweries = new List<Brewery>();
             bool isBar = brewOrBar != "brewery";
             bool isBrewery = brewOrBar != "bar";
+            string sql = "select * from breweries br where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))";
+
+            if (range != 0)
+            {
+                sql = "declare @source geography = geography::STPointFromText('Point(' + @lat + ' ' + @lng + ')', 4326)" +
+                      " select * from breweries br where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
+                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range)";
+            }
 
             try
             {
                 using (SqlConnection conn = new SqlConnection(this.connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand();  
 
-                    cmd = new SqlCommand("select * from breweries where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))", conn);
+                    SqlCommand cmd = new SqlCommand(sql, conn);  
+
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@bar", isBar);
                     cmd.Parameters.AddWithValue("@brewery", isBrewery);
                     cmd.Parameters.AddWithValue("@name", '%' + name + '%');
                     cmd.Parameters.AddWithValue("@happyHour", happyHour);
+                    cmd.Parameters.AddWithValue("@lat", userLat);
+                    cmd.Parameters.AddWithValue("@lng", userLng);
+                    cmd.Parameters.AddWithValue("@range", range);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -172,6 +183,41 @@ namespace SampleApi.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
+        }
+
+        public IList<Brewery> GetWithinRadiusMiles(string userLat, string userLng, int miles)
+        {
+            IList<Brewery> breweries = new List<Brewery>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("declare @source geography = geography::STPointFromText('Point(' + @lat + ' ' + @lng + ')', 4326)" +
+                                                    "select * from breweries br" +
+                                                    "where @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @miles", conn);
+
+                    cmd.Parameters.AddWithValue("@lat", userLat);
+                    cmd.Parameters.AddWithValue("@lng", userLng);
+                    cmd.Parameters.AddWithValue("@miles", miles);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Brewery brewery = ConvertReaderToBrewery(reader);
+                        breweries.Add(brewery);
+                    }
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return breweries;
         }
     }
 }
