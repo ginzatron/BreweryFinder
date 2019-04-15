@@ -2,21 +2,21 @@
   <section>
     <div class="brewery-deet">
       <div class="brewery-details-top">
-      <div id="brewery-img">
-       <img v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.Name}` + 'image'">
-       </div>
-      <div id="brewery-info">
-
-      <p>{{brewery.Name}}</p>
-      <p>Happy Hour(s) {{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
-      <p>Established: {{brewery.established}}</p>
-      <p>{{brewery.address}} {{brewery.city}} {{brewery.state}} {{brewery.zip}}</p>
+        <div id="brewery-img">
+          <img v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.Name}` + 'image'">
+        </div>
+        <div id="brewery-info">
+          <p>{{brewery.name}}</p>
+          <p>Happy Hour(s) {{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
+          <p>Established: {{brewery.established}}</p>
+          <p>{{brewery.address}}</p>
+          <p> {{brewery.city}} {{brewery.state}} </p> 
+          <p>{{brewery.zip}}</p>
+        </div>
       </div>
-      </div>
 
-      
       <div class="brewery-description">
-      <p>{{brewery.description}}</p>
+        <p>{{brewery.description}}</p>
       </div>
     </div>
     <div class="available-beers">
@@ -30,44 +30,57 @@ import BeerInfo from "@/components/BeerInfo.vue";
 
 export default {
   components: {
-    BeerInfo,
+    BeerInfo
   },
   data() {
     return {
       brewery: {}
-    }
+    };
   },
   created() {
     const breweryId = this.$route.params.id;
-      fetch(
-        `${process.env.VUE_APP_REMOTE_API}/brewery/id?brewId=${
-          breweryId
-        }`,
-        {
-          method: "GET"
-        }
-      )
-        .then(response => response.json())
-        .then(json => (this.brewery = json));
+    fetch(`${process.env.VUE_APP_REMOTE_API}/brewery/id?brewId=${breweryId}`, {
+      method: "GET"
+    })
+      .then(response => response.json())
+      .then(json => (this.brewery = json));
   }
 };
 </script>
 
 <style>
-
 .brewery-details-top {
-  
-    display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "brewery-image brewery-info";
+}
+
+#brewery-img{
+ size: 100px;
+}
+#brewery-img {
+  grid-area: brewery-image;
+}
+#brewery-info {
+  grid-area: brewery-info;
+  margin: auto 0;
+  text-align: center;
+  text-justify:left;
+  font-size: 1.25rem;
+  font-weight: bold;
+
+}
+
+/* display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-content: flex-start;
     align-items: center;
     margin-top:30px;
-    margin-bottom:30px;
-    }
+    margin-bottom:30px; */
 
-#brewery-image{
+/* #brewery-image{
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
@@ -80,13 +93,11 @@ export default {
     justify-content:left;
     text-align:left;
     background-color:aqua
-    }
+    } */
 
-div.available-beers{
-      display:flex;
-      flex-direction: row;
-      justify-content:space-around;
-    }
-    
-
+div.available-beers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 </style>
