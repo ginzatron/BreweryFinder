@@ -41,6 +41,7 @@ namespace SampleApi.Controllers
             {
                 name = "";
             }
+            string nameFix = name.Replace("%20", " ");
             if (String.IsNullOrEmpty(userLat) || String.IsNullOrEmpty(userLng) || range == null || range == 0)
             {
                 userLat = "";
@@ -48,7 +49,7 @@ namespace SampleApi.Controllers
                 range = 0;
             }
 
-            IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, name, userLat, userLng, range);
+            IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, nameFix, userLat, userLng, range);
 
             return Ok(breweries);
         }
