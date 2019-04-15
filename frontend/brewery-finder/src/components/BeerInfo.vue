@@ -3,12 +3,14 @@
     <div class="beer-card">
       <div class="card-inner">
         <div class="card-front">
-          <img :src="`${beer.imgSrc}`" alt="Beer Image">
+          <img class="card" :src="`${beer.imgSrc}`" alt="Beer Image">
         </div>
         <div class="card-back">
+          <div class="card">
             <p>{{beer.name}}</p>
             <p>{{beer.style}}</p>
             <p>ABV: {{beer.abv}} %</p>
+          </div>
         </div>
       </div>
     </div>
@@ -31,10 +33,11 @@ export default {
 }
 
 .beer-card div {
-  background-color: transparent;
+  /* background-color: transparent; */
   width: 175px;
   perspective: 1000px;
 }
+
 .beer-card:hover .card-inner {
   transform: rotateY(180deg);
 }
@@ -61,11 +64,11 @@ export default {
 }
 
 .card-front {
-  background-color: #bbb;
+  /* background-color: #bbb; */
 }
 
 .card-back {
-  background-color: #fff;
+  /* background-color: #fff; */
   color: black;
   transform: rotateY(180deg);
 }
