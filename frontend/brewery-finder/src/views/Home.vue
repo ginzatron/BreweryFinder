@@ -17,12 +17,12 @@ export default {
 </script>
 
 <style >
-section {
+/* section {
     background-image: url('~@/assets/vats.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: rgba(68, 67, 29, 0.9);
     background-blend-mode: screen;
-}
+} */
 </style>

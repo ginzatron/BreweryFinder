@@ -3,7 +3,7 @@
     <gmap-map
       :center="center"
       :zoom="11"
-      style="width:90%;  height: 700px; margin: 50px;"
+      style="height : 100%; width : 100%; position : absolute; position: top; "
     >
       <gmap-marker
         v-for="(marker, index) in markers"
@@ -29,29 +29,6 @@
         </div>
       </gmap-info-window>
     </gmap-map>
-    <div class="transbox">
-      <p>Map markers for local breweries</p>
-    </div>
-    <table class="card" v-if="breweries">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Happy Hour(s)</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="brewery in breweries" v-bind:key="brewery.id">
-          <td>
-            <router-link
-              v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
-            >{{brewery.name}}</router-link>
-          </td>
-          <td>{{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</td>
-          <td>{{barRestaurant(brewery.isBar,brewery.isBrewery)}}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -105,18 +82,7 @@ export default {
     redirect(index) {
       this.$router.push("/brewery/search/" + this.breweries[index].id);
     },
-    timeFormat(a,b) {
-      let timeA = a.split(":").shift();
-      let timeB = b.split(":").shift();
-      if (timeA > 12) return (`${timeA-12} pm - ${timeB-12} pm`);
-      else if (timeA > 0 && timeB <12) return (`${timeA} am - ${timeB} am`);
-      else if (timeA == 0) return "nope";
-    },
-    barRestaurant(a,b){
-      if (a && b) return ("Bar/Brewery");
-      else if (a && !b) return ("Bar");
-      return ("Brewery");
-    },
+   
     updateBreweries(){
       fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}`)
       .then(response => {
@@ -153,36 +119,18 @@ export default {
 };
 </script>
 <style scoped>
-  #map {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
-div.transbox {
-  position: absolute;
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.6;
-  margin-top: 50px;
-  top: 0px;
-}
 
-div.transbox p {
-  font-weight: bold;
-  color: #000000;
-  padding-left: 5px;
-  padding-right: 5px;
+#map {
+  height: 650px;
 }
-  a, td{
-    color:maroon;
-    font-weight:bolder;
-  }  
-  div.transbox {
+a, td{
+  color:maroon;
+  font-weight:bolder;
+}  
+div.transbox {
   margin-right: 30px;
-  }
-  #infoWindow {
+}
+#infoWindow {
   background-color: lightgoldenrodyellow;
   display: flex;
   flex-direction:row;
@@ -200,10 +148,7 @@ div.transbox p {
 }
 table {
   padding-bottom: 25px;
-  /* border: 1px solid black;
-  padding: 8px;
-  border-radius: 10px;
-  background-color: rgba(167,176,173,0.75); */
+  margin-bottom: 12px;
 }
 img {
   height: 100px;
