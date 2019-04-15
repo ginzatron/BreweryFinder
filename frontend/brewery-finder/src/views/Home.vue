@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 section {
     background-image: url('~@/assets/vats.jpg');
     background-size: cover;

@@ -1,8 +1,10 @@
 <template>
   <header>
     <nav>
+      <div class='home-search'>
       <router-link to="/">Home</router-link>
-      <router-link to="/brewery/search">Search  <span><a href="#" class="fa fa-search"></a>  </span></router-link>
+      <router-link to="/brewery/search">Search  <span><i class="fa fa-search"/></span></router-link>
+      </div>
       <h2>Brewery Finder</h2>
       <div class='login'>
         <router-link v-if="!username" to="/login">Login / Register</router-link>
@@ -62,12 +64,16 @@ export default {
 header {
   background-color: var(--burgundy);
   color: var(--lightGrey);
-  /* border-bottom: 3px solid #777; */
+  /* border-bottom: 3px solid #777; */  
   height: 120px;
   font-family: archivo;
 }
 .fa-search {
   color: goldenrod;
+}
+
+.home-search a:first-child{
+  margin: 0px 100px;
 }
 
 div {
@@ -100,7 +106,6 @@ h1 {
 h2 {
   margin: 0;
   margin-top:15px;
-  padding-right: 50px;
   font-size: 3em;
 }
 
@@ -110,14 +115,18 @@ img {
   height: 150px;
 }
 
+.login {
+  margin-right: 175px;
+}
+
 nav {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   font-size: 1.5rem;
   background-color: var(--burgundy);
   padding: 5px 0;
   margin-top:15px;
   align-items: center;
-
+  text-align:center;
 }
 </style>

@@ -62,7 +62,7 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      formData: {name: '',zipCode: '', happyHour: '', range: 30},
+      formData: {name: '',zipCode: '', happyHour: '', range: 50},
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
@@ -144,7 +144,8 @@ export default {
       this.formData.zipCode = data.zipCode;
       this.formData.name = data.name;
       this.formData.happyHour = data.happyHour;
-      this.formData.range = data.range;
+      if (data.range) this.formData.range = data.range;
+      else this.formData.range = 50;
       this.updateBreweries();
     });
   },
@@ -182,7 +183,11 @@ export default {
   margin-bottom: 10px;
 }
 table {
-  padding-bottom: 25px
+  padding-bottom: 25px;
+  border: 1px solid black;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: rgba(167,176,173,0.75);
 }
 img {
   height: 100px;

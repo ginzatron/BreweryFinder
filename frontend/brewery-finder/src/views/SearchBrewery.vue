@@ -77,14 +77,14 @@ export default {
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
     margin-bottom: 20px;
     align-items: space-between;
     width: 420px;
-    margin-left: 40%;
+    margin-left: 39%;
     border: 1px solid black;
     padding: 8px;
     border-radius: 10px;
+    background-color: rgba(167,176,173,0.75);
   }
 
   label{
@@ -102,6 +102,6 @@ export default {
   button {
     margin-top: 12px;
     width: 99px;
-    margin-left: 40%;
+    margin-left: 36%;
   }
 </style>
