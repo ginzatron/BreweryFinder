@@ -32,7 +32,7 @@
     <div class="transbox">
       <p>Map markers for local breweries</p>
     </div>
-    <table v-if="breweries">
+    <table class="card" v-if="breweries">
       <thead>
         <tr>
           <th>Name</th>
@@ -200,10 +200,10 @@ div.transbox p {
 }
 table {
   padding-bottom: 25px;
-  border: 1px solid black;
+  /* border: 1px solid black;
   padding: 8px;
   border-radius: 10px;
-  background-color: rgba(167,176,173,0.75);
+  background-color: rgba(167,176,173,0.75); */
 }
 img {
   height: 100px;
