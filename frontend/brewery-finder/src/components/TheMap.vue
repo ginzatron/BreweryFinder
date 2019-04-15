@@ -62,7 +62,7 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      formData: {name: '',zipCode: '', happyHour: ''},
+      formData: {name: '',zipCode: '', happyHour: '', range: 30},
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
@@ -118,7 +118,7 @@ export default {
       return ("Brewery");
     },
     updateBreweries(){
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}`)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}`)
       .then(response => {
         return response.json();
       })
@@ -144,6 +144,7 @@ export default {
       this.formData.zipCode = data.zipCode;
       this.formData.name = data.name;
       this.formData.happyHour = data.happyHour;
+      this.formData.range = data.range;
       this.updateBreweries();
     });
   },

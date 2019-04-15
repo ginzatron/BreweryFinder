@@ -6,6 +6,8 @@
         <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
         <label>Zip Code</label>
         <input type="text" placeholder="Zip Code" v-model.trim="formData.zipCode">
+        <label>Radius</label>
+        <input type="text" placeholder="Radius in miles" v-model.trim="formData.range">
         <label>Happy Hour</label>
         <input type="text" placeholder="Happy Hour" v-model.trim="formData.happyHour">
         <button type="submit">Submit</button>
@@ -30,7 +32,8 @@ export default {
       formData: {
         name: "",
         zipCode: "",
-        happyHour:""
+        happyHour:"",
+        range:30
       }
     };
   },
