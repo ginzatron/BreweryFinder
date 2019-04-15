@@ -1,20 +1,25 @@
 <template>
-  <section class="container">
+  <div class="container">
     <div class="beer-card">
       <div class="card-inner">
         <div class="card-front">
-          <img class="card" :src="`${beer.imgSrc}`" alt="Beer Image">
+          <div class="card">
+            <img :src="`${beer.imgSrc}`" alt="Beer Image">
+          </div>
         </div>
         <div class="card-back">
           <div class="card">
+            <!-- <img class="card" :src="`${beer.imgSrc}`"> -->
+            <div class="card-text">
             <p>{{beer.name}}</p>
             <p>{{beer.style}}</p>
             <p>ABV: {{beer.abv}} %</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -27,13 +32,12 @@ export default {
 </script>
 
 <style scoped>
-
 .container {
   height: 300px;
 }
 
 .beer-card div {
-  /* background-color: transparent; */
+  height: 260px;
   width: 175px;
   perspective: 1000px;
 }
@@ -52,19 +56,20 @@ export default {
 }
 
 .card-front img {
-  width: 90%;
-  height: auto;
+  width: 150px;
+  height: 245px;
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
 }
 
-.card-front {
-  /* background-color: #bbb; */
+.card-text {
+  position: relative;
 }
 
 .card-back {

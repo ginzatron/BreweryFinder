@@ -3,8 +3,6 @@
     <div class="brewery-deet">
       <div class="brewery-details-top">
         <img id="brewery-img" v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.Name}` + 'image'">
-        <!-- <div id="brewery-img">
-        </div>-->
         <div id="brewery-info">
           <div id="brewery-name">
             <p>{{brewery.name}}</p>
@@ -19,11 +17,8 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="brewery-description">
-        <p>{{brewery.description}}</p>
-      </div>-->
     </div>
+    <h2>Beer Available at {{brewery.name}}</h2>
     <div class="available-beers">
       <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery.beersAvailable"></beer-info>
     </div>
@@ -60,19 +55,27 @@ export default {
   grid-template-areas: "brewery-image brewery-info";
 }
 
+h2 {
+  color: var(--burgundy);
+  text-decoration: underline;
+  font-size: 3rem;
+}
 
 #brewery-img {
   max-width: 85%;
   height: 350px;
   padding: 40px;
 }
+
 #brewery-img {
   grid-area: brewery-image;
 }
+
 #brewery-name{
   font-size: 1.5rem;
   color: #490000;
 }
+
 #brewery-info {
   grid-area: brewery-info;
   margin: auto 0;
@@ -90,29 +93,6 @@ export default {
   margin-top: 30px;
   font-weight: bold;
 }
-/* display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    align-content: flex-start;
-    align-items: center;
-    margin-top:30px;
-    margin-bottom:30px; */
-
-/* #brewery-image{
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
-    }
-
-#brewery-info{
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
-    justify-content:left;
-    text-align:left;
-    background-color:aqua
-    } */
 
 div.available-beers {
   display: flex;

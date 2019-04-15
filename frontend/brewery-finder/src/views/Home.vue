@@ -22,5 +22,7 @@ section {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-color: rgba(68, 67, 29, 0.9);
+    background-blend-mode: screen;
 }
 </style>

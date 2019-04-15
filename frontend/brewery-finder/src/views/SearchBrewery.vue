@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <form v-on:submit.prevent="loadBreweries">
+      <form class="card" v-on:submit.prevent="loadBreweries">
         <div>
         <label>Name</label>
         <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
@@ -18,23 +18,23 @@
         <label>Happy Hour</label>
         <select v-model.trim="formData.happyHour">
           <option value=""></option>
-          <option value="">11:00 am</option>
-          <option value="">11:30 am</option>
-          <option value="">12:00 pm</option>
-          <option value="">12:30 pm</option>
-          <option value="">1:00 pm</option>
-          <option value="">1:30 pm</option>
-          <option value="">2:00 pm</option>
-          <option value="">2:30 pm</option>
-          <option value="">3:00 pm</option>
-          <option value="">3:30 pm</option>
-          <option value="">4:00 pm</option>
-          <option value="">4:30 pm</option>
-          <option value="">5:00 pm</option>
-          <option value="">5:30 pm</option>
-          <option value="">6:00 pm</option>
-          <option value="">6:30 pm</option>
-          <option value="">7:00 pm</option>
+          <option value="11:00">11:00 am</option>
+          <option value="11:30">11:30 am</option>
+          <option value="12:00">12:00 pm</option>
+          <option value="12:30">12:30 pm</option>
+          <option value="13:00">1:00 pm</option>
+          <option value="13:30">1:30 pm</option>
+          <option value="14:00">2:00 pm</option>
+          <option value="14:30">2:30 pm</option>
+          <option value="15:00">3:00 pm</option>
+          <option value="15:30">3:30 pm</option>
+          <option value="16:00">4:00 pm</option>
+          <option value="16:30">4:30 pm</option>
+          <option value="17:00">5:00 pm</option>
+          <option value="17:30">5:30 pm</option>
+          <option value="18:00">6:00 pm</option>
+          <option value="18:30">6:30 pm</option>
+          <option value="19:00">7:00 pm</option>
         </select>
         </div>
         <button type="submit">Submit</button>
@@ -79,14 +79,19 @@ export default {
     flex-direction: column;
     margin-bottom: 20px;
     align-items: space-between;
-    width: 420px;
-    margin-left: 39%;
-    border: 1px solid black;
-    padding: 8px;
-    border-radius: 10px;
-    background-color: rgba(167,176,173,0.75);
+    width: 35%;
+    /* border: 1px solid black;
+    padding: 8px; */
+    margin-top: 10px;
+    /* border-radius: 10px;
+    background-color: rgba(167,176,173,0.75); */
   }
 
+  section div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   label{
     color: black;
     font-weight: bold;
@@ -97,6 +102,7 @@ export default {
   }
   form div {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
   button {
