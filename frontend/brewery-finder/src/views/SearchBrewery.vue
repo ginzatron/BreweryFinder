@@ -69,6 +69,13 @@ export default {
     loadBreweries() {
         EventBus.$emit('zipClick',this.formData);
     },
+    timeFormat(a,b) {
+      let timeA = a.split(":").shift();
+      let timeB = b.split(":").shift();
+      if (timeA > 12) return (`${timeA-12} pm - ${timeB-12} pm`);
+      else if (timeA > 0 && timeB <12) return (`${timeA} am - ${timeB} am`);
+      else if (timeA == 0) return "nope";
+    }
   }
 };
 </script>

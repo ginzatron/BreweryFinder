@@ -7,7 +7,7 @@
           <div id="brewery-name">
             <p>{{brewery.name}}</p>
           </div>
-          <p>Happy Hour(s) {{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
+          <p>Happy Hour(s) {{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</p>
           <p>Established: {{brewery.established}}</p>
           <p>{{brewery.address}}</p>
           <p>{{brewery.city}} {{brewery.state}} {{brewery.zip}}</p>
@@ -36,6 +36,15 @@ export default {
     return {
       brewery: {}
     };
+  },
+  methods: {
+    timeFormat(a,b) {
+      let timeA = a.split(":").shift();
+      let timeB = b.split(":").shift();
+      if (timeA > 12) return (`${timeA-12} pm - ${timeB-12} pm`);
+      else if (timeA > 0 && timeB <12) return (`${timeA} am - ${timeB} am`);
+      else if (timeA == 0) return "nope";
+    }
   },
   created() {
     const breweryId = this.$route.params.id;
