@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <h2>Beer Available at {{brewery.name}}</h2>
+    <h2 class="card">Beer Available at {{brewery.name}}</h2>
     <div class="available-beers">
       <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery.beersAvailable"></beer-info>
     </div>
@@ -65,9 +65,10 @@ export default {
 }
 
 h2 {
-  color: var(--burgundy);
+  /* color:orange; */
   text-decoration: underline;
   font-size: 3rem;
+  display: inline-block;
 }
 
 #brewery-img {
