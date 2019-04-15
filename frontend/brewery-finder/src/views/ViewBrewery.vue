@@ -79,14 +79,7 @@ export default {
     align-self: auto;
     justify-content:left;
     text-align:left;
-    background-color:aqua
+    background-color:aqua;
     }
-
-div.available-beers{
-      display:flex;
-      flex-direction: row;
-      justify-content:space-around;
-    }
-    
 
 </style>
