@@ -37,7 +37,7 @@ export default {
 
   methods: {
     loadBreweries() {
-        EventBus.$emit('zipClick',this.formData.zipCode);
+        EventBus.$emit('zipClick',this.formData);
     },
   }
 };

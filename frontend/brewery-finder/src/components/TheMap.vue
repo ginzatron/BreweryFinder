@@ -32,7 +32,7 @@
     <div class="transbox">
       <p>Map markers for local breweries</p>
     </div>
-    <table v-if="zipcode">
+    <table v-if="breweries">
       <thead>
         <tr>
           <th>Name</th>
@@ -41,7 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="brewery in filteredBreweries" v-bind:key="brewery.id">
+        <tr v-for="brewery in breweries" v-bind:key="brewery.id">
           <td>
             <router-link
               v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
@@ -62,7 +62,7 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      zipcode: "",
+      formData: {name: '',zipCode: '', happyHour: ''},
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
@@ -94,7 +94,7 @@ export default {
     },
 
     addMarker() {
-      this.filteredBreweries.forEach(brewery => {
+      this.breweries.forEach(brewery => {
         const marker = {
           lat: brewery.latitude,
           lng: brewery.longitude,
@@ -103,7 +103,7 @@ export default {
       });
     },
     redirect(index) {
-      this.$router.push("/brewery/search/" + this.filteredBreweries[index].id);
+      this.$router.push("/brewery/search/" + this.breweries[index].id);
     },
     timeFormat(a,b) {
       let timeA = a.split(":").shift();
@@ -116,38 +116,20 @@ export default {
       if (a && b) return ("Bar/Brewery");
       else if (a && !b) return ("Bar");
       return ("Brewery");
-
-    }
-  },
-  created() {
-    fetch(`${process.env.VUE_APP_REMOTE_API}/brewery`)
+    },
+    updateBreweries(){
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}`)
       .then(response => {
         return response.json();
       })
       .then(json => {
         this.breweries = json;
+        this.markers = [];
         this.addMarker();
       })
       .catch(error => console.error(error));
-    EventBus.$on("zipClick", z => {
-      this.zipcode = z;
-      this.markers = [];
-      this.addMarker();
-    });
-  },
-  computed: {
-    filteredBreweries() {
-      if (!this.zipcode) {
-        return this.breweries;
-      } else {
-        return this.breweries.filter(brewery => {
-          return brewery.zip == this.zipcode;
-        });
-      }
-    }
-
-  },
-  geolocate: function() {
+    },
+    geolocate: function() {
     navigator.geolocation.getCurrentPosition(position => {
       this.center = {
         lat: position.coords.latitude,
@@ -155,6 +137,17 @@ export default {
       };
     });
   }
+  },
+  created() {
+    this.updateBreweries();
+    EventBus.$on("zipClick",data => {
+      this.formData.zipCode = data.zipCode;
+      this.formData.name = data.name;
+      this.formData.happyHour = data.happyHour;
+      this.updateBreweries();
+    });
+  },
+  
 };
 </script>
 <style scoped>
