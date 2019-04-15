@@ -5,7 +5,7 @@
       <router-link to="/">Home</router-link>
       <router-link to="/brewery/search">Search  <span><i class="fa fa-search"/></span></router-link>
       </div>
-      <h2>Brewery Finder</h2>
+      <h2><router-link to="/">BreweryFinder</router-link></h2>
       <div class='login'>
         <router-link v-if="!username" to="/login">Login / Register</router-link>
         <a v-else>Welcome {{username}}</a>
