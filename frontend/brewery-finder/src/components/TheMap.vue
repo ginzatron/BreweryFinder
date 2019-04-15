@@ -3,7 +3,7 @@
     <gmap-map
       :center="center"
       :zoom="11"
-      style="width:90%;  height: 700px; margin: 50px; position:relative"
+      style="width:90%;  height: 700px; margin: 50px;"
     >
       <gmap-marker
         v-for="(marker, index) in markers"
@@ -153,12 +153,28 @@ export default {
 };
 </script>
 <style scoped>
-
   #map {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+div.transbox {
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
+  margin-top: 50px;
+  top: 10px;
+}
+
+div.transbox p {
+  font-weight: bold;
+  color: #000000;
+  padding-left: 5px;
+  padding-right: 5px;
+}
   a, td{
     color:maroon;
     font-weight:bolder;
@@ -194,27 +210,10 @@ img {
   width: 75px;
   align-self: center;
 }
-#map {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+
 a, td {
   color: maroon;
   font-weight: bolder;
 }
-div.transbox {
-  position: absolute;
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.6;
-  margin-top: 50px;
-}
 
-div.transbox p {
-  font-weight: bold;
-  color: #000000;
-  padding-left: 5px;
-  padding-right: 5px;
-}
 </style>

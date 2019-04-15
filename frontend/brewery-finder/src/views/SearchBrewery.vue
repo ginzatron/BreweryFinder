@@ -79,14 +79,18 @@ export default {
     flex-direction: column;
     margin-bottom: 20px;
     align-items: space-between;
-    width: 420px;
-    margin-left: 39%;
+    width: 35%;
     border: 1px solid black;
     padding: 8px;
     border-radius: 10px;
     background-color: rgba(167,176,173,0.75);
   }
 
+  section div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   label{
     color: black;
     font-weight: bold;
@@ -97,6 +101,7 @@ export default {
   }
   form div {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
   button {
