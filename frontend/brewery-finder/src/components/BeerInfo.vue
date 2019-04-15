@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <div class="container">
     <div class="beer-card">
       <div class="card-inner">
         <div class="card-front">
@@ -7,14 +7,17 @@
         </div>
         <div class="card-back">
           <div class="card">
+            <img class="card" :src="`${beer.imgSrc}`">
+            <div class="card-text">
             <p>{{beer.name}}</p>
             <p>{{beer.style}}</p>
             <p>ABV: {{beer.abv}} %</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -27,7 +30,6 @@ export default {
 </script>
 
 <style scoped>
-
 .container {
   height: 300px;
 }
@@ -56,7 +58,8 @@ export default {
   height: auto;
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -65,6 +68,17 @@ export default {
 
 .card-front {
   /* background-color: #bbb; */
+}
+
+.card-back img {
+  /* position: absolute; */
+  width:90%;
+  height: auto;
+  visibility:hidden;
+}
+
+.card-text {
+  position: relative;
 }
 
 .card-back {
