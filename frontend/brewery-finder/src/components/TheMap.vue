@@ -44,7 +44,7 @@
         <tr v-for="brewery in breweries" v-bind:key="brewery.id">
           <td>
             <router-link
-              v-bind:to="{name: 'view-brewery', params:{id: brewery.id}}"
+              v-bind:to="{name: 'view-brewery', params:{id: brewery.name}}"
             >{{brewery.name}}</router-link>
           </td>
           <td>{{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</td>
@@ -103,7 +103,7 @@ export default {
       });
     },
     redirect(index) {
-      this.$router.push("/brewery/search/" + this.breweries[index].id);
+      this.$router.push("/brewery/" + this.breweries[index].name);
     },
     timeFormat(a,b) {
       let timeA = a.split(":").shift();
