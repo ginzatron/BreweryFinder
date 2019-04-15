@@ -1,49 +1,47 @@
 <template>
   <section>
     <div class="form-map">
-    <div>
-      <form class="card" v-on:submit.prevent="loadBreweries">
-        <div>
-          <label>Name</label>
-          <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
-        </div>
-        <div>
-          <label>Zip Code</label>
-          <input type="text" placeholder="Zip Code" v-model.trim="formData.zipCode">
-        </div>
-        <div>
-          <label>Radius</label>
-          <input type="text" placeholder="Radius in miles" v-model.trim="formData.range">
-        </div>
-        <div>
-          <label>Happy Hour</label>
-          <select v-model.trim="formData.happyHour">
-            <option value></option>
-            <option value="11:00">11:00 am</option>
-            <option value="11:30">11:30 am</option>
-            <option value="12:00">12:00 pm</option>
-            <option value="12:30">12:30 pm</option>
-            <option value="13:00">1:00 pm</option>
-            <option value="13:30">1:30 pm</option>
-            <option value="14:00">2:00 pm</option>
-            <option value="14:30">2:30 pm</option>
-            <option value="15:00">3:00 pm</option>
-            <option value="15:30">3:30 pm</option>
-            <option value="16:00">4:00 pm</option>
-            <option value="16:30">4:30 pm</option>
-            <option value="17:00">5:00 pm</option>
-            <option value="17:30">5:30 pm</option>
-            <option value="18:00">6:00 pm</option>
-            <option value="18:30">6:30 pm</option>
-            <option value="19:00">7:00 pm</option>
-          </select>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-    <div id="map">
-      <the-map></the-map>
-    </div>
+        <form class="card" v-on:submit.prevent="loadBreweries">
+          <div>
+            <label>Name</label>
+            <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
+          </div>
+          <div>
+            <label>Zip Code</label>
+            <input type="text" placeholder="Zip Code" v-model.trim="formData.zipCode">
+          </div>
+          <div>
+            <label>Radius</label>
+            <input type="text" placeholder="Radius in miles" v-model.trim="formData.range">
+          </div>
+          <div>
+            <label>Happy Hour</label>
+            <select v-model.trim="formData.happyHour">
+              <option value></option>
+              <option value="11:00">11:00 am</option>
+              <option value="11:30">11:30 am</option>
+              <option value="12:00">12:00 pm</option>
+              <option value="12:30">12:30 pm</option>
+              <option value="13:00">1:00 pm</option>
+              <option value="13:30">1:30 pm</option>
+              <option value="14:00">2:00 pm</option>
+              <option value="14:30">2:30 pm</option>
+              <option value="15:00">3:00 pm</option>
+              <option value="15:30">3:30 pm</option>
+              <option value="16:00">4:00 pm</option>
+              <option value="16:30">4:30 pm</option>
+              <option value="17:00">5:00 pm</option>
+              <option value="17:30">5:30 pm</option>
+              <option value="18:00">6:00 pm</option>
+              <option value="18:30">6:30 pm</option>
+              <option value="19:00">7:00 pm</option>
+            </select>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      <div id="map">
+        <the-map></the-map>
+      </div>
     </div>
     <div>
       <results v-bind:breweries="breweries"></results>
@@ -103,11 +101,13 @@ form {
 
 .form-map {
   display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 #map {
-  height: 500px;
-  width: 500px;
+  height: 400px;
+  width: 800px;
 }
 
 section div {
