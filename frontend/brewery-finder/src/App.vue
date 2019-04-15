@@ -54,4 +54,10 @@ export default {
   position: absolute;
 }
 
+.card {
+  border: 3px solid var(--burgundy);
+  border-radius: 10px;
+  background-color: rgba(167, 176, 173, 0.9);
+  padding: 15px;
+}
 </style>
