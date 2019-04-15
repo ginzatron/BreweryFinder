@@ -56,13 +56,15 @@ export default {
 <style>
 .brewery-details-top {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   grid-template-areas: "brewery-image brewery-info";
 }
 
 
 #brewery-img {
   max-width: 85%;
+  height: 350px;
+  padding: 40px;
 }
 #brewery-img {
   grid-area: brewery-image;
@@ -78,6 +80,10 @@ export default {
   justify-self: left;
   font-weight: bold;
   margin-right: 30px;
+  border: 3px solid var(--burgundy);
+  border-radius: 10px;
+  background-color: rgba(167, 176, 173, 0.9);
+  padding: 15px;
 }
 
 #brewery-description{

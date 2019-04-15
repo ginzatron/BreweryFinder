@@ -33,7 +33,6 @@ export default {
 .beer-card div {
   background-color: transparent;
   width: 175px;
-  border: 1px solid #f1f1f1;
   perspective: 1000px;
 }
 .beer-card:hover .card-inner {
@@ -45,7 +44,7 @@ export default {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s;
+  transition: transform 1.5s;
   transform-style: preserve-3d;
 }
 
@@ -53,14 +52,6 @@ export default {
   width: 90%;
   height: auto;
 }
-
-/* .card-front li {
-  list-style: none;
-  color: var(--burgundy);
-  font-family: archivo;
-  font-weight: bold;
-  text-align: left;
-} */
 
 .card-front, .card-back {
   position: absolute;
@@ -71,22 +62,11 @@ export default {
 
 .card-front {
   background-color: #bbb;
-  z-index: 1;
 }
 
 .card-back {
-  background-color: #bbb;
+  background-color: #fff;
   color: black;
   transform: rotateY(180deg);
-  z-index: 2;
 }
-
-/* .beer-info div{
-  width:175px;
-  margin: 5px 0px;
-  text-align: center;
-  border: 3px solid var(--darkGrey);
-  border-radius: 10%;
-} */
-
 </style>
