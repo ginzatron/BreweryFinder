@@ -82,4 +82,11 @@ export default {
     background-color:aqua
     }
 
+div.available-beers{
+      display:flex;
+      flex-direction: row;
+      justify-content:space-around;
+    }
+    
+
 </style>
