@@ -6,6 +6,8 @@
         <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
         <label>Zip Code</label>
         <input type="text" placeholder="Zip Code" v-model.trim="formData.zipCode">
+        <label>Happy Hour</label>
+        <input type="text" placeholder="Happy Hour" v-model.trim="formData.happyHour">
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -27,7 +29,8 @@ export default {
       breweries: [],
       formData: {
         name: "",
-        zipCode: ""
+        zipCode: "",
+        happyHour:""
       }
     };
   },
@@ -41,4 +44,13 @@ export default {
 </script>
 
 <style>
+  form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  label{
+    color: black;
+    font-weight: bold;
+  }
 </style>
