@@ -158,7 +158,20 @@ export default {
 };
 </script>
 <style scoped>
-#infoWindow {
+
+  #map {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  a, td{
+    color:maroon;
+    font-weight:bolder;
+  }  
+  div.transbox {
+  margin-right: 30px;
+  }
+  #infoWindow {
   background-color: lightgoldenrodyellow;
   display: flex;
   flex-direction:row;
@@ -187,8 +200,7 @@ img {
   justify-content: center;
   flex-wrap: wrap;
 }
-a,
-td {
+a, td {
   color: maroon;
   font-weight: bolder;
 }

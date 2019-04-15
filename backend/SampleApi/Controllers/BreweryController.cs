@@ -23,7 +23,7 @@ namespace SampleApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Brewery>> GetBreweries([FromQuery]int? zip, [FromQuery]string brewOrBar, [FromQuery]string happyHour, [FromQuery]string name)
+        public ActionResult<List<Brewery>> GetBreweries([FromQuery]int? zip, [FromQuery]string brewOrBar, [FromQuery]string happyHour, [FromQuery]string name, [FromQuery]string userLat, [FromQuery]string userLng, [FromQuery]int? range)
         {
             if (zip == null)
             {
@@ -41,7 +41,15 @@ namespace SampleApi.Controllers
             {
                 name = "";
             }
-            IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, name);
+            if (String.IsNullOrEmpty(userLat) || String.IsNullOrEmpty(userLng) || range == null || range == 0)
+            {
+                userLat = "";
+                userLng = "";
+                range = 0;
+            }
+
+            IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, name, userLat, userLng, range);
+
             return Ok(breweries);
         }
 

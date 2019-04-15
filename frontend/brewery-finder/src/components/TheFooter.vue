@@ -29,6 +29,7 @@ img {
 .social-media {
   display:flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .fa {
@@ -38,7 +39,6 @@ img {
   text-align: center;
   text-decoration: none;
   height: 15%;
-  margin-top: 65px;
 }
 
 .fa:hover {
@@ -73,10 +73,10 @@ footer {
   height: 300px;
   font-family: archivo;
   justify-content: space-around;
+  align-items: center;
 }
 p {
   width: 25%;
   line-height: 2rem;
-  margin-top: 65px;
 }
 </style>
