@@ -100,7 +100,7 @@ h1 {
 h2 {
   margin: 0;
   margin-top:15px;
-  padding-right: 100px;
+  padding-right: 50px;
   font-size: 3em;
 }
 

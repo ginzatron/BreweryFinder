@@ -169,9 +169,9 @@ export default {
     font-weight:bolder;
   }  
   div.transbox {
-  margin: 30px;
-=======
-#infoWindow {
+  margin-right: 30px;
+  }
+  #infoWindow {
   background-color: lightgoldenrodyellow;
   display: flex;
   flex-direction:row;
@@ -200,14 +200,12 @@ img {
   justify-content: center;
   flex-wrap: wrap;
 }
-a,
-td {
+a, td {
   color: maroon;
   font-weight: bolder;
 }
 div.transbox {
   position: absolute;
->>>>>>> 43310b5d3d111f007d3b715d02520606167efcb7
   background-color: #ffffff;
   border: 1px solid black;
   opacity: 0.6;
