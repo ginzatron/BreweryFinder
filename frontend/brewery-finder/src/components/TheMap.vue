@@ -166,7 +166,7 @@ div.transbox {
   border: 1px solid black;
   opacity: 0.6;
   margin-top: 50px;
-  top: 10px;
+  top: 0px;
 }
 
 div.transbox p {
