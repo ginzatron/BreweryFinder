@@ -151,22 +151,23 @@ form {
 
 section {
   display: flex;
-  justify-content: center;
+  justify-content:center;
 }
 
 input[type="text"], input[type="password"] {
-  margin-right: 75px;
+  margin-right: 25px;
 }
 
 input[name="confirmPassword"] {
-  margin-right: 135px;
+  margin-right: 90px;
 }
 
 .form-div {
-  margin: 75px;
+  margin: 60px;
   background-color: rgba(167, 176, 173, 0.6);
-  width: 30%;
-  height: 210px;
+  width: 35%;
+  height: 225px;
+  
 }
 
 input[type="submit"] {

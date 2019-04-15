@@ -10,6 +10,7 @@ namespace SampleApi.DAL
     {
         Brewery GetById(int id);
         IList<Brewery> GetByName(string substring);
-        IList<Brewery> GetAllByQuery(int? zip = 0, string brewOrBar = "BarRestaurant", string happyHour = "00:00", string name = "");
+        IList<Brewery> GetAllByQuery(int? zip, string brewOrBar, string happyHour, string name, string userLat, string userLng, int? range);
+        Brewery CreateBrewery(Brewery brewery);
     }
 }
