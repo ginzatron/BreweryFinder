@@ -2,22 +2,27 @@
   <section>
     <div class="brewery-deet">
       <div class="brewery-details-top">
-        <div id="brewery-img">
-          <img v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.Name}` + 'image'">
-        </div>
+        <img id="brewery-img" v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.Name}` + 'image'">
+        <!-- <div id="brewery-img">
+        </div>-->
         <div id="brewery-info">
-          <p>{{brewery.name}}</p>
+          <div id="brewery-name">
+            <p>{{brewery.name}}</p>
+          </div>
           <p>Happy Hour(s) {{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
           <p>Established: {{brewery.established}}</p>
           <p>{{brewery.address}}</p>
-          <p> {{brewery.city}} {{brewery.state}} </p> 
-          <p>{{brewery.zip}}</p>
+          <p>{{brewery.city}} {{brewery.state}} {{brewery.zip}}</p>
+          <p></p>
+          <div id=brewery-description>
+          <p>{{brewery.description}}</p>
+          </div>
         </div>
       </div>
 
-      <div class="brewery-description">
+      <!-- <div class="brewery-description">
         <p>{{brewery.description}}</p>
-      </div>
+      </div>-->
     </div>
     <div class="available-beers">
       <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery.beersAvailable"></beer-info>
@@ -55,22 +60,30 @@ export default {
   grid-template-areas: "brewery-image brewery-info";
 }
 
-#brewery-img{
- size: 100px;
+
+#brewery-img {
+  max-width: 85%;
 }
 #brewery-img {
   grid-area: brewery-image;
 }
+#brewery-name{
+  font-size: 1.5rem;
+  color: #490000;
+}
 #brewery-info {
   grid-area: brewery-info;
   margin: auto 0;
-  text-align: center;
-  text-justify:left;
-  font-size: 1.25rem;
+  text-align: left;
+  justify-self: left;
   font-weight: bold;
-
+  margin-right: 30px;
 }
 
+#brewery-description{
+  margin-top: 30px;
+  font-weight: bold;
+}
 /* display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
