@@ -92,6 +92,7 @@ export default {
         this.breweries = json;
         this.markers = [];
         this.addMarker();
+        EventBus.$emit('updateResults',this.breweries);
       })
       .catch(error => console.error(error));
     },

@@ -44,7 +44,7 @@
         <button type="submit">Submit</button>
       </form>
       <div class="results">
-        <results v-bind:breweries="breweries"></results>
+        <results></results>
       </div>
     </div>
     <div id="map">
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     loadBreweries() {
-      this.getSomeBreweries();
+      // this.getSomeBreweries();
       EventBus.$emit("zipClick", this.formData);
     },
     timeFormat(a, b) {
@@ -85,23 +85,23 @@ export default {
       if (timeA > 12) return `${timeA - 12} pm - ${timeB - 12} pm`;
       else if (timeA > 0 && timeB < 12) return `${timeA} am - ${timeB} am`;
       else if (timeA == 0) return "nope";
-    },
-    getSomeBreweries() {
-      fetch(
-        `${process.env.VUE_APP_REMOTE_API}/brewery?zip=${
-          this.formData.zipCode
-        }&name=${this.formData.name}&happyHour=${
-          this.formData.happyHour
-        }&beerName=${this.formData.beerName}`
-      )
-        .then(response => {
-          return response.json();
-        })
-        .then(json => {
-          this.breweries = json;
-        })
-        .catch(error => console.error(error));
     }
+    // getSomeBreweries() {
+    //   fetch(
+    //     `${process.env.VUE_APP_REMOTE_API}/brewery?zip=${
+    //       this.formData.zipCode
+    //     }&name=${this.formData.name}&happyHour=${
+    //       this.formData.happyHour
+    //     }&beerName=${this.formData.beerName}`
+    //   )
+    //     .then(response => {
+    //       return response.json();
+    //     })
+    //     .then(json => {
+    //       this.breweries = json;
+    //     })
+    //     .catch(error => console.error(error));
+    // }
   }
 };
 </script>
