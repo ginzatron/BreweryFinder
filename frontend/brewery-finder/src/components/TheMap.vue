@@ -39,7 +39,7 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      formData: {name: '',zipCode: '', happyHour: '', range: 50},
+      formData: {name: '',zipCode: '', happyHour: '', range: 50, beerName:''},
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
@@ -84,7 +84,7 @@ export default {
     },
    
     updateBreweries(){
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}`)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}&beerName=${this.formData.beerName}`)
       .then(response => {
         return response.json();
       })
