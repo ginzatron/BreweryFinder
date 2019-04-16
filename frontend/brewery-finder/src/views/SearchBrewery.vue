@@ -43,9 +43,7 @@
         </div>
         <button type="submit">Submit</button>
       </form>
-      <div class="results">
         <results></results>
-      </div>
     </div>
     <div id="map">
       <the-map></the-map>
@@ -76,7 +74,6 @@ export default {
   },
   methods: {
     loadBreweries() {
-      // this.getSomeBreweries();
       EventBus.$emit("zipClick", this.formData);
     },
     timeFormat(a, b) {
@@ -86,22 +83,6 @@ export default {
       else if (timeA > 0 && timeB < 12) return `${timeA} am - ${timeB} am`;
       else if (timeA == 0) return "nope";
     }
-    // getSomeBreweries() {
-    //   fetch(
-    //     `${process.env.VUE_APP_REMOTE_API}/brewery?zip=${
-    //       this.formData.zipCode
-    //     }&name=${this.formData.name}&happyHour=${
-    //       this.formData.happyHour
-    //     }&beerName=${this.formData.beerName}`
-    //   )
-    //     .then(response => {
-    //       return response.json();
-    //     })
-    //     .then(json => {
-    //       this.breweries = json;
-    //     })
-    //     .catch(error => console.error(error));
-    // }
   }
 };
 </script>
@@ -111,9 +92,8 @@ form {
   display: flex;
   flex-direction: column;
   align-items: space-between;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: 92%;
+  margin: 20px 0px;
 }
 
 .results {
@@ -123,12 +103,11 @@ form {
 .form-results {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
 }
 
 #map {
-  height: 400px;
-  width: 800px;
+  height: 600px;
+  width: 1100px;
   margin-top:10px;
   margin-bottom:30px;
 }

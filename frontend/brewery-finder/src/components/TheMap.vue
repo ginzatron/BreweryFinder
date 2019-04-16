@@ -2,7 +2,7 @@
   <div id="map">
     <gmap-map
       :center="center"
-      :zoom="11"
+      :zoom="10"
       style="height : 100%; width : 100%; position : absolute; position: top; "
     >
       <gmap-marker
@@ -129,9 +129,6 @@ a, td{
   color:maroon;
   font-weight:bolder;
 }  
-div.transbox {
-  margin-right: 30px;
-}
 #infoWindow {
   background-color: lightgoldenrodyellow;
   display: flex;
