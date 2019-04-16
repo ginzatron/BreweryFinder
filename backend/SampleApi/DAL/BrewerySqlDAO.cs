@@ -20,13 +20,15 @@ namespace SampleApi.DAL
             IList<Brewery> breweries = new List<Brewery>();
             bool isBar = brewOrBar != "brewery";
             bool isBrewery = brewOrBar != "bar";
-            string sql = "select *, b.name as beerName from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where  (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom)) and (@beerName='' or b.name LIKE @beerName);";
+            string sql = "select br.* from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where  (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom)) and (@beerName='' or b.name LIKE @beerName)" +
+                         " group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
 
             if (range != 0)
             {
                 sql = "declare @source geography = geography::STPointFromText('Point(' + @lat + ' ' + @lng + ')', 4326)" +
-                      " select *, b.name as beerName from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
-                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range) and (@beerName='' or b.name LIKE @beerName)";
+                      " select br.* from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
+                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range) and (@beerName='' or b.name LIKE @beerName)" +
+                      " group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
             }
 
             try
