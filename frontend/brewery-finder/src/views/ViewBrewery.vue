@@ -2,7 +2,7 @@
   <section>
     <div class="brewery-deet">
       <div class="brewery-details-top">
-        <img id="brewery-img" v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.Name}` + 'image'">
+        <img id="brewery-img" v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.name}` + 'image'">
         <div id="brewery-info">
           <div id="brewery-name">
             <p>{{brewery.name}}</p>
@@ -47,8 +47,8 @@ export default {
     }
   },
   created() {
-    const breweryId = this.$route.params.id;
-    fetch(`${process.env.VUE_APP_REMOTE_API}/brewery/id?brewId=${breweryId}`, {
+    const breweryName = this.$route.params.name;
+    fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?name=${breweryName}`, {
       method: "GET"
     })
       .then(response => response.json())
@@ -65,7 +65,12 @@ export default {
 }
 
 h2 {
+<<<<<<< HEAD
   /* color:orange; */
+=======
+  display: inline-block;
+  color: var(--burgundy);
+>>>>>>> bd41e9251191705c522ac357f527bc9f857a4d6f
   text-decoration: underline;
   font-size: 3rem;
   display: inline-block;

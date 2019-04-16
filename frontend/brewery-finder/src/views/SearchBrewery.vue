@@ -43,7 +43,7 @@
         <the-map></the-map>
       </div>
     </div>
-    <div>
+    <div class='results'>
       <results v-bind:breweries="breweries"></results>
     </div>
   </section>
@@ -102,11 +102,7 @@ form {
   margin-bottom: 20px;
   align-items: space-between;
   width: 35%;
-  /* border: 1px solid black;
-    padding: 8px; */
   margin-top: 10px;
-  /* border-radius: 10px;
-    background-color: rgba(167,176,173,0.75); */
 }
 
 .form-map {

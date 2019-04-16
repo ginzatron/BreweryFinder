@@ -29,6 +29,32 @@
         </div>
       </gmap-info-window>
     </gmap-map>
+<<<<<<< HEAD
+=======
+    <div class="transbox">
+      <p>Map markers for local breweries</p>
+    </div>
+    <table class="card" v-if="breweries">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Happy Hour(s)</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="brewery in breweries" v-bind:key="brewery.id">
+          <td>
+            <router-link
+              v-bind:to="{name: 'view-brewery', params:{id: brewery.name}}"
+            >{{brewery.name}}</router-link>
+          </td>
+          <td>{{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</td>
+          <td>{{barRestaurant(brewery.isBar,brewery.isBrewery)}}</td>
+        </tr>
+      </tbody>
+    </table>
+>>>>>>> bd41e9251191705c522ac357f527bc9f857a4d6f
   </div>
 </template>
 
@@ -80,7 +106,7 @@ export default {
       });
     },
     redirect(index) {
-      this.$router.push("/brewery/search/" + this.breweries[index].id);
+      this.$router.push("/brewery/" + this.breweries[index].name);
     },
    
     updateBreweries(){
