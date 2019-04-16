@@ -29,8 +29,6 @@
         </div>
       </gmap-info-window>
     </gmap-map>
-<<<<<<< HEAD
-=======
     <div class="transbox">
       <p>Map markers for local breweries</p>
     </div>
@@ -54,7 +52,6 @@
         </tr>
       </tbody>
     </table>
->>>>>>> bd41e9251191705c522ac357f527bc9f857a4d6f
   </div>
 </template>
 

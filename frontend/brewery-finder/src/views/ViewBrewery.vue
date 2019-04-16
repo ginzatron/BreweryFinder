@@ -65,12 +65,8 @@ export default {
 }
 
 h2 {
-<<<<<<< HEAD
-  /* color:orange; */
-=======
   display: inline-block;
   color: var(--burgundy);
->>>>>>> bd41e9251191705c522ac357f527bc9f857a4d6f
   text-decoration: underline;
   font-size: 3rem;
   display: inline-block;
