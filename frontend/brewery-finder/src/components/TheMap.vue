@@ -111,6 +111,7 @@ export default {
       this.formData.zipCode = data.zipCode;
       this.formData.name = data.name;
       this.formData.happyHour = data.happyHour;
+      this.formData.beerName = data.beerName;
       if (data.range) this.formData.range = data.range;
       else this.formData.range = 50;
       this.updateBreweries();
