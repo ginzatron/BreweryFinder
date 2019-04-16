@@ -37,19 +37,16 @@ export default {
   },
   computed: {
     thisBeer() {
-      return breweries[0].beersAvailable.filter(value => value.name = this.$route.params.name);
+      return this.breweries[0].beersAvailable[0];
     }
   },
-  methods: {},
   created() {
     const beerName = this.$route.params.name;
-    fetch(`${process.env.vue_app_remote_api}/brewery?beerName=${beerName}`, {
-      method: "get"
+    fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?beerName=${beerName}`, {
+      method: "GET"
     })
       .then(response => response.json())
-      .then(json => {
-        this.breweries = json;
-      });
+      .then(json => (this.breweries = json));
   }
 };
 </script>

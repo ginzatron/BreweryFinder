@@ -59,6 +59,7 @@ export default {
 
   mounted() {
     this.geolocate();
+    this.updateBreweries();
   },
 
   methods: {
@@ -106,7 +107,7 @@ export default {
   }
   },
   created() {
-    this.updateBreweries();
+    // this.updateBreweries();
     EventBus.$on("zipClick",data => {
       this.formData.zipCode = data.zipCode;
       this.formData.name = data.name;
@@ -114,6 +115,8 @@ export default {
       this.formData.beerName = data.beerName;
       if (data.range) this.formData.range = data.range;
       else this.formData.range = 50;
+      console.log('map')
+      console.log(this.formData)
       this.updateBreweries();
     });
   },
