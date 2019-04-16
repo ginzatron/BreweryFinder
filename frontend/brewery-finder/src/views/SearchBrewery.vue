@@ -1,7 +1,6 @@
 <template>
   <section>
-    <div class="form-map">
-    <div>
+    <div class="form-results">
       <form class="card" v-on:submit.prevent="loadBreweries">
         <div>
           <label>Name</label>
@@ -38,15 +37,16 @@
             <option value="19:00">7:00 pm</option>
           </select>
         </div>
+        <div>
+          <label>Beer Name</label>
+          <input type="text" placeholder="Beer Name" v-model.trim="formData.beerName">
+        </div>
         <button type="submit">Submit</button>
       </form>
+        <results></results>
     </div>
     <div id="map">
       <the-map></the-map>
-    </div>
-    </div>
-    <div>
-      <results v-bind:breweries="breweries"></results>
     </div>
   </section>
 </template>
@@ -67,11 +67,11 @@ export default {
         name: "",
         zipCode: "",
         happyHour: "",
-        range: 30
+        range: 30,
+        beerName: ""
       }
     };
   },
-
   methods: {
     loadBreweries() {
       EventBus.$emit("zipClick", this.formData);
@@ -91,36 +91,37 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
   align-items: space-between;
-  width: 35%;
-  /* border: 1px solid black;
-    padding: 8px; */
-  margin-top: 10px;
-  /* border-radius: 10px;
-    background-color: rgba(167,176,173,0.75); */
+  width: 92%;
+  margin: 20px 0px;
 }
 
-.form-map {
+.results {
+  width: 100%;
+}
+
+.form-results {
   display: flex;
+  flex-direction: column;
 }
 
 #map {
-  height: 500px;
-  width: 500px;
+  height: 600px;
+  width: 1100px;
+  margin-top:10px;
+  margin-bottom:30px;
 }
 
-section div {
+section {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 label {
   color: black;
   font-weight: bold;
 }
-input,
-select {
+input,select {
   width: 300px;
   margin-bottom: 12px;
 }

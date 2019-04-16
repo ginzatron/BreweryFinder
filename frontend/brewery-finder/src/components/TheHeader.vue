@@ -3,7 +3,7 @@
     <nav>
       <div class='home-search'>
       <router-link to="/">Home</router-link>
-      <router-link to="/brewery/search">Search  <span><i class="fa fa-search"/></span></router-link>
+      <router-link to="/search">Search  <span><i class="fa fa-search"/></span></router-link>
       </div>
       <h2><router-link to="/">BreweryFinder</router-link></h2>
       <div class='login'>

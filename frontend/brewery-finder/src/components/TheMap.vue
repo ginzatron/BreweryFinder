@@ -2,7 +2,7 @@
   <div id="map">
     <gmap-map
       :center="center"
-      :zoom="11"
+      :zoom="10"
       style="height : 100%; width : 100%; position : absolute; position: top; "
     >
       <gmap-marker
@@ -39,7 +39,7 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      formData: {name: '',zipCode: '', happyHour: '', range: 50},
+      formData: {name: '',zipCode: '', happyHour: '', range: 50, beerName:''},
       breweries: [],
       center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
@@ -80,11 +80,11 @@ export default {
       });
     },
     redirect(index) {
-      this.$router.push("/brewery/search/" + this.breweries[index].id);
+      this.$router.push("/brewery/" + this.breweries[index].name);
     },
    
     updateBreweries(){
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}`)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}&beerName=${this.formData.beerName}`)
       .then(response => {
         return response.json();
       })
@@ -92,6 +92,7 @@ export default {
         this.breweries = json;
         this.markers = [];
         this.addMarker();
+        EventBus.$emit('updateResults',this.breweries);
       })
       .catch(error => console.error(error));
     },
@@ -110,6 +111,7 @@ export default {
       this.formData.zipCode = data.zipCode;
       this.formData.name = data.name;
       this.formData.happyHour = data.happyHour;
+      this.formData.beerName = data.beerName;
       if (data.range) this.formData.range = data.range;
       else this.formData.range = 50;
       this.updateBreweries();
@@ -127,9 +129,6 @@ a, td{
   color:maroon;
   font-weight:bolder;
 }  
-div.transbox {
-  margin-right: 30px;
-}
 #infoWindow {
   background-color: lightgoldenrodyellow;
   display: flex;

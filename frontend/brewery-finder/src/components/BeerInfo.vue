@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @click="redirect(beer.name)">
     <div class="beer-card">
       <div class="card-inner">
         <div class="card-front">
@@ -11,9 +11,9 @@
           <div class="card">
             <!-- <img class="card" :src="`${beer.imgSrc}`"> -->
             <div class="card-text">
-            <p>{{beer.name}}</p>
-            <p>{{beer.style}}</p>
-            <p>ABV: {{beer.abv}} %</p>
+              <p>{{beer.name}}</p>
+              <p>{{beer.style}}</p>
+              <p>ABV: {{beer.abv}} %</p>
             </div>
           </div>
         </div>
@@ -27,6 +27,11 @@ export default {
   name: "beer-info",
   props: {
     beer: Object
+  },
+  methods: {
+    redirect(beerName) {
+      this.$router.push("/beer/" + beerName);
+    }
   }
 };
 </script>

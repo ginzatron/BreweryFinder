@@ -15,18 +15,20 @@ namespace SampleApi.DAL
             this.connectionString = connectionString;
         }
 
-        public IList<Brewery> GetAllByQuery(int? zip, string brewOrBar, string happyHour, string name, string userLat, string userLng, int? range)
+        public IList<Brewery> GetAllByQuery(int? zip, string brewOrBar, string happyHour, string name, string userLat, string userLng, int? range, string beerName)
         {
             IList<Brewery> breweries = new List<Brewery>();
             bool isBar = brewOrBar != "brewery";
             bool isBrewery = brewOrBar != "bar";
-            string sql = "select * from breweries br where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))";
+            string sql = "select br.* from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where  (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom)) and (@beerName='' or b.name LIKE @beerName)" +
+                         " group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
 
             if (range != 0)
             {
                 sql = "declare @source geography = geography::STPointFromText('Point(' + @lat + ' ' + @lng + ')', 4326)" +
-                      " select * from breweries br where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
-                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range)";
+                      " select br.* from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
+                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range) and (@beerName='' or b.name LIKE @beerName)" +
+                      " group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
             }
 
             try
@@ -45,7 +47,7 @@ namespace SampleApi.DAL
                     cmd.Parameters.AddWithValue("@lat", userLat);
                     cmd.Parameters.AddWithValue("@lng", userLng);
                     cmd.Parameters.AddWithValue("@range", range);
-
+                    cmd.Parameters.AddWithValue("@beerName", '%' + beerName + '%');
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
