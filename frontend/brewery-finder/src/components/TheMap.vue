@@ -107,7 +107,6 @@ export default {
   }
   },
   created() {
-    // this.updateBreweries();
     EventBus.$on("zipClick",data => {
       this.formData.zipCode = data.zipCode;
       this.formData.name = data.name;
