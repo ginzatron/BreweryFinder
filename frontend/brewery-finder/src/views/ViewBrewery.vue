@@ -2,12 +2,12 @@
   <section>
     <div class="brewery-deet">
       <div class="brewery-details-top">
-        <img id="brewery-img" v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.Name}` + 'image'">
+        <img id="brewery-img" v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.name}` + 'image'">
         <div id="brewery-info">
           <div id="brewery-name">
             <p>{{brewery.name}}</p>
           </div>
-          <p>Happy Hour(s) {{brewery.happyHourFrom}} {{brewery.happyHourTo}}</p>
+          <p>Happy Hour(s) {{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</p>
           <p>Established: {{brewery.established}}</p>
           <p>{{brewery.address}}</p>
           <p>{{brewery.city}} {{brewery.state}} {{brewery.zip}}</p>
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <h2>Beer Available at {{brewery.name}}</h2>
+    <h2 class="card">Beer Available at {{brewery.name}}</h2>
     <div class="available-beers">
       <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery.beersAvailable"></beer-info>
     </div>
@@ -37,9 +37,18 @@ export default {
       brewery: {}
     };
   },
+  methods: {
+    timeFormat(a,b) {
+      let timeA = a.split(":").shift();
+      let timeB = b.split(":").shift();
+      if (timeA > 12) return (`${timeA-12} pm - ${timeB-12} pm`);
+      else if (timeA > 0 && timeB <12) return (`${timeA} am - ${timeB} am`);
+      else if (timeA == 0) return "nope";
+    }
+  },
   created() {
-    const breweryId = this.$route.params.id;
-    fetch(`${process.env.VUE_APP_REMOTE_API}/brewery/id?brewId=${breweryId}`, {
+    const breweryName = this.$route.params.name;
+    fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?name=${breweryName}`, {
       method: "GET"
     })
       .then(response => response.json())
@@ -56,9 +65,11 @@ export default {
 }
 
 h2 {
+  display: inline-block;
   color: var(--burgundy);
   text-decoration: underline;
   font-size: 3rem;
+  display: inline-block;
 }
 
 #brewery-img {

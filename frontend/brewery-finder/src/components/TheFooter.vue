@@ -20,7 +20,7 @@ export default {
 
 <style scoped>
 img {
-    position: absolute;
+    position: relative;
     left: 0%;
     top: 150%;
     width: 100%;
@@ -66,6 +66,7 @@ img {
 }
 
 footer {
+  position: bottom;
   display: flex;
   background-color: var(--burgundy);
   color: var(--lightGrey);
