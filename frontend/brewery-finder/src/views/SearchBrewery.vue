@@ -36,6 +36,10 @@
               <option value="18:30">6:30 pm</option>
               <option value="19:00">7:00 pm</option>
             </select>
+
+          </div>
+          <div> <label>Beer Name</label>
+          <input type="text" placeholder="Beer Name" v-model.trim="formData.beerName">
           </div>
           <button type="submit">Submit</button>
         </form>
@@ -65,7 +69,8 @@ export default {
         name: "",
         zipCode: "",
         happyHour: "",
-        range: 30
+        range: 30,
+        beerName: ""
       }
     };
   },
@@ -82,7 +87,7 @@ export default {
       else if (timeA == 0) return "nope";
     },
     getSomeBreweries() {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}`)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&beerName=${this.formData.beerName}`)
       .then(response => {
         return response.json();
       })

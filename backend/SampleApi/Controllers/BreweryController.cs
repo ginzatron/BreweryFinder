@@ -23,7 +23,7 @@ namespace SampleApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Brewery>> GetBreweries([FromQuery]int? zip, [FromQuery]string brewOrBar, [FromQuery]string happyHour, [FromQuery]string name, [FromQuery]string userLat, [FromQuery]string userLng, [FromQuery]int? range)
+        public ActionResult<List<Brewery>> GetBreweries([FromQuery]int? zip, [FromQuery]string brewOrBar, [FromQuery]string happyHour, [FromQuery]string name, [FromQuery]string userLat, [FromQuery]string userLng, [FromQuery]int? range, [FromQuery]string beerName)
         {
             if (zip == null)
             {
@@ -49,7 +49,11 @@ namespace SampleApi.Controllers
                 range = 0;
             }
 
-            IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, nameFix, userLat, userLng, range);
+            if(String.IsNullOrEmpty(beerName))
+            {
+                beerName = "";
+            }
+            IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, nameFix, userLat, userLng, range, beerName);
             foreach(Brewery brewery in breweries)
             {
                 brewery.beersAvailable = beerDao.GetBeerByBrewery(brewery.Id);
