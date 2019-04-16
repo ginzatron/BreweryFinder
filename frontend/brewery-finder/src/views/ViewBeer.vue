@@ -1,11 +1,17 @@
 <template>
   <section>
-    <img src="#" alt="Beer Image">
-    <p>Name</p>
+    <div class="beer info">
+    <img id ="beer-img" v-bind:src="`${beer.imgSrc}`" :alt="`${beer.name}` + 'image'">
 
-    <p>ABV</p>
-    <p>Style</p>
+    <p>{{beer.name}}</p>
+
+    <p>{{beer.style}}</p>
+    <p>{{beer.description}}
+    <p>{{beer.abv}}</p>
+    
+    
     <p>Favorite</p>
+    </div>
     <the-map></the-map>
 
     <table>
