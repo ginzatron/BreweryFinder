@@ -4,7 +4,6 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import ViewBeer from "./views/ViewBeer.vue";
 import ViewBrewery from "./views/ViewBrewery.vue";
-import BeerResults from "./views/BeerResults.vue";
 import SearchBrewery from "./views/SearchBrewery.vue";
 import auth from "./shared/auth";
 
@@ -23,7 +22,7 @@ const router = new Router({
       }
     },
     {
-      path: "/beer/:id",
+      path: "/beer/:name",
       name: "view-beer",
       component: ViewBeer,
       meta: {
@@ -42,14 +41,6 @@ const router = new Router({
       path: "/login",
       name: "login",
       component: Login,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
-      path: "/beer/results",
-      name: "beerResults",
-      component: BeerResults,
       meta: {
         requiresAuth: false
       }

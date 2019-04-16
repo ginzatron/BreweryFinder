@@ -1,45 +1,49 @@
 <template>
   <section>
-    
     <div class="beer-deet">
       <div class="beer-details-top">
-        <img id="beer-img" v-bind:src="`${beer.imgSrc}`" :alt="`${beer.name}` + 'image'">
+        <img id="beer-img" v-bind:src="`${thisBeer.ImgSrc}`" :alt="`${thisBeer.Name}` + 'image'">
         <div id="beer-info">
           <div id="beer-name">
-            <p>{{beer.name}}</p>
+            <p>{{thisBeer.Name}}</p>
           </div>
-         
+          <p>Style: {{thisBeer.Style}}</p>
+          <p>ABV: {{thisBeer.Abv}}</p>
           <div id=beer-description>
-          <p>{{beer.description}}</p>
+          <p>{{thisBeer.Description}}</p>
           </div>
         </div>
       </div>
     </div>
-    <h2 class="card">Beer Available at {{brewery[0].name}}</h2>
+    <h2 class="card">This Beer Available At</h2>
     <div class="available-breweries">
-      <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery[0].beersAvailable"></beer-info>
+      <brewery-info v-bind:key="brewery.id" v-bind:brewery="brewery" v-for="brewery in breweries"></brewery-info>
     </div>
   </section>
 
 </template>
 
 <script>
-import TheMap from "@/components/TheMap.vue";
+import BreweryInfo from "@/components/BreweryInfo.vue";
+
 export default {
   components: {
-    TheMap
+    BreweryInfo,
   },
   data() {
     return {
       breweries: []
-      
     };
   },
-  computed: {},
+  computed: {
+    thisBeer() {
+      return breweries[0].beersAvailable.filter(value => value.name = this.$route.params.name);
+    }
+  },
   methods: {},
   created() {
-    const id = this.$route.params.id;
-    fetch(`${process.env.vue_app_remote_api}/beer/${id}`, {
+    const beerName = this.$route.params.name;
+    fetch(`${process.env.vue_app_remote_api}/brewery?beerName=${beerName}`, {
       method: "get"
     })
       .then(response => response.json())
