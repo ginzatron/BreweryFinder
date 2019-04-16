@@ -71,7 +71,7 @@ footer {
   background-color: var(--burgundy);
   color: var(--lightGrey);
   border-top: 3px solid #777;
-  height: 300px;
+  height: 163px;
   font-family: archivo;
   justify-content: space-around;
   align-items: center;
