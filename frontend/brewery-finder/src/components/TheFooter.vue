@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <p>In 2019 we set out to make a brewery finder. We ran on high hops and dreams and found ourselves for foam home. 
+        <p>In 2019 we set out to make a brewery finder. We ran on high hops and dreams and found ourselves far foam home. 
           We got the Okeg from our brew/scrum master and long hours and not enough drinking later, we're tapped. 
         </p>
         <div class='social-media'>

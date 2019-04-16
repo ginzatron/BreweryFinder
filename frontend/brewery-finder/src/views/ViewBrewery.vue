@@ -65,8 +65,6 @@ export default {
 }
 
 h2 {
-  display: inline-block;
-  color: var(--burgundy);
   text-decoration: underline;
   font-size: 3rem;
   display: inline-block;
