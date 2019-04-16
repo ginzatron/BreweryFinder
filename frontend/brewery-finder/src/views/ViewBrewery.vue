@@ -2,25 +2,25 @@
   <section>
     <div class="brewery-deet">
       <div class="brewery-details-top">
-        <img id="brewery-img" v-bind:src="`${brewery.imgSrc}`" :alt="`${brewery.name}` + 'image'">
+        <img id="brewery-img" v-bind:src="`${brewery[0].imgSrc}`" :alt="`${brewery[0].name}` + 'image'">
         <div id="brewery-info">
           <div id="brewery-name">
-            <p>{{brewery.name}}</p>
+            <p>{{brewery[0].name}}</p>
           </div>
-          <p>Happy Hour(s) {{timeFormat(brewery.happyHourFrom,brewery.happyHourTo)}}</p>
-          <p>Established: {{brewery.established}}</p>
-          <p>{{brewery.address}}</p>
-          <p>{{brewery.city}} {{brewery.state}} {{brewery.zip}}</p>
+          <p>Happy Hour(s) {{timeFormat(brewery[0].happyHourFrom,brewery[0].happyHourTo)}}</p>
+          <p>Established: {{brewery[0].established}}</p>
+          <p>{{brewery[0].address}}</p>
+          <p>{{brewery[0].city}} {{brewery[0].state}} {{brewery[0].zip}}</p>
           <p></p>
           <div id=brewery-description>
-          <p>{{brewery.description}}</p>
+          <p>{{brewery[0].description}}</p>
           </div>
         </div>
       </div>
     </div>
-    <h2 class="card">Beer Available at {{brewery.name}}</h2>
+    <h2 class="card">Beer Available at {{brewery[0].name}}</h2>
     <div class="available-beers">
-      <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery.beersAvailable"></beer-info>
+      <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery[0].beersAvailable"></beer-info>
     </div>
   </section>
 </template>
