@@ -55,6 +55,7 @@
 import TheMap from "@/components/TheMap.vue";
 import { EventBus } from "@/shared/event-bus";
 import Results from "@/components/Results.vue";
+
 export default {
   components: {
     TheMap,
@@ -83,6 +84,13 @@ export default {
       else if (timeA > 0 && timeB < 12) return `${timeA} am - ${timeB} am`;
       else if (timeA == 0) return "nope";
     }
+  },
+  created() {
+    EventBus.$on("beerClick", bName => {
+      this.formData.beerName = bName;
+      this.loadBreweries();
+      console.log(this.formData);
+    })
   }
 };
 </script>
