@@ -70,6 +70,8 @@ export default {
 
 .card-text {
   position: relative;
+  color: var(--burgundy);
+  font-weight: bolder;
 }
 
 .card-back {
