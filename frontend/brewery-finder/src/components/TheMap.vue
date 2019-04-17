@@ -6,7 +6,7 @@
       style="height : 100%; width : 100%; position : absolute; position: top; "
     >
       <gmap-marker
-        v-for="(marker, index) in markers"
+        v-for="(marker, index) in computedMarkers"
         :key="index"
         n}
         :icon="marker.icon"
@@ -33,16 +33,15 @@
 </template>
 
 <script>
-import { EventBus } from "@/shared/event-bus";
-
 export default {
   name: "GoogleMap",
+  props: {
+    breweries: Array
+  },
   data() {
     return {
-      formData: {name: '',zipCode: '', happyHour: '', range: 50, beerName:''},
-      breweries: [],
-      center: { lat: 41.5038148, lng: -81.6408804 },
       markers: [],
+      center: { lat: 41.5038148, lng: -81.6408804 },
       windowOpen: false,
       description: "",
       address: "",
@@ -56,22 +55,20 @@ export default {
       }
     };
   },
+  computed: {
+    computedMarkers() {
+      let myMarkers = [];
+      this.breweries.forEach(brewery => {
+        const marker = {
+          lat: brewery.latitude,
+          lng: brewery.longitude,
+        };
+        myMarkers.push({ position: marker});
+      });
 
-  mounted() {
-    this.geolocate();
-
-    EventBus.$once("zipClick",data => {
-      console.log('zipclickfired')
-      this.formData.zipCode = data.zipCode;
-      this.formData.name = data.name;
-      this.formData.happyHour = data.happyHour;
-      this.formData.beerName = data.beerName;
-      if (data.range) this.formData.range = data.range;
-      else this.formData.range = 50;
-      this.updateBreweries();
-    });
+      return myMarkers;
+    }
   },
-
   methods: {
     toggleInfoWindow: function(marker, i) {
       this.windowOpen = this.windowOpen ? false : true;
@@ -80,63 +77,13 @@ export default {
       this.windowPosition = marker.position;
       this.beerThumb = this.breweries[i].imgSrc;
     },
-
-    addMarker() {
-      this.breweries.forEach(brewery => {
-        const marker = {
-          lat: brewery.latitude,
-          lng: brewery.longitude,
-        };
-        this.markers.push({ position: marker});
-      });
-    },
     redirect(index) {
       this.$router.push("/brewery/" + this.breweries[index].name);
     },
-   
-    updateBreweries(){
-      console.log('updatebreweriesfired');
-      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}&beerName=${this.formData.beerName}`)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.breweries = json;
-        this.markers = [];
-        this.addMarker();
-        EventBus.$emit('updateResults',this.breweries);
-      })
-      .catch(error => console.error(error));
-    },
-    geolocate: function() {
-    navigator.geolocation.getCurrentPosition(position => {
-      this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-    });
-  }
   },
-  created() {
-    console.log('TheMap.created()....');
-    this.updateBreweries();
-    
-    // EventBus.$on("zipClick",data => {
-    //   console.log('updateBreweriesfired')
-    //   this.formData.zipCode = data.zipCode;
-    //   this.formData.name = data.name;
-    //   this.formData.happyHour = data.happyHour;
-    //   this.formData.beerName = data.beerName;
-    //   if (data.range) this.formData.range = data.range;
-    //   else this.formData.range = 50;
-    //   this.updateBreweries();
-    // });
-  },
-  beforeDestroy() {
-    EventBus.$off();
-  }
 };
 </script>
+
 <style scoped>
 
 #map {

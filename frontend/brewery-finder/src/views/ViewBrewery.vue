@@ -20,7 +20,7 @@
     </div>
     <h2 class="card">Beer Available at {{brewery[0].name}}</h2>
     <div class="available-beers">
-      <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery[0].beersAvailable"></beer-info>
+      <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery[0].beersAvailable" @beerClick="handleBeerClick"></beer-info>
     </div>
   </section>
 </template>
@@ -45,6 +45,9 @@ export default {
       else if (timeA > 0 && timeB <12) return (`${timeA} am - ${timeB} am`);
       else if (timeA == 0) return "nope";
     },
+    handleBeerClick(beerName) {
+      this.$emit("beerChosen", beerName);
+    }
   },
   created() {
     const breweryName = this.$route.params.name;
