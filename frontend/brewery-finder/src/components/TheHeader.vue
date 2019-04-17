@@ -18,9 +18,9 @@
         <router-link to="/">BreweryFinder</router-link>
       </h2>
       <div class="login">
-        <router-link v-if="!username" to="/login">Login / Register</router-link>
-        <a v-else>Welcome {{username}} </a>
-        <a v-if="username" @click="logout">Logout</a>
+        <router-link v-if="!appData.username" to="/login">Login / Register</router-link>
+        <a v-else>Welcome {{appData.username}} </a>
+        <a v-if="appData.username" @click="logout">Logout</a>
       </div>
     </nav>
   </header>
@@ -28,19 +28,17 @@
 
 <script>
 import auth from "@/shared/auth.js";
+
 export default {
   props: {
-    username: String
-  },
-  computed: {
-    isLoggedIn() {
-      return auth.getUser() !== null;
-    }
+    appData: Object
   },
   methods: {
     logout() {
       auth.destroyToken();
-      this.appData.favorites=[];
+      this.appData.username = "";
+      this.$emit('logout');
+      // this.vm.$forceUpdate();
     },
     goHome() {
       this.$emit("goHome");

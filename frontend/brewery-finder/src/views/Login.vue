@@ -71,13 +71,6 @@ export default {
     async login() {
       this.error = "";
 
-      /**
-       * This example uses async/await over Promise .then()
-       * Under the hood it still relies on promises but the syntax of
-       * await Promise makes it a bit shorter and easier to read.
-       * It also helps with one issue which is the need to conditionally
-       * run logic based on the response.statusCode.
-       */
       try {
         const url = `${process.env.VUE_APP_REMOTE_API}/account/login`;
         const response = await fetch(url, {
@@ -92,12 +85,13 @@ export default {
         if (response.status === 401) {
           this.error = "Your username and/or password is invalid";
           this.loginForm.password = "";
-        } else {
+        } 
+        if (response.ok) {
           // Parse output and save authentication token
           const token = await response.json();
           auth.saveToken(token);
           this.goHome();
-          this.$emit("login", auth.getUser().sub);
+          this.$emit("login");
         }
       } catch (error) {
         this.error = "There was an error logging in";
@@ -126,10 +120,11 @@ export default {
 
         if (response.status === 400) {
           this.error = data.message;
-        } else {
+        } 
+        if (response.ok) {
           auth.saveToken(data);
           this.goHome();
-          this.$emit("login", auth.getUser().sub);
+          this.$emit("login");
         }
       } catch (error) {
         this.error = "There was an error attempting to register";
