@@ -44,22 +44,22 @@ export default {
   created() {
     EventBus.$on("login", ev => {
       this.username = ev;
-    }),
-      fetch(`${process.env.VUE_APP_REMOTE_API}/account/currentUser`, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + auth.getToken()
-        }
-      })
-        .then(response => {
-          if (response.ok) {
-            response.json();
-          }
-        })
-        .then(json => {
-          this.username = json;
-          this.$router.push("/");
-        });
+    })
+    // fetch(`${process.env.VUE_APP_REMOTE_API}/account/currentUser`, {
+    //   method: "GET",
+    //   headers: {
+    //     Authorization: "Bearer " + auth.getToken()
+    //   }
+    // })
+    //   .then(response => {
+    //     if (response.ok) {
+    //       response.json();
+    //     }
+    //   })
+    //   .then(json => {
+    //     this.username = json;
+    //     this.$router.push("/");
+    //   });
   },
   methods: {
     logout() {

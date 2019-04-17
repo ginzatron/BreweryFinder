@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     isFavorited() {
-      if (this.favorites == undefined) return false; 
+      if (this.favorites == undefined) return false;
       return this.favorites.includes(this.beer.id);
     }
   },
@@ -56,29 +56,34 @@ export default {
       console.log($event.target);
       if (!auth.getToken()) {
         this.$router.push("/login");
-      } else if (!$event.target.classList.contains('favorited')) {
+      } else if (!$event.target.classList.contains("favorited")) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "POST",
           headers: {
-            Authorization: 'Bearer '+auth.getToken(),
+            Authorization: "Bearer " + auth.getToken(),
             Accept: "application/JSON",
             "Content-Type": "application/JSON"
           },
-          body: JSON.stringify({'Id':this.beer.id})
+          body: JSON.stringify({ Id: this.beer.id })
+        }).then(response => {
+          if (response.ok) {
+            this.$emit("reloadFavs");
+          }
         });
-        this.$emit('reloadFavs');
-      }
-      else if ($event.target.classList.contains('favorited')) {
+      } else if ($event.target.classList.contains("favorited")) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "DELETE",
           headers: {
-            Authorization: 'Bearer '+auth.getToken(),
+            Authorization: "Bearer " + auth.getToken(),
             Accept: "application/JSON",
             "Content-Type": "application/JSON"
           },
-          body: JSON.stringify({'Id':this.beer.id})
+          body: JSON.stringify({ Id: this.beer.id })
+        }).then(response => {
+          if (response.ok) {
+            this.$emit("reloadFavs");
+          }
         });
-        this.$emit('reloadFavs');        
       }
     }
   }
