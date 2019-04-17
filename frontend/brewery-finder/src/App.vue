@@ -36,6 +36,10 @@ export default {
   },
   methods: {
     searchBeer(beerName) {
+      this.appData.formData.name = '';
+      this.appData.formData.zipCode = '';
+      this.appData.formData.happyHour = '';
+      this.appData.formData.range = 30;
       this.appData.formData.beerName = beerName;
       this.fetchBreweries();
     },
