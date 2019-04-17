@@ -59,7 +59,17 @@ export default {
 
   mounted() {
     this.geolocate();
-    this.updateBreweries();
+
+    EventBus.$once("zipClick",data => {
+      console.log('zipclickfired')
+      this.formData.zipCode = data.zipCode;
+      this.formData.name = data.name;
+      this.formData.happyHour = data.happyHour;
+      this.formData.beerName = data.beerName;
+      if (data.range) this.formData.range = data.range;
+      else this.formData.range = 50;
+      this.updateBreweries();
+    });
   },
 
   methods: {
@@ -85,6 +95,7 @@ export default {
     },
    
     updateBreweries(){
+      console.log('updatebreweriesfired');
       fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.formData.zipCode}&name=${this.formData.name}&happyHour=${this.formData.happyHour}&userLat=${this.center.lat}&userLng=${this.center.lng}&range=${this.formData.range}&beerName=${this.formData.beerName}`)
       .then(response => {
         return response.json();
@@ -107,20 +118,23 @@ export default {
   }
   },
   created() {
-    // this.updateBreweries();
-    EventBus.$on("zipClick",data => {
-      this.formData.zipCode = data.zipCode;
-      this.formData.name = data.name;
-      this.formData.happyHour = data.happyHour;
-      this.formData.beerName = data.beerName;
-      if (data.range) this.formData.range = data.range;
-      else this.formData.range = 50;
-      console.log('map')
-      console.log(this.formData)
-      this.updateBreweries();
-    });
+    console.log('TheMap.created()....');
+    this.updateBreweries();
+    
+    // EventBus.$on("zipClick",data => {
+    //   console.log('updateBreweriesfired')
+    //   this.formData.zipCode = data.zipCode;
+    //   this.formData.name = data.name;
+    //   this.formData.happyHour = data.happyHour;
+    //   this.formData.beerName = data.beerName;
+    //   if (data.range) this.formData.range = data.range;
+    //   else this.formData.range = 50;
+    //   this.updateBreweries();
+    // });
   },
-  
+  beforeDestroy() {
+    EventBus.$off();
+  }
 };
 </script>
 <style scoped>

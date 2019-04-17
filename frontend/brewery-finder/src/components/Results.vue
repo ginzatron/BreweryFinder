@@ -45,7 +45,8 @@ export default {
     }
   },
   created() {
-    EventBus.$on('updateResults',breweries => {
+    EventBus.$once('updateResults',breweries => {
+      console.log('updateresultsfired');
       this.breweries = breweries;
     })
   }

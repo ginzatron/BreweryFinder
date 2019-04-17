@@ -75,6 +75,7 @@ export default {
   },
   methods: {
     loadBreweries() {
+      console.log('loadbreweriesfired');
       EventBus.$emit("zipClick", this.formData);
     },
     timeFormat(a, b) {
@@ -88,10 +89,10 @@ export default {
   created() {
     EventBus.$once("beerClick", bName => {
       this.formData.beerName = bName;
+      console.log('beerclickfired');
       this.loadBreweries();
-      console.log(this.formData);
     })
-  }
+  },
 };
 </script>
 
