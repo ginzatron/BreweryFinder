@@ -1,0 +1,75 @@
+Buckeye Beer Engine
+www.buckeyebeerengine.com.
+
+3 PM - 7 PM
+
+2006
+
+15315 Madison Ave
+Lakewood OH 44107
+
+lat 41.477245
+
+lon -81.803918
+
+Beer Engine is a locally owned, neighborhood bar that prides itself on craft beer and gourmet burgers. Beer offerings an ever-changing list of 27 featured drafts,  two authentic cask conditioned ales, and 100+ bottles.
+
+isBar 1
+isBrewery 0
+
+
+
+brewnuts
+www.brewnutscleveland.com
+
+4-7 PM
+
+2013
+
+6501 Detroit Ave.
+Cleveland, OH 44102
+
+lat 41.483894
+lon -81.730469
+
+When we conceived of Brewnuts it was always with donuts and beer having a seat at the table. We’ve known from the jump that we were setting out to be a Donut Bar and unlike any other donut shop we’d ever seen. Thanks in large part to our collaborative relationship with Cleveland’s brewery scene, we regularly carry sixteen carefully selected local brews on tap which is complimented by a robust bottle and can program.
+
+isBar 1
+isBrewery 0
+
+
+The Wine Spot
+www.thewinespotonline.com
+
+4-6 PM 
+
+est. 2010
+
+2271 Lee Road
+Cleveland Heights, OH 
+44118
+
+lat 41.497782
+lon -81.565081
+
+Located in the unique Cedar-Lee neighborhood, The Wine Spot is Greater Cleveland's most distinctive wine and beer shop. There is a regular schedule of wine and beer tastings, as well as musical acts, and art shows. 
+
+isBar 1
+isBrewery 0
+
+
+Brew Kettle
+8377 Pearl Rd
+Strongsville OH 
+44136
+
+5-8 pm
+
+est. 1995
+
+lat 41.347134
+lon -81.822403
+AS Ohio's First Brew-On-Premise Microbrewery, the Brew Kettle has aimed to provide customers with the guidance, equipment and the freshest ingredients to produce quality, hand-crafted beers in an environment that is professional, safe and fun. 
+
+isBar true
+isbrewery true

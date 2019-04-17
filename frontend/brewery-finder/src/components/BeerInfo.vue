@@ -1,19 +1,30 @@
 <template>
-  <div class="container" @click="redirect(beer.name)">
-    <div class="beer-card">
-      <div class="card-inner">
-        <div class="card-front">
-          <div class="card">
-            <img :src="`${beer.imgSrc}`" alt="Beer Image">
+  <div>
+    <div id="favorite">
+      <i
+        :name="beer.name"
+        class="fas fa-beer"
+        :class="{favorited:isFavorited}"
+        @click="favorite(beer.id)"
+      ></i>
+    </div>
+
+    <div class="container" @click="redirect(beer.name)">
+      <div class="beer-card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="card">
+              <img :src="`${beer.imgSrc}`" alt="Beer Image">
+            </div>
           </div>
-        </div>
-        <div class="card-back">
-          <div class="card">
-            <!-- <img class="card" :src="`${beer.imgSrc}`"> -->
-            <div class="card-text">
-              <p>{{beer.name}}</p>
-              <p>{{beer.style}}</p>
-              <p>ABV: {{beer.abv}} %</p>
+          <div class="card-back">
+            <div class="card">
+              <!-- <img class="card" :src="`${beer.imgSrc}`"> -->
+              <div class="card-text">
+                <p>{{beer.name}}</p>
+                <p>{{beer.style}}</p>
+                <p>ABV: {{beer.abv}} %</p>
+              </div>
             </div>
           </div>
         </div>
@@ -24,6 +35,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isFavorited: false
+    };
+  },
   name: "beer-info",
   props: {
     beer: Object
@@ -32,6 +48,9 @@ export default {
     redirect(beerName) {
       this.$router.push("/search");
       this.$emit("beerClick", this.beer.name);
+    },
+    favorite(id) {
+     this.isFavorited = !this.isFavorited;
     }
   }
 };
@@ -84,5 +103,14 @@ export default {
   /* background-color: #fff; */
   color: black;
   transform: rotateY(180deg);
+}
+i{
+  color: white;
+  font-size: 2.25rem;
+}
+
+i.favorited {
+  color: yellow;
+  font-size: 2.25rem;
 }
 </style>
