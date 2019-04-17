@@ -2,7 +2,7 @@
   <div>
     <div id="favorite">
       <i
-        :name="beer.name"
+        :id="beer.name"
         class="fas fa-beer"
         :class="{favorited:isFavorited}"
         @click="favorite(beer.id)"
@@ -41,21 +41,22 @@ export default {
     beer: Object,
     favorites: Array
   },
-  // computed: {
-  //   isFavorited() {
-  //     // if (this.favorites == undefined) return false; 
-  //     return this.favorites.contains(this.beer.id);
-  //   }
-  // },
+  computed: {
+    isFavorited() {
+      if (this.favorites == undefined) return false; 
+      return this.favorites.includes(this.beer.id);
+    }
+  },
   methods: {
     redirect() {
       this.$router.push("/search");
       this.$emit("beerClick", this.beer.name);
     },
     favorite(id) {
+      const beerClass = document.getElementById(this.beer.name);
       if (!auth.getToken()) {
         this.$router.push("/login");
-      } else if (!this.isFavorited && auth.getToken()) {
+      } else if (!beerClass.classList.contains("favorited") && auth.getToken()) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "POST",
           headers: {
@@ -66,7 +67,7 @@ export default {
           body: JSON.stringify({'Id':id})
         });
       }
-      else if (this.isFavorited && auth.getToken()) {
+      else if (beerClass.classList.contains("favorited") && auth.getToken()) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "DELETE",
           headers: {

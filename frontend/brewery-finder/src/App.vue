@@ -9,7 +9,7 @@
 <script>
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
-
+import auth from "@/shared/auth";
 
 export default {
     components: {
@@ -80,9 +80,7 @@ export default {
       fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
         method: "GET",
         headers: {
-          Authorization: 'Bearer '+auth.getToken(),
-          Accept: "application/JSON",
-          "Content-Type": "application/JSON"
+          Authorization: 'Bearer '+ auth.getToken(),
         },
       }).then(response => {
         return response.json();

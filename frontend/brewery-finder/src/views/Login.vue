@@ -96,8 +96,8 @@ export default {
           // Parse output and save authentication token
           const token = await response.json();
           auth.saveToken(token);
-          this.$emit("login", auth.getUser().sub);
           this.goHome();
+          this.$emit("login");
         }
       } catch (error) {
         console.error(error);
@@ -128,8 +128,8 @@ export default {
           this.error = data.message;
         } else {
           auth.saveToken(data);
-          this.$emit("login", auth.getUser().sub);
           this.goHome();
+          this.$emit("login");
         }
       } catch (error) {
         console.error(error);
