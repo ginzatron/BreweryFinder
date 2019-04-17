@@ -119,7 +119,6 @@ export default {
       this.updateBreweries();
     });
   },
-  
 };
 </script>
 <style scoped>
