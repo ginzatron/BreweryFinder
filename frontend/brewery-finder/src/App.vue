@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <the-header @goHome="clearForm"></the-header>
-    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm"/>
+    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin"/>
     <the-footer></the-footer>
   </div>
 </template>
@@ -30,7 +30,9 @@ export default {
             lng: ''
           }
         },
-        breweries: []
+        breweries: [],
+        favorites: [],
+        isLoggedIn: false
       }
     }
   },
@@ -72,6 +74,21 @@ export default {
           lng: position.coords.longitude
         };
       });
+    },
+    performLogin(){
+      this.appData.isLoggedIn = true;
+      fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
+        method: "GET",
+        headers: {
+          Authorization: 'Bearer '+auth.getToken(),
+          Accept: "application/JSON",
+          "Content-Type": "application/JSON"
+        },
+      }).then(response => {
+        return response.json();
+      }).then(json => {
+        this.appData.favorites = json;
+      })
     }
   },
   created() {

@@ -24,26 +24,27 @@ namespace SampleApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Beer>> GetBeers([FromQuery]string name,[FromQuery]int styleId)
+        [Authorize]
+        public ActionResult<List<int>> GetFavorites()
         {
-            IList<Beer> beers = beerDao.GetBeers(name, styleId);
-            return Ok(beers);
+            List<int> favorites = favoriteDAO.GetFavorites(base.User.Identity.Name.ToString());
+            return Ok(favorites);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult FavoriteBeer([FromBody]int beerId)
+        public ActionResult FavoriteBeer([FromBody]Beer beer)
         {
-            this.favoriteDAO.AddFavorite(base.User.Identity.Name.ToString(), beerId);
+            this.favoriteDAO.AddFavorite(base.User.Identity.Name.ToString(), beer.Id);
 
-            return Ok();
+            return Ok();    
         }
 
         [HttpDelete]
         [Authorize]
-        public ActionResult RemoveFavorite([FromBody]int beerId)
+        public ActionResult RemoveFavorite([FromBody]Beer beer)
         {
-            this.favoriteDAO.RemoveFavorite(base.User.Identity.Name.ToString(), beerId);
+            this.favoriteDAO.RemoveFavorite(base.User.Identity.Name.ToString(), beer.Id);
 
             return Ok();
         }

@@ -15,6 +15,36 @@ namespace SampleApi.DAL
             this.ConnectionString = connectionString;
         }
 
+        public List<int> GetFavorites(string username)
+        {
+            List<int> favorites = new List<int>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("select beer_id from favorites where username = @username", conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        favorites.Add(Convert.ToInt32(reader["beer_id"]));
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw;
+            }
+
+            return favorites;
+        }
+
         public bool AddFavorite(string username, int beer_id)
         {
             try

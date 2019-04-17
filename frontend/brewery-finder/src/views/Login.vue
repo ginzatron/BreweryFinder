@@ -39,7 +39,6 @@
 
 <script>
 import auth from "@/shared/auth";
-import { EventBus } from "@/shared/event-bus";
 
 export default {
   name: "login",
@@ -97,7 +96,7 @@ export default {
           // Parse output and save authentication token
           const token = await response.json();
           auth.saveToken(token);
-          EventBus.$emit("login", auth.getUser().sub);
+          this.$emit("login", auth.getUser().sub);
           this.goHome();
         }
       } catch (error) {
@@ -129,7 +128,7 @@ export default {
           this.error = data.message;
         } else {
           auth.saveToken(data);
-          EventBus.$emit("login", auth.getUser().sub);
+          this.$emit("login", auth.getUser().sub);
           this.goHome();
         }
       } catch (error) {

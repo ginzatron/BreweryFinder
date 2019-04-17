@@ -9,5 +9,6 @@ namespace SampleApi.DAL
     {
         bool AddFavorite(string username, int beer_id);
         bool RemoveFavorite(string username, int beer_id);
+        List<int> GetFavorites(string username);
     }
 }

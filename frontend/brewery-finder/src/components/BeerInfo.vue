@@ -36,15 +36,17 @@
 <script>
 import auth from "@/shared/auth";
 export default {
-  data() {
-    return {
-      isFavorited: false
-    };
-  },
   name: "beer-info",
   props: {
-    beer: Object
+    beer: Object,
+    favorites: Array
   },
+  // computed: {
+  //   isFavorited() {
+  //     // if (this.favorites == undefined) return false; 
+  //     return this.favorites.contains(this.beer.id);
+  //   }
+  // },
   methods: {
     redirect() {
       this.$router.push("/search");
@@ -53,26 +55,26 @@ export default {
     favorite(id) {
       if (!auth.getToken()) {
         this.$router.push("/login");
-      } else if (!this.isFavorited && auth.getToken) {
+      } else if (!this.isFavorited && auth.getToken()) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "POST",
           headers: {
-            Authorization: 'bearer '+auth.getToken(),
+            Authorization: 'Bearer '+auth.getToken(),
             Accept: "application/JSON",
             "Content-Type": "application/JSON"
           },
-          body: JSON.stringify({'beerId':id})
+          body: JSON.stringify({'Id':id})
         });
       }
-      else if (this.isFavorited && auth.getToken) {
+      else if (this.isFavorited && auth.getToken()) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "DELETE",
           headers: {
-            Authorization: 'bearer '+auth.getToken(),
+            Authorization: 'Bearer '+auth.getToken(),
             Accept: "application/JSON",
             "Content-Type": "application/JSON"
           },
-          body: JSON.stringify({'beerId':id})
+          body: JSON.stringify({'Id':id})
         });
       }
       this.isFavorited = !this.isFavorited;

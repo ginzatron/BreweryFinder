@@ -20,7 +20,7 @@
     </div>
     <h2 class="card">Beer Available at {{brewery[0].name}}</h2>
     <div class="available-beers">
-      <beer-info v-bind:key="beer.id" v-bind:beer="beer" v-for="beer in brewery[0].beersAvailable" @beerClick="handleBeerClick"></beer-info>
+      <beer-info v-bind:key="beer.id" v-bind:beer="beer" :favorites="appData.favorites  " v-for="beer in brewery[0].beersAvailable" @beerClick="handleBeerClick"></beer-info>
     </div>
   </section>
 </template>
@@ -29,6 +29,9 @@
 import BeerInfo from "@/components/BeerInfo.vue";
 
 export default {
+  props: {
+    appData: Object
+  },
   components: {
     BeerInfo
   },
