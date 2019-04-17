@@ -28,10 +28,10 @@ CREATE TABLE beers
 (
 	id				int					identity(1,1),
 	name			nvarchar(100)		not null,
-	style_id		int					not null,
-	description		nvarchar(400)		not null,
-	abv				decimal(4,2)		not null,
-	imgSrc			nvarchar(500)		not null,
+	style_id		int					null,
+	description		nvarchar(400)		null,
+	abv				decimal(4,2)		null,
+	imgSrc			nvarchar(500)		null,
 
 	constraint		pk_beer_id			primary key(id),
 	constraint		fk_beers_style_id	foreign key(style_id) references styles(id)
@@ -40,21 +40,21 @@ CREATE TABLE beers
 CREATE TABLE breweries
 (
 	id				int					identity(1,1),
-	name			nvarchar(100)		not null,
+	name			nvarchar(100)		not null UNIQUE,
 	happyHourFrom	Time		            null,
 	happyHourTo  	Time		            null,
-	established		int					not null,
-	address			nvarchar(250)		not null,
-	city			nvarchar(100)		not null,
-	state			varchar(2)			not null,
-	zip				int					not null,
+	established		int					null,
+	address			nvarchar(250)		null,
+	city			nvarchar(100)		null,
+	state			varchar(30)			null,
+	zip				int					null,
 	latitude        decimal(8,6)        not null,
 	longitude		decimal(8,6)        not null,
 	siteURL			nvarchar(100)		null,
-	description		nvarchar(1000)		not null,
-	isBar			bit					not null,
-	isBrewery       bit					not null,
-	imgSrc			nvarchar(500)		not null,
+	description		nvarchar(1000)		null,
+	isBar			bit					null,
+	isBrewery       bit					null,
+	imgSrc			nvarchar(500)		null,
 
 	constraint		pk_brewery_id		primary key(id)
 )
@@ -122,12 +122,12 @@ INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Old LegHum
 INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Citra Dog', 1, 'You’ll find evidence of tangerine, grapefruit, orange and mango in the flavor and aroma from the multiple addition of a single hop variety, Citra.', 6.8, 'https://gdurl.com/S1Rk')
 
 
-INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Great Lakes Brewing', '16:00', '19:00', 1986, '2516 Market Ave', 'Cleveland', 'OH', 44113, 41.484417, -81.704427, 'www.greatlakesbrewing.com', 'Great Lakes Brewing Company is a brewery and brewpub in Cleveland, Ohio. The first brewpub and microbrewery in the state, Great Lakes Brewing has been noted as important to Cleveland''s local identity and as one of the initial forces behind the revival of the Ohio City neighborhood on Cleveland''s near West Side.', 1, 1, 'https://gdurl.com/x0vv') 
-INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Thirsty Dog Brewery', '17:00', '20:00', 1997, '1075 Old River Road', 'Cleveland', 'OH', 44113, 41.499552, -81.706312, 'www.thirstydog.com', 'Each of our Thirsty Dog''s beers are meticulously hand crafted in small batches using the finest ingredients. High quality malted barley is the source of the beer''s sweetness & body. Select American & European hops are used to balance the malt sweetness, and , at times, add special flavors & aromas to the beer. Our careful selection of ingredients, along with specially designed recipes & brewing processes, give Thirsty Dog beers their unique flavor profiles that can be hard to find in today''s mass market. one size fits all society.', 1,1, 'https://gdurl.com/dwp7')
-INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Willoughby Brewing Co.', '16:00', '19:00', 1995, '4057 Erie St.', 'Willoughby', 'OH', 44094, 41.641522, -81.405490, 'www.willoughbybrewing.com', 'Nestled in the heart of Historic Downtown Willoughby, Ohio lies Willoughby Brewing Co. Established in February of 1998, we are a full-service restaurant, bar and award-winning brewery in a 100-year-old building that was originally a rail-car repair depot for the Cleveland to Ashtabula Interurban Rail Line.',1,1, 'https://gdurl.com/736M')
-INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Sibling Revelry Brewery', null, null, 1995, '29305 Clemens Road', 'Westlake', 'OH', 44145, 41.470402, -81.946201, 'www.siblingrevelrybrewing.com', 'Sibling Revelry Brewing was founded by a family of brothers and cousins from Cleveland who wanted to share their passion for great beer with others. ... Pair beers with a rotating selection of food trucks with great foods like sandwiches, burgers, and more.',1,1, 'https://gdurl.com/7XTD')
-INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Market Garden Brewery', null, null, 2011, '1947 W 25TH ST', 'Cleveland', 'OH', 44113, 41.484896, -81.703650,'www.marketgardenbrewery.com', 'Market Garden Brewery,  located next door to the 100 year old West Side Market, has been stocked with a lineup of tasty, session beers like our award-winning Progress Pilsner, our organically hopped Citramax IPA, as well as Prosperity, our Bavarian style Hefeweizen, since 2011.',1,1, 'https://gdurl.com/aSC0')
-INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Fat Head''s Brewery', '14:00', '18:00', 2009, '17450 Engle Lake Dr', 'Middleburg Hts.', 'OH', 44143, 41.377386, -81.822942, 'www.fatheads.com', 'Brewmaster Matt Cole partnered with Glenn Benigni, owner of Fat Head''s Saloon in Pittsburgh, Pennsylvania, to open Fat Head''s Brewery & Saloon in Cleveland, Ohio in 2009. They grew to be known for their selection of craft beer and large sandwiches, called "headwiches."',1,1, 'https://gdurl.com/gY0X')
+INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Great Lakes Brewing', '16:00', '19:00', 1986, '2516 Market Ave', 'Cleveland', 'Ohio', 44113, 41.484417, -81.704427, 'www.greatlakesbrewing.com', 'Great Lakes Brewing Company is a brewery and brewpub in Cleveland, Ohio. The first brewpub and microbrewery in the state, Great Lakes Brewing has been noted as important to Cleveland''s local identity and as one of the initial forces behind the revival of the Ohio City neighborhood on Cleveland''s near West Side.', 1, 1, 'https://gdurl.com/x0vv') 
+INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Thirsty Dog Brewery', '17:00', '20:00', 1997, '1075 Old River Road', 'Cleveland', 'Ohio', 44113, 41.499552, -81.706312, 'www.thirstydog.com', 'Each of our Thirsty Dog''s beers are meticulously hand crafted in small batches using the finest ingredients. High quality malted barley is the source of the beer''s sweetness & body. Select American & European hops are used to balance the malt sweetness, and , at times, add special flavors & aromas to the beer. Our careful selection of ingredients, along with specially designed recipes & brewing processes, give Thirsty Dog beers their unique flavor profiles that can be hard to find in today''s mass market. one size fits all society.', 1,1, 'https://gdurl.com/dwp7')
+INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Willoughby Brewing Co.', '16:00', '19:00', 1995, '4057 Erie St.', 'Willoughby', 'Ohio', 44094, 41.641522, -81.405490, 'www.willoughbybrewing.com', 'Nestled in the heart of Historic Downtown Willoughby, Ohio lies Willoughby Brewing Co. Established in February of 1998, we are a full-service restaurant, bar and award-winning brewery in a 100-year-old building that was originally a rail-car repair depot for the Cleveland to Ashtabula Interurban Rail Line.',1,1, 'https://gdurl.com/736M')
+INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Sibling Revelry Brewery', null, null, 1995, '29305 Clemens Road', 'Westlake', 'Ohio', 44145, 41.470402, -81.946201, 'www.siblingrevelrybrewing.com', 'Sibling Revelry Brewing was founded by a family of brothers and cousins from Cleveland who wanted to share their passion for great beer with others. ... Pair beers with a rotating selection of food trucks with great foods like sandwiches, burgers, and more.',1,1, 'https://gdurl.com/7XTD')
+INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Market Garden Brewery', null, null, 2011, '1947 W 25TH ST', 'Cleveland', 'Ohio', 44113, 41.484896, -81.703650,'www.marketgardenbrewery.com', 'Market Garden Brewery,  located next door to the 100 year old West Side Market, has been stocked with a lineup of tasty, session beers like our award-winning Progress Pilsner, our organically hopped Citramax IPA, as well as Prosperity, our Bavarian style Hefeweizen, since 2011.',1,1, 'https://gdurl.com/aSC0')
+INSERT INTO breweries (name, happyHourFrom, happyHourTo, established, address, city, state, zip, latitude, longitude, siteURL, description, isBar, isBrewery, imgSrc) Values ('Fat Head''s Brewery', '14:00', '18:00', 2009, '17450 Engle Lake Dr', 'Middleburg Hts.', 'Ohio' , 44143, 41.377386, -81.822942, 'www.fatheads.com', 'Brewmaster Matt Cole partnered with Glenn Benigni, owner of Fat Head''s Saloon in Pittsburgh, Pennsylvania, to open Fat Head''s Brewery & Saloon in Cleveland, Ohio in 2009. They grew to be known for their selection of craft beer and large sandwiches, called "headwiches."',1,1, 'https://gdurl.com/gY0X')
 
 INSERT INTO beers_breweries Values (1, 11 )
 INSERT INTO beers_breweries Values (1, 12 )
