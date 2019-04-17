@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import { EventBus } from "@/shared/event-bus";
-
 export default {
   name: "beer-info",
   props: {
@@ -33,8 +31,7 @@ export default {
   methods: {
     redirect(beerName) {
       this.$router.push("/search");
-      EventBus.$emit("beerClick", this.beer.name);
-      console.log(this.beer.name);
+      this.$emit("beerClick", this.beer.name);
     }
   }
 };

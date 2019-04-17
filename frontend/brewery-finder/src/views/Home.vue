@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <the-map></the-map>
+    <the-map v-bind:breweries="appData.breweries"></the-map>
   </section>
 </template>
 
@@ -12,7 +12,10 @@ export default {
   name: "home",
   components: {
     TheMap
-  }
+  },
+  props: {
+    appData: Object
+  },
 };
 </script>
 

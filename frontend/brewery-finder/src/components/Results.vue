@@ -25,10 +25,8 @@
 import { EventBus } from "@/shared/event-bus";
 
 export default {
-  data() {
-    return {
-     breweries: []
-    }
+  props: {
+    breweries: Array
   },
   methods: {
      timeFormat(a,b) {
@@ -44,11 +42,6 @@ export default {
       return ("Brewery");
     }
   },
-  created() {
-    EventBus.$on('updateResults',breweries => {
-      this.breweries = breweries;
-    })
-  }
 }
 </script>
 

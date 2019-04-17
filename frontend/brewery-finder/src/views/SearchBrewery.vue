@@ -4,19 +4,19 @@
       <form class="card" v-on:submit.prevent="loadBreweries">
         <div>
           <label>Name</label>
-          <input type="text" placeholder="Brewery Name" v-model.trim="formData.name">
+          <input type="text" placeholder="Brewery Name" v-model.trim="appData.formData.name">
         </div>
         <div>
           <label>Zip Code</label>
-          <input type="text" placeholder="Zip Code" v-model.trim="formData.zipCode">
+          <input type="text" placeholder="Zip Code" v-model.trim="appData.formData.zipCode">
         </div>
         <div>
           <label>Radius</label>
-          <input type="text" placeholder="Radius in miles" v-model.trim="formData.range">
+          <input type="text" placeholder="Radius in miles" v-model.trim="appData.formData.range">
         </div>
         <div>
           <label>Happy Hour</label>
-          <select v-model.trim="formData.happyHour">
+          <select v-model.trim="appData.formData.happyHour">
             <option value></option>
             <option value="11:00">11:00 am</option>
             <option value="11:30">11:30 am</option>
@@ -39,21 +39,20 @@
         </div>
         <div>
           <label>Beer Name</label>
-          <input type="text" placeholder="Beer Name" v-model.trim="formData.beerName">
+          <input type="text" placeholder="Beer Name" v-model.trim="appData.formData.beerName">
         </div>
         <button type="submit">Submit</button>
       </form>
-        <results></results>
+        <results v-bind:breweries="appData.breweries"></results>
     </div>
     <div id="map">
-      <the-map></the-map>
+      <the-map v-bind:breweries="appData.breweries"></the-map>
     </div>
   </section>
 </template>
 
 <script>
 import TheMap from "@/components/TheMap.vue";
-import { EventBus } from "@/shared/event-bus";
 import Results from "@/components/Results.vue";
 
 export default {
@@ -61,21 +60,24 @@ export default {
     TheMap,
     Results
   },
-  data() {
-    return {
-      breweries: [],
-      formData: {
-        name: "",
-        zipCode: "",
-        happyHour: "",
-        range: 30,
-        beerName: ""
-      }
-    };
+  props: {
+    appData: Object
   },
+  // data() {
+  //   return {
+      // formData: {
+      //   breweryName: '',
+      //   zipCode: '',
+      //   happyHour: '',
+      //   range: 30,
+      //   beerName: ''
+      // },
+      // breweries: []
+  //   };
+  // },
   methods: {
     loadBreweries() {
-      EventBus.$emit("zipClick", this.formData);
+      this.$emit("formSubmit", this.appData);
     },
     timeFormat(a, b) {
       let timeA = a.split(":").shift();
@@ -85,13 +87,6 @@ export default {
       else if (timeA == 0) return "nope";
     }
   },
-  created() {
-    EventBus.$on("beerClick", bName => {
-      this.formData.beerName = bName;
-      this.loadBreweries();
-      console.log(this.formData);
-    })
-  }
 };
 </script>
 
