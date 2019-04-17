@@ -53,7 +53,6 @@ export default {
       this.$emit("beerClick", this.beer.name);
     },
     favorite($event) {
-      console.log($event.target);
       if (!auth.getToken()) {
         this.$router.push("/login");
       } else if (!$event.target.classList.contains("favorited")) {
@@ -134,7 +133,6 @@ export default {
 }
 
 .card-back {
-  /* background-color: #fff; */
   color: black;
   transform: rotateY(180deg);
 }
@@ -144,7 +142,7 @@ i {
 }
 
 i.favorited {
-  color: yellow;
+  color:rgb(241, 178, 59);
   font-size: 2.25rem;
 }
 </style>

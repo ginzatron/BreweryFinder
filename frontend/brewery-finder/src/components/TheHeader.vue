@@ -28,43 +28,19 @@
 
 <script>
 import auth from "@/shared/auth.js";
-import { EventBus } from "@/shared/event-bus";
-
 export default {
-  data() {
-    return {
-      username: ""
-    };
+  props: {
+    username: String
   },
   computed: {
     isLoggedIn() {
       return auth.getUser() !== null;
     }
   },
-  created() {
-    EventBus.$on("login", ev => {
-      this.username = ev;
-    })
-    // fetch(`${process.env.VUE_APP_REMOTE_API}/account/currentUser`, {
-    //   method: "GET",
-    //   headers: {
-    //     Authorization: "Bearer " + auth.getToken()
-    //   }
-    // })
-    //   .then(response => {
-    //     if (response.ok) {
-    //       response.json();
-    //     }
-    //   })
-    //   .then(json => {
-    //     this.username = json;
-    //     this.$router.push("/");
-    //   });
-  },
   methods: {
     logout() {
       auth.destroyToken();
-      this.username = null;
+      this.appData.favorites=[];
     },
     goHome() {
       this.$emit("goHome");

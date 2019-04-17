@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-header @goHome="clearForm"></the-header>
+    <the-header @goHome="clearForm" :username="username"></the-header>
     <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin" @reloadFavs="reloadFavs"/>
     <the-footer></the-footer>
   </div>
@@ -32,7 +32,6 @@ export default {
         },
         breweries: [],
         favorites: [],
-        isLoggedIn: false
       }
     }
   },
@@ -75,8 +74,8 @@ export default {
         };
       });
     },
-    performLogin(){
-      this.appData.isLoggedIn = true;
+    performLogin(name){
+      this.appData.username = name;
       this.reloadFavs();
     },
     reloadFavs() {
@@ -95,6 +94,12 @@ export default {
   created() {
     this.fetchBreweries();
     this.geolocate();
+  },
+  computed: {
+    username() {
+      if(!auth.getUser()) return "";
+      return auth.getUser().sub;
+    }
   }
 }
 </script>
