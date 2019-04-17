@@ -81,22 +81,6 @@ export default {
       this.$router.push("/brewery/" + this.breweries[index].name);
     },
   },
-<<<<<<< HEAD
-  created() {
-    EventBus.$on("zipClick",data => {
-      this.formData.zipCode = data.zipCode;
-      this.formData.name = data.name;
-      this.formData.happyHour = data.happyHour;
-      this.formData.beerName = data.beerName;
-      if (data.range) this.formData.range = data.range;
-      else this.formData.range = 50;
-      console.log('map')
-      console.log(this.formData)
-      this.updateBreweries();
-    });
-  },
-=======
->>>>>>> 7fde9b59222a72610085c2123417a5c1baf0961a
 };
 </script>
 

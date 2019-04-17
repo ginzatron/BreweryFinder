@@ -32,7 +32,6 @@ namespace SampleApi.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("favorite")]
         public ActionResult FavoriteBeer([FromBody]int beerId)
         {
             this.favoriteDAO.AddFavorite(base.User.Identity.Name.ToString(), beerId);
@@ -42,7 +41,6 @@ namespace SampleApi.Controllers
 
         [HttpDelete]
         [Authorize]
-        [Route("favorite")]
         public ActionResult RemoveFavorite([FromBody]int beerId)
         {
             this.favoriteDAO.RemoveFavorite(base.User.Identity.Name.ToString(), beerId);

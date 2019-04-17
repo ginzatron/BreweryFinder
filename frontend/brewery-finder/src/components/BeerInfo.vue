@@ -53,10 +53,22 @@ export default {
     favorite(id) {
       if (!auth.getToken()) {
         this.$router.push("/login");
-      } else if (this.isFavorited) {
-        fetch(`${process.env.VUE_APP_REMOTE_API}/beer/favorite`, {
+      } else if (!this.isFavorited && auth.getToken) {
+        fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "POST",
           headers: {
+            Authorization: 'bearer '+auth.getToken(),
+            Accept: "application/JSON",
+            "Content-Type": "application/JSON"
+          },
+          body: JSON.stringify({'beerId':id})
+        });
+      }
+      else if (this.isFavorited && auth.getToken) {
+        fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
+          method: "DELETE",
+          headers: {
+            Authorization: 'bearer '+auth.getToken(),
             Accept: "application/JSON",
             "Content-Type": "application/JSON"
           },
