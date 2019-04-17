@@ -19,7 +19,7 @@
       </h2>
       <div class="login">
         <router-link v-if="!username" to="/login">Login / Register</router-link>
-        <a v-else>Welcome {{username}}</a>
+        <a v-else>Welcome {{username}} </a>
         <a v-if="username" @click="logout">Logout</a>
       </div>
     </nav>
@@ -106,6 +106,7 @@ header a {
   color: var(--lightGrey);
   font-weight: bolder;
   cursor: pointer;
+  white-space:pre;
 }
 
 h1 {
