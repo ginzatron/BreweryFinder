@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <the-header @goHome="clearForm"></the-header>
-    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin"/>
+    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin" @reloadFavs="reloadFavs"/>
     <the-footer></the-footer>
   </div>
 </template>
@@ -77,6 +77,9 @@ export default {
     },
     performLogin(){
       this.appData.isLoggedIn = true;
+      this.reloadFavs();
+    },
+    reloadFavs() {
       fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
         method: "GET",
         headers: {

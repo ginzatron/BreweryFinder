@@ -5,7 +5,7 @@
         :id="beer.name"
         class="fas fa-beer"
         :class="{favorited:isFavorited}"
-        @click="favorite(beer.id)"
+        @click="favorite($event)"
       ></i>
     </div>
 
@@ -52,11 +52,11 @@ export default {
       this.$router.push("/search");
       this.$emit("beerClick", this.beer.name);
     },
-    favorite(id) {
-      const beerClass = document.getElementById(this.beer.name);
+    favorite($event) {
+      console.log($event.target);
       if (!auth.getToken()) {
         this.$router.push("/login");
-      } else if (!beerClass.classList.contains("favorited") && auth.getToken()) {
+      } else if (!$event.target.classList.contains('favorited')) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "POST",
           headers: {
@@ -64,10 +64,11 @@ export default {
             Accept: "application/JSON",
             "Content-Type": "application/JSON"
           },
-          body: JSON.stringify({'Id':id})
+          body: JSON.stringify({'Id':this.beer.id})
         });
+        this.$emit('reloadFavs');
       }
-      else if (beerClass.classList.contains("favorited") && auth.getToken()) {
+      else if ($event.target.classList.contains('favorited')) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "DELETE",
           headers: {
@@ -75,10 +76,10 @@ export default {
             Accept: "application/JSON",
             "Content-Type": "application/JSON"
           },
-          body: JSON.stringify({'Id':id})
+          body: JSON.stringify({'Id':this.beer.id})
         });
+        this.$emit('reloadFavs');        
       }
-      this.isFavorited = !this.isFavorited;
     }
   }
 };
