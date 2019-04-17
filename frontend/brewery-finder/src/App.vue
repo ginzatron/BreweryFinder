@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <the-header></the-header>
-    <router-view />
+    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm"/>
     <the-footer></the-footer>
   </div>
 </template>
@@ -16,6 +16,56 @@ export default {
     TheHeader,
     TheFooter
   },
+  data() {
+    return {
+      appData: {
+        formData: {
+          name: '',
+          zipCode: '',
+          happyHour: '',
+          range: '',
+          beerName: '',
+          center: {
+            lat: '',
+            lng: ''
+          }
+        },
+        breweries: []
+      }
+    }
+  },
+  methods: {
+    searchBeer(beerName) {
+      this.appData.formData.beerName = beerName;
+      this.fetchBreweries();
+    },
+    searchForm(searchData) {
+      this.appData = searchData;
+      this.fetchBreweries();
+    },
+    fetchBreweries() {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/brewery?zip=${this.appData.formData.zipCode}&name=${this.appData.formData.name}&happyHour=${this.appData.formData.happyHour}&userLat=${this.appData.formData.center.lat}&userLng=${this.appData.formData.center.lng}&range=${this.appData.formData.range}&beerName=${this.appData.formData.beerName}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        this.appData.breweries = json;
+      })
+      .catch(error => console.error(error));
+    },
+    geolocate: function() {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.appData.formData.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
+    }
+  },
+  created() {
+    this.fetchBreweries();
+    this.geolocate();
+  }
 }
 </script>
 
