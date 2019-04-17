@@ -1,0 +1,17 @@
+FONT AWESOME OPTIONS FOR FAVORITES FEATURE
+##########################################
+
+beer mug
+@@@@@@@@
+
+https://fontawesome.com/icons?d=gallery&q=beer
+
+solid
+
+<i class="fas fa-beer"></i>
+
+
+thumbs up
+@@@@@@@@@
+
+<i class="fas fa-thumbs-up"></i>
