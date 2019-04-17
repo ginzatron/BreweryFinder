@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      brewery: {}
+      brewery: [{name:'',imgSrc:'',happyHourFrom:'',happyHourTo:''}]
     };
   },
   methods: {

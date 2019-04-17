@@ -87,7 +87,7 @@ export default {
     }
   },
   created() {
-    EventBus.$once("beerClick", bName => {
+    EventBus.$on("beerClick", bName => {
       this.formData.beerName = bName;
       console.log('beerclickfired');
       this.loadBreweries();
