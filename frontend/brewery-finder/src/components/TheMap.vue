@@ -72,13 +72,13 @@ export default {
   methods: {
     toggleInfoWindow: function(marker, i) {
       this.windowOpen = this.windowOpen ? false : true;
-      this.description = this.props.breweries[i].name;
-      this.address = this.props.breweries[i].address;
+      this.description = this.breweries[i].name;
+      this.address = this.breweries[i].address;
       this.windowPosition = marker.position;
-      this.beerThumb = this.props.breweries[i].imgSrc;
+      this.beerThumb = this.breweries[i].imgSrc;
     },
     redirect(index) {
-      this.$router.push("/brewery/" + this.props.breweries[index].name);
+      this.$router.push("/brewery/" + this.breweries[index].name);
     },
   },
 };
