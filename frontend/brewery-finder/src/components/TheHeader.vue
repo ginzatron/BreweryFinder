@@ -1,12 +1,23 @@
 <template>
   <header>
     <nav>
-      <div class='home-search'>
-      <router-link to="/">Home</router-link>
-      <router-link to="/search">Search  <span><i class="fa fa-search"/></span></router-link>
+      <div class="home-search">
+        <div @click="goHome">
+          <router-link to="/">Home</router-link>
+        </div>
+        <div>
+          <router-link to="/search">
+            Search
+            <span>
+              <i class="fa fa-search"/>
+            </span>
+          </router-link>
+        </div>
       </div>
-      <h2><router-link to="/">BreweryFinder</router-link></h2>
-      <div class='login'>
+      <h2 @click="goHome">
+        <router-link to="/">BreweryFinder</router-link>
+      </h2>
+      <div class="login">
         <router-link v-if="!username" to="/login">Login / Register</router-link>
         <a v-else>Welcome {{username}}</a>
         <a v-if="username" @click="logout">Logout</a>
@@ -16,14 +27,14 @@
 </template>
 
 <script>
-import auth from "@/shared/auth.js"
-import {EventBus} from "@/shared/event-bus"
+import auth from "@/shared/auth.js";
+import { EventBus } from "@/shared/event-bus";
 
 export default {
   data() {
     return {
       username: ""
-    }
+    };
   },
   computed: {
     isLoggedIn() {
@@ -31,30 +42,32 @@ export default {
     }
   },
   created() {
-    EventBus.$on('login', (ev) => {
+    EventBus.$on("login", ev => {
       this.username = ev;
     }),
-
-    fetch(`${process.env.VUE_APP_REMOTE_API}/account/currentUser`, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + auth.getToken()
-      }
-    })
-      .then(response => {
-        if(response.ok) {
-          response.json();
+      fetch(`${process.env.VUE_APP_REMOTE_API}/account/currentUser`, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + auth.getToken()
         }
       })
-      .then(json => {
-        this.username = json;
-        this.$router.push("/");
-    });
+        .then(response => {
+          if (response.ok) {
+            response.json();
+          }
+        })
+        .then(json => {
+          this.username = json;
+          this.$router.push("/");
+        });
   },
   methods: {
     logout() {
       auth.destroyToken();
       this.username = null;
+    },
+    goHome() {
+      this.$emit("goHome");
     }
   }
 };
@@ -64,15 +77,14 @@ export default {
 header {
   background-color: var(--burgundy);
   color: var(--lightGrey);
-  /* border-bottom: 3px solid #777; */  
-  height: 120px;
+  border-bottom: 3px solid #777;
   font-family: archivo;
 }
 .fa-search {
   color: goldenrod;
 }
 
-.home-search a:first-child{
+.home-search a:first-child {
   margin: 0px 100px;
 }
 
@@ -105,8 +117,7 @@ h1 {
 
 h2 {
   margin: 0;
-  margin-top:15px;
-  font-size: 3em;
+  font-size: 2em;
 }
 
 img {
@@ -125,8 +136,8 @@ nav {
   font-size: 1.5rem;
   background-color: var(--burgundy);
   padding: 5px 0;
-  margin-top:15px;
+  margin-top: 15px;
   align-items: center;
-  text-align:center;
+  text-align: center;
 }
 </style>

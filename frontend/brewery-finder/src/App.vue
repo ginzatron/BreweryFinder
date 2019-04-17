@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-header></the-header>
+    <the-header @goHome="clearForm"></the-header>
     <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm"/>
     <the-footer></the-footer>
   </div>
@@ -23,7 +23,7 @@ export default {
           name: '',
           zipCode: '',
           happyHour: '',
-          range: '',
+          range: 30,
           beerName: '',
           center: {
             lat: '',
@@ -41,6 +41,14 @@ export default {
     },
     searchForm(searchData) {
       this.appData = searchData;
+      this.fetchBreweries();
+    },
+    clearForm() {
+      this.appData.formData.name = '';
+      this.appData.formData.zipCode = '';
+      this.appData.formData.happyHour = '';
+      this.appData.formData.range = 30;
+      this.appData.formData.beerName = '';
       this.fetchBreweries();
     },
     fetchBreweries() {
