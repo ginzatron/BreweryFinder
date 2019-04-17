@@ -53,7 +53,9 @@ namespace SampleApi.Controllers
             {
                 beerName = "";
             }
+
             IList<Brewery> breweries = breweryDao.GetAllByQuery(zip, brewOrBar, happyHour, nameFix, userLat, userLng, range, beerName);
+
             foreach(Brewery brewery in breweries)
             {
                 brewery.beersAvailable = beerDao.GetBeerByBrewery(brewery.Id);
