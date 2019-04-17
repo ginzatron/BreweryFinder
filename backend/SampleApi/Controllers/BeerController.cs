@@ -32,8 +32,8 @@ namespace SampleApi.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{id}/like")]
-        public ActionResult FavoriteBeer([FromQuery]int beerId)
+        [Route("favorite")]
+        public ActionResult FavoriteBeer([FromBody]int beerId)
         {
             this.favoriteDAO.AddFavorite(base.User.Identity.Name.ToString(), beerId);
 
@@ -42,8 +42,8 @@ namespace SampleApi.Controllers
 
         [HttpDelete]
         [Authorize]
-        [Route("{id}/like")]
-        public ActionResult RemoveFavorite([FromQuery]int beerId)
+        [Route("favorite")]
+        public ActionResult RemoveFavorite([FromBody]int beerId)
         {
             this.favoriteDAO.RemoveFavorite(base.User.Identity.Name.ToString(), beerId);
 
