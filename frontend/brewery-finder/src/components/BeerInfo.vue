@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import auth from "@/shared/auth";
 export default {
   data() {
     return {
@@ -45,12 +46,24 @@ export default {
     beer: Object
   },
   methods: {
-    redirect(beerName) {
+    redirect() {
       this.$router.push("/search");
       this.$emit("beerClick", this.beer.name);
     },
     favorite(id) {
-     this.isFavorited = !this.isFavorited;
+      if (!auth.getToken()) {
+        this.$router.push("/login");
+      } else if (this.isFavorited) {
+        fetch(`${process.env.VUE_APP_REMOTE_API}/beer/favorite`, {
+          method: "POST",
+          headers: {
+            Accept: "application/JSON",
+            "Content-Type": "application/JSON"
+          },
+          body: JSON.stringify({'beerId':id})
+        });
+      }
+      this.isFavorited = !this.isFavorited;
     }
   }
 };
@@ -104,7 +117,7 @@ export default {
   color: black;
   transform: rotateY(180deg);
 }
-i{
+i {
   color: white;
   font-size: 2.25rem;
 }
