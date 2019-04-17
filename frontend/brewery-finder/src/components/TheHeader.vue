@@ -106,7 +106,6 @@ header a {
   color: var(--lightGrey);
   font-weight: bolder;
   cursor: pointer;
-  white-space:pre;
 }
 
 h1 {
@@ -129,6 +128,8 @@ img {
 
 .login {
   margin-right: 175px;
+    white-space:pre;
+
 }
 
 nav {
