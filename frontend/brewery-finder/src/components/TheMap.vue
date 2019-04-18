@@ -5,7 +5,7 @@
       :zoom="10"
       style="height : 100%; width : 100%; position : absolute; position: top; "
     >
-    <gmap-cluster>
+    <gmap-cluster :zoomOnClick="zoom">
       <gmap-marker
         v-for="(marker, index) in computedMarkers"
         :key="index"
