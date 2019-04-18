@@ -25,9 +25,9 @@ namespace SampleApi.DAL
 
             if (range != 0)
             {
-                sql = "declare @source geography = geography::STPointFromText('Point(' + @lat + ' ' + @lng + ')', 4326)" +
+                sql = "declare @source geography = 'Point(' + @lng + ' ' + @lat + ')'" +
                       " select distinct br.* from breweries br left join beers_breweries bb ON br.id=bb.brewery_id left JOIN beers b ON b.id = bb.beer_id where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
-                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range) and (@beerName='%%' or b.name LIKE @beerName)";
+                      " and (@range = 0 or @source.STDistance('Point(' + cast(br.longitude as nvarchar(25)) + ' ' + cast(br.latitude as nvarchar(25)) + ')') * 0.000621371 <= @range) and (@beerName='%%' or b.name LIKE @beerName)";
                       //" group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
             }
 
@@ -44,8 +44,8 @@ namespace SampleApi.DAL
                     cmd.Parameters.AddWithValue("@brewery", isBrewery);
                     cmd.Parameters.AddWithValue("@name", '%' + name + '%');
                     cmd.Parameters.AddWithValue("@happyHour", happyHour);
-                    cmd.Parameters.AddWithValue("@lat", userLat);
-                    cmd.Parameters.AddWithValue("@lng", userLng);
+                    cmd.Parameters.AddWithValue("@lat", userLat.ToString());
+                    cmd.Parameters.AddWithValue("@lng", userLng.ToString());
                     cmd.Parameters.AddWithValue("@range", range);
                     cmd.Parameters.AddWithValue("@beerName", '%' + beerName + '%');
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -58,7 +58,7 @@ namespace SampleApi.DAL
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
                 throw;
             }
