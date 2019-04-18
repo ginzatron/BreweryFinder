@@ -23,7 +23,7 @@ export default {
           name: '',
           zipCode: '',
           happyHour: '',
-          range: 30,
+          range: 25,
           beerName: '',
           center: {
             lat: '',

@@ -19,7 +19,7 @@
             <option value="5">5 miles</option>
             <option value="10">10 miles</option>
             <option value="15">15 miles</option>
-            <option value="25" selected="selected">25 miles</option>
+            <option value="25" >25 miles</option>
             <option value="50">50 miles</option>
           </select>
         </div>
@@ -82,6 +82,10 @@ export default {
   },
   methods: {
     loadBreweries() {
+      if(this.computedZip){
+        this.appData.formData.range='';
+      }
+      else this.appData.formData.zipCode = '';
       this.$emit("formSubmit", this.appData);
     },
     timeFormat(a, b) {
