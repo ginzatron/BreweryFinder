@@ -2,7 +2,7 @@
   <header>
     <nav>
       <div class="home-search">
-        <div @click="goHome">
+        <div class="push-right" @click="goHome">
           <router-link to="/">Home</router-link>
         </div>
         <div>
@@ -17,7 +17,7 @@
       <h2 @click="goHome">
         <router-link to="/">BreweryFinder</router-link>
       </h2>
-      <div class="login">
+      <div class="push-right">
         <router-link v-if="!appData.username" to="/login">Login / Register</router-link>
         <a v-else>Welcome {{appData.username}} </a>
         <a v-if="appData.username" @click="logout">Logout</a>
@@ -54,25 +54,22 @@ header {
   border-bottom: 3px solid #777;
   font-family: archivo;
 }
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;
+  background-color: var(--burgundy);
+  padding: 5px 0;
+  align-items: center;
+}
+
 .fa-search {
   color: goldenrod;
 }
 
-.home-search a:first-child {
-  margin: 0px 100px;
-}
-
-div {
-  display: flex;
-}
-
-.centered {
-  justify-content: center;
-}
-
 .home-search {
   display: flex;
-  justify-content: space-around;
 }
 
 header a {
@@ -82,11 +79,8 @@ header a {
   cursor: pointer;
 }
 
-h1 {
-  display: inline-block;
-  font-size: 4rem;
-  margin-top: 0;
-  margin-bottom: 0;
+.push-right {
+  margin-right: 50px;
 }
 
 h2 {
@@ -94,26 +88,5 @@ h2 {
   font-size: 2em;
 }
 
-img {
-  display: inline-block;
-  width: 150px;
-  height: 150px;
-}
-
-.login {
-  margin-right: 175px;
-    white-space:pre;
-
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.5rem;
-  background-color: var(--burgundy);
-  padding: 5px 0;
-  margin-top: 15px;
-  align-items: center;
-  text-align: center;
-}
+/* change to length view at <800px */
 </style>

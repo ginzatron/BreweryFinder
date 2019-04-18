@@ -19,13 +19,6 @@ export default {
 </script>
 
 <style scoped>
-img {
-    position: relative;
-    left: 0%;
-    top: 150%;
-    width: 100%;
-}
-
 .social-media {
   display:flex;
   justify-content: flex-end;
@@ -76,8 +69,10 @@ footer {
   justify-content: space-around;
   align-items: center;
 }
+
 p {
   width: 25%;
   line-height: 2rem;
+  min-width: 350px;
 }
 </style>

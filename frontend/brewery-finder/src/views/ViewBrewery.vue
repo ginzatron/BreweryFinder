@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="brewery-deet">
+    <div>
       <div class="brewery-details-top">
         <img id="brewery-img" v-bind:src="`${brewery[0].imgSrc}`" :alt="`${brewery[0].name}` + 'image'">
         <div id="brewery-info">
@@ -73,25 +73,12 @@ export default {
   grid-template-areas: "brewery-image brewery-info";
 }
 
-h2 {
-  text-decoration: underline;
-  font-size: 3rem;
-  display: inline-block;
-}
-
 #brewery-img {
   max-width: 85%;
   height: 350px;
   padding: 40px;
-}
-
-#brewery-img {
+  min-width: 420px;
   grid-area: brewery-image;
-}
-
-#brewery-name{
-  font-size: 1.5rem;
-  color: #490000;
 }
 
 #brewery-info {
@@ -105,6 +92,12 @@ h2 {
   border-radius: 10px;
   background-color: rgba(167, 176, 173, 0.9);
   padding: 15px;
+  min-width: 340px;
+}
+
+#brewery-name{
+  font-size: 1.5rem;
+  color: #490000;
 }
 
 #brewery-description{
@@ -112,9 +105,18 @@ h2 {
   font-weight: bold;
 }
 
+h2 {
+  text-decoration: underline;
+  font-size: 2.9rem;
+  display: inline-block;
+}
+
 div.available-beers {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
+
+/*update styles at < 800px*/
 </style>
