@@ -54,7 +54,7 @@ export default {
     },
     favorite($event) {
       if (!auth.getToken()) {
-        this.$router.push("/login");
+        this.$router.push({name: "login", query: { redirect: this.$route.path}});
       } else if (!$event.target.classList.contains("favorited")) {
         fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
           method: "POST",

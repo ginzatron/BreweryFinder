@@ -37,8 +37,8 @@ export default {
     logout() {
       auth.destroyToken();
       this.appData.username = "";
+      this.$router.push("/");
       this.$emit('logout');
-      // this.vm.$forceUpdate();
     },
     goHome() {
       this.$emit("goHome");

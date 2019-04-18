@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <the-header @goHome="clearForm" :appData="appData"></the-header>
-    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin" @logout="performLogout" @reloadFavs="reloadFavs"/>
+    <the-header @goHome="clearForm" :appData="appData" @logout="performLogout"></the-header>
+    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin" @reloadFavs="reloadFavs"/>
     <the-footer></the-footer>
   </div>
 </template>
@@ -80,7 +80,7 @@ export default {
       this.reloadFavs();
     },
     performLogout() {
-      this.reloadFavs();
+      this.appData.favorites = [];
     },
     reloadFavs() {
       fetch(`${process.env.VUE_APP_REMOTE_API}/beer`, {
@@ -100,12 +100,6 @@ export default {
     this.geolocate();
     if(auth.getUser()) this.appData.username = auth.getUser().sub;
   },
-  // computed: {
-  //   username() {
-  //     if(!auth.getUser()) return "";
-  //     return auth.getUser().sub;
-  //   }
-  // }
 }
 </script>
 

@@ -65,9 +65,6 @@ export default {
       this.showLoginForm = !this.showLoginForm;
       this.error = "";
     },
-    goHome() {
-      this.$router.push("/");
-    },
     async login() {
       this.error = "";
 
@@ -90,7 +87,11 @@ export default {
           // Parse output and save authentication token
           const token = await response.json();
           auth.saveToken(token);
-          this.goHome();
+          if (this.$route.query.redirect) {
+            this.$router.push(this.$route.query.redirect);
+          } else {
+            this.$router.push("/");
+          }
           this.$emit("login");
         }
       } catch (error) {
@@ -123,7 +124,11 @@ export default {
         } 
         if (response.ok) {
           auth.saveToken(data);
-          this.goHome();
+          if (this.$route.query.redirect) {
+            this.$router.push(this.$route.query.redirect);
+          } else {
+            this.$router.push("/");
+          }
           this.$emit("login");
         }
       } catch (error) {
