@@ -164,7 +164,7 @@ input[name="confirmPassword"] {
 
 .form-div {
   margin: 60px;
-  background-color: rgba(167, 176, 173, 0.6);
+  /* background-color: rgba(167, 176, 173, 0.6); */
   width: 35%;
   height: 225px;
 }
