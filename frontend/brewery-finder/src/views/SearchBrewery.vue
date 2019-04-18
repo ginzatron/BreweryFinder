@@ -8,11 +8,18 @@
         </div>
         <div>
           <label>Zip Code</label>
-          <input type="text" placeholder="Zip Code" v-model.trim="appData.formData.zipCode">
+          <input type="text" placeholder="Zipcode" v-model.trim="appData.formData.zipCode">
         </div>
         <div>
-          <label>Miles Away</label>
-          <input type="text" placeholder="Radius in miles" v-model.trim="appData.formData.range">
+          <label>Radius</label>
+          <select v-model.trim="appData.formData.range">
+            <option value></option>
+            <option value="5">5 miles</option>
+            <option value="10">10 miles</option>
+            <option value="15">15 miles</option>
+            <option value="25">25 miles</option>
+            <option value="50">50 miles</option>
+          </select>  
         </div>
         <div>
           <label>Happy Hour</label>
@@ -67,6 +74,13 @@ export default {
     loadBreweries() {
       this.$emit("formSubmit", this.appData);
     },
+    timeFormat(a, b) {
+      let timeA = a.split(":").shift();
+      let timeB = b.split(":").shift();
+      if (timeA > 12) return `${timeA - 12} pm - ${timeB - 12} pm`;
+      else if (timeA > 0 && timeB < 12) return `${timeA} am - ${timeB} am`;
+      else if (timeA == 0) return "nope";
+    }
   }
 };
 </script>
