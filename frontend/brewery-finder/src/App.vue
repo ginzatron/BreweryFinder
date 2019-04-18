@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-header @goHome="clearForm" :appData="appData" @logout="performLogout"></the-header>
+    <the-header @goHome="clearForm" :appData="appData" @logout="performLogout" @clear="clearForm"></the-header>
     <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin" @reloadFavs="reloadFavs"/>
     <the-footer></the-footer>
   </div>
@@ -76,10 +76,12 @@ export default {
       });
     },
     performLogin(){
+      this.clearForm();
       this.appData.username = auth.getUser().sub;
       this.reloadFavs();
     },
     performLogout() {
+      this.clearForm();
       this.appData.favorites = [];
     },
     reloadFavs() {

@@ -19,7 +19,9 @@
       </h2>
       <div class="push-right">
         <router-link v-if="!appData.username" to="/login">Login / Register</router-link>
-        <router-link to="/profile" v-else>Welcome {{appData.username}} </router-link>
+        <div @click="clearForm">
+          <router-link to="/profile" v-if="appData.username">Welcome {{appData.username}}</router-link>
+        </div>
         <a v-if="appData.username" @click="logout">Logout</a>
       </div>
     </nav>
@@ -38,10 +40,13 @@ export default {
       auth.destroyToken();
       this.appData.username = "";
       this.$router.push("/");
-      this.$emit('logout');
+      this.$emit("logout");
     },
     goHome() {
       this.$emit("goHome");
+    },
+    clearForm() {
+      this.$emit("clear");
     }
   }
 };
