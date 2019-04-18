@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <the-header @goHome="clearForm" :appData="appData" @logout="performLogout" @clear="clearForm"></the-header>
-    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin" @reloadFavs="reloadFavs"/>
+    <router-view v-bind:appData="appData" @beerChosen="searchBeer" @formSubmit="searchForm" @login="performLogin" @reloadFavs="reloadFavs" @clearForm="clearForm"/>
     <the-footer></the-footer>
   </div>
 </template>

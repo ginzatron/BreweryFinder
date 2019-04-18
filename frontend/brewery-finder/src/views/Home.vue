@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <the-map v-bind:breweries="appData.breweries"></the-map>
+    <the-map v-bind:appData="appData"></the-map>
   </section>
 </template>
 

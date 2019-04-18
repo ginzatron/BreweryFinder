@@ -1,7 +1,7 @@
 <template>
   <div id="map">
     <gmap-map
-      :center="center"
+      :center="userCenter"
       :zoom="10"
       style="height : 100%; width : 100%; position : absolute; position: top; "
     >
@@ -36,12 +36,12 @@
 export default {
   name: "GoogleMap",
   props: {
-    breweries: Array
+    appData: Object,
   },
   data() {
     return {
       markers: [],
-      center: { lat: 41.5038148, lng: -81.6408804 },
+      // center: { lat: 41.5038148, lng: -81.6408804 },
       windowOpen: false,
       description: "",
       address: "",
@@ -58,7 +58,7 @@ export default {
   computed: {
     computedMarkers() {
       let myMarkers = [];
-      this.breweries.forEach(brewery => {
+      this.appData.breweries.forEach(brewery => {
         const marker = {
           lat: brewery.latitude,
           lng: brewery.longitude,
@@ -67,18 +67,24 @@ export default {
       });
 
       return myMarkers;
+    },
+    userCenter() {
+      if(this.appData.formData.center.lat) {
+        return { lat: this.appData.formData.center.lat, lng: this.appData.formData.center.lng }
+      }
+      return { lat: 41.5038148, lng: -81.6408804 }
     }
   },
   methods: {
     toggleInfoWindow: function(marker, i) {
       this.windowOpen = this.windowOpen ? false : true;
-      this.description = this.breweries[i].name;
-      this.address = this.breweries[i].address;
+      this.description = this.appData.breweries[i].name;
+      this.address = this.appData.breweries[i].address;
       this.windowPosition = marker.position;
-      this.beerThumb = this.breweries[i].imgSrc;
+      this.beerThumb = this.appData.breweries[i].imgSrc;
     },
     redirect(index) {
-      this.$router.push("/brewery/" + this.breweries[index].name);
+      this.$router.push("/brewery/" + this.appData.breweries[index].name);
     },
   },
 };

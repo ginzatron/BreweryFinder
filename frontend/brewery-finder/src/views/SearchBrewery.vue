@@ -8,18 +8,20 @@
         </div>
         <div>
           <label>Zip Code</label>
-          <input type="text" placeholder="Zipcode" v-model.trim="appData.formData.zipCode">
+          <input type="radio" value="true" v-model="doZip">
+          <input type="text" placeholder="Zipcode" v-model.trim="appData.formData.zipCode" v-bind:disabled="!computedZip">
         </div>
         <div>
           <label>Radius</label>
-          <select v-model.trim="appData.formData.range">
+          <input type="radio" value="false" v-model="doZip">
+          <select v-model.trim="appData.formData.range" v-bind:disabled="computedZip">
             <option value></option>
             <option value="5">5 miles</option>
             <option value="10">10 miles</option>
             <option value="15">15 miles</option>
-            <option value="25">25 miles</option>
+            <option value="25" selected="selected">25 miles</option>
             <option value="50">50 miles</option>
-          </select>  
+          </select>
         </div>
         <div>
           <label>Happy Hour</label>
@@ -48,12 +50,15 @@
           <label>Beer Name</label>
           <input type="text" placeholder="Beer Name" v-model.trim="appData.formData.beerName">
         </div>
-        <button type="submit">Submit</button>
+        <div class="form-buttons">
+          <button type="submit">Submit</button>
+          <button type="button" @click.prevent="clearForm">Clear</button>
+        </div>
       </form>
       <results v-bind:breweries="appData.breweries"></results>
     </div>
     <div id="map">
-      <the-map v-bind:breweries="appData.breweries"></the-map>
+      <the-map v-bind:appData="appData"></the-map>
     </div>
   </section>
 </template>
@@ -70,6 +75,11 @@ export default {
   props: {
     appData: Object
   },
+  data() {
+    return {
+      doZip: "false"
+    }
+  },
   methods: {
     loadBreweries() {
       this.$emit("formSubmit", this.appData);
@@ -80,6 +90,14 @@ export default {
       if (timeA > 12) return `${timeA - 12} pm - ${timeB - 12} pm`;
       else if (timeA > 0 && timeB < 12) return `${timeA} am - ${timeB} am`;
       else if (timeA == 0) return "nope";
+    },
+    clearForm() {
+      this.$emit("clearForm");
+    }
+  },
+  computed: {
+    computedZip() {
+      return this.doZip === "true";
     }
   }
 };
@@ -109,7 +127,6 @@ form {
   width: 100%;
 }
 
-
 #map {
   width: 100%;
   padding: 10px;
@@ -122,10 +139,20 @@ label {
   min-width: 100px;
 }
 
-input,
-select {
+input {
   width: 65%;
   min-width: 190px;
+  margin-bottom: 12px;
+}
+
+input[type='radio'] {
+  min-width: 10px;
+  width: 10px;
+}
+
+select {
+  width: 66%;
+  min-width: 194px;
   margin-bottom: 12px;
 }
 
@@ -137,7 +164,7 @@ form div {
 button {
   margin-top: 12px;
   width: 99px;
-  margin-left: 36%;
+  margin: 0 40px;
 }
 
 /*change style at < 800px */

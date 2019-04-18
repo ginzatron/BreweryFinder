@@ -46,5 +46,7 @@ export default {
 </script>
 
 <style scoped>
-
+a {
+  color:#0000cc;
+}
 </style>
