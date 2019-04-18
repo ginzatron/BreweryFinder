@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="form-div" v-if="showLoginForm">
-      <form v-on:submit.prevent="login">
+      <form class="card" v-on:submit.prevent="login">
         <h2>Login</h2>
         <a class="button" v-on:click="toggleForm">Register an Account</a>
         <div>
@@ -16,7 +16,7 @@
       </form>
     </div>
     <div class="form-div" v-if="!showLoginForm">
-      <form v-on:submit.prevent="register">
+      <form class="card" v-on:submit.prevent="register">
         <h2>Register</h2>
         <a class="button" v-on:click="toggleForm">Back to Login</a>
         <div>

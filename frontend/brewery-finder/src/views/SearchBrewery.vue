@@ -43,7 +43,7 @@
         </div>
         <button type="submit">Submit</button>
       </form>
-        <results v-bind:breweries="appData.breweries"></results>
+      <results v-bind:breweries="appData.breweries"></results>
     </div>
     <div id="map">
       <the-map v-bind:breweries="appData.breweries"></the-map>
@@ -63,18 +63,6 @@ export default {
   props: {
     appData: Object
   },
-  // data() {
-  //   return {
-      // formData: {
-      //   breweryName: '',
-      //   zipCode: '',
-      //   happyHour: '',
-      //   range: 30,
-      //   beerName: ''
-      // },
-      // breweries: []
-  //   };
-  // },
   methods: {
     loadBreweries() {
       this.$emit("formSubmit", this.appData);
@@ -86,16 +74,27 @@ export default {
       else if (timeA > 0 && timeB < 12) return `${timeA} am - ${timeB} am`;
       else if (timeA == 0) return "nope";
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
+section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.form-results {
+  display: flex;
+  flex-direction: column;
+  min-width: 420px;
+}
+
 form {
   display: flex;
   flex-direction: column;
   align-items: space-between;
-  width: 92%;
   margin: 20px 0px;
 }
 
@@ -103,31 +102,26 @@ form {
   width: 100%;
 }
 
-.form-results {
-  display: flex;
-  flex-direction: column;
-}
 
 #map {
-  height: 600px;
-  width: 1100px;
-  margin-top:10px;
-  margin-bottom:30px;
+  width: 100%;
+  padding: 10px;
 }
 
-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
 label {
   color: black;
   font-weight: bold;
+  text-align: left;
+  min-width: 100px;
 }
-input,select {
-  width: 300px;
+
+input,
+select {
+  width: 65%;
+  min-width: 190px;
   margin-bottom: 12px;
 }
+
 form div {
   display: flex;
   flex-direction: row;
@@ -138,4 +132,6 @@ button {
   width: 99px;
   margin-left: 36%;
 }
+
+/*change style at < 800px */
 </style>

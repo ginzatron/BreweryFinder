@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="beer-info-component">
     <div id="favorite">
       <i
         :id="beer.name"
-        class="fas fa-beer"
+        class="fas fa-beer card"
         :class="{favorited:isFavorited}"
         @click="favorite($event)"
       ></i>
@@ -90,6 +90,10 @@ export default {
 </script>
 
 <style scoped>
+.beer-info-component {
+  min-width: 250px;
+}
+
 .container {
   height: 300px;
 }
@@ -136,9 +140,15 @@ export default {
   color: black;
   transform: rotateY(180deg);
 }
-i {
+
+#favorite {
+  text-align: right;
+}
+
+i.card {
   color: white;
   font-size: 2.25rem;
+  padding: 3px 5px 3px 5px;
 }
 
 i.favorited {
