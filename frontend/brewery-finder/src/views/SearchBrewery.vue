@@ -8,11 +8,18 @@
         </div>
         <div>
           <label>Zip Code</label>
-          <input type="text" placeholder="Zip Code" v-model.trim="appData.formData.zipCode">
+          <input type="text" placeholder="Zipcode" v-model.trim="appData.formData.zipCode">
         </div>
         <div>
           <label>Radius</label>
-          <input type="text" placeholder="Radius in miles" v-model.trim="appData.formData.range">
+          <select v-model.trim="appData.formData.range">
+            <option value></option>
+            <option value="5">5 miles</option>
+            <option value="10">10 miles</option>
+            <option value="15">15 miles</option>
+            <option value="25">25 miles</option>
+            <option value="50">50 miles</option>
+          </select>  
         </div>
         <div>
           <label>Happy Hour</label>
