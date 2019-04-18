@@ -5,16 +5,17 @@
       :zoom="10"
       style="height : 100%; width : 100%; position : absolute; position: top; "
     >
+    <gmap-cluster>
       <gmap-marker
         v-for="(marker, index) in computedMarkers"
         :key="index"
-        n}
         :icon="marker.icon"
         :position="marker.position"
         @mouseover="toggleInfoWindow(marker,index)"
         @mouseout="toggleInfoWindow(marker,index)"
         @click="redirect(index)"
       ></gmap-marker>
+    </gmap-cluster>
       <gmap-info-window :options="infoOptions" :position="this.windowPosition" :opened="windowOpen" style="font-family: dokdo;">
         <div id='infoWindow'>
           <div class='info'>

@@ -2,6 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import * as VueGoogleMaps from "vue2-google-maps";
+import GmapCluster from 'vue2-google-maps/src/components/cluster';
+
+Vue.component('GmapCluster', GmapCluster) 
 
 Vue.config.productionTip = false;
 
