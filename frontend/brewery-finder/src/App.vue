@@ -32,7 +32,7 @@ export default {
         },
         breweries: [],
         favorites: [],
-        username: ''
+        username: '',
       }
     }
   },

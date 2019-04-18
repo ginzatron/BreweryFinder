@@ -19,7 +19,7 @@
       </h2>
       <div class="push-right">
         <router-link v-if="!appData.username" to="/login">Login / Register</router-link>
-        <a v-else>Welcome {{appData.username}} </a>
+        <router-link to="/profile" v-else>Welcome {{appData.username}} </router-link>
         <a v-if="appData.username" @click="logout">Logout</a>
       </div>
     </nav>

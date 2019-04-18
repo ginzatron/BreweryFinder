@@ -5,6 +5,7 @@ import Login from "./views/Login.vue";
 import ViewBeer from "./views/ViewBeer.vue";
 import ViewBrewery from "./views/ViewBrewery.vue";
 import SearchBrewery from "./views/SearchBrewery.vue";
+import UserProfile from "./views/UserProfile.vue";
 import auth from "./shared/auth";
 
 Vue.use(Router);
@@ -53,7 +54,14 @@ const router = new Router({
         requiresAuth: false
       }
     },
-
+    {
+      path: "/profile",
+      name: "UserProfile",
+      component: UserProfile,
+      meta: {
+        requiresAuth: true
+      }
+    },
   ]
 });
 
