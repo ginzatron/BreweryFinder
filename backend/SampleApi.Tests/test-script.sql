@@ -1,5 +1,6 @@
 ﻿--delete data from tables
 delete from beers_breweries;
+delete from favorites;
 delete from beers;
 delete from breweries;
 delete from styles;

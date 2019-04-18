@@ -6,18 +6,12 @@ using System.Data.SqlClient;
 using System.Transactions;
 using System.IO;
 
-
 namespace SampleApi.Tests.DAL
 {
     [TestClass]
     public class BreweryFinderDAOTests
     {
         protected string ConnectionString { get; } = "Server=.\\SQLEXPRESS;Initial Catalog = BreweryDB; Integrated Security = True;";
-
-        /// <summary>
-        /// holds the newly generated BreweryId
-        /// </summary>
-        protected int BreweryId { get; private set; }
 
         /// <summary>
         /// the transaction for each test
@@ -39,14 +33,30 @@ namespace SampleApi.Tests.DAL
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
-
-                //if there is a row to Read
-                if (reader.Read())
-                {
-                    this.BreweryId = Convert.ToInt32(reader["id"]);
-                }
             }
         }
 
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // Roll back the transaction
+            transaction.Dispose();
+        }
+
+        /// <summary>
+        /// Gets the row count for a table.
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        protected int GetRowCount(string table)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand($"SELECT COUNT(*) FROM {table}", conn);
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count;
+            }
+        }
     }
 }
