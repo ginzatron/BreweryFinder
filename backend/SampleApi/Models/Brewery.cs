@@ -11,11 +11,11 @@ namespace SampleApi.Models
         public string Name { get; set; }
         public TimeSpan HappyHourFrom { get; set; }
         public TimeSpan HappyHourTo { get; set; }
-        public int Established { get; set; }
+        public int? Established { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int Zip { get; set; }
+        public int? Zip { get; set; }
         public string SiteURL { get; set; }
         public string Description { get; set; }
         public bool IsBar { get; set; }

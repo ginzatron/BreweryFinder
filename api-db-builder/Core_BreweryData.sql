@@ -44,10 +44,10 @@ CREATE TABLE breweries
 	happyHourFrom	Time		            null,
 	happyHourTo  	Time		            null,
 	established		int					null,
-	address			nvarchar(250)		not null,
-	city			nvarchar(100)		not null,
-	state			varchar(30)			not null,
-	zip				int					not null,
+	address			nvarchar(250)		null,
+	city			nvarchar(100)		null,
+	state			varchar(30)				null,
+	zip				int					null,
 	latitude        decimal(8,6)        not null,
 	longitude		decimal(8,6)        not null,
 	siteURL			nvarchar(100)		null,
@@ -122,14 +122,14 @@ INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Old LegHum
 INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Citra Dog', 1, 'You’ll find evidence of tangerine, grapefruit, orange and mango in the flavor and aroma from the multiple addition of a single hop variety, Citra.', 6.8, 'https://gdurl.com/S1Rk')
 
 ----Hoppin Frog
---INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('BORIS Imperial Stout', 2, 'This Bodacious Oatmeal Russian Imperial Stout will crush you like no other! This is the grand-daddy of all stout styles, with an intensely deep roasted and full bodied flavor. A robust hop character adds a refreshing balance.', 9.4, 'https://gdurl.com/NxSy')
---INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Silk Porter', 5, 'Dark, robust and silky-smooth, with many flavors of roasted, toasted and caramel malts. Porter is an old-world beer style that fueled the industrial revolution.', 6.5, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/ln5c2rjdtsi5eunjdkqkh1rlp94pabs9/1555524000000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK ')
---INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Gangster Frog IPA', 1, 'Crisp and satisfying American I.P.A. with a skillfully assertive American hop aroma & flavor. Bright spicy citrus hop character up front, with a distinct orange & tropical fruit bouquet to add a welcome complexity & strike the perfect balance.', 7.5, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/ln5c2rjdtsi5eunjdkqkh1rlp94pabs9/1555524000000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
+INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('BORIS Imperial Stout', 2, 'This Bodacious Oatmeal Russian Imperial Stout will crush you like no other! This is the grand-daddy of all stout styles, with an intensely deep roasted and full bodied flavor. A robust hop character adds a refreshing balance.', 9.4, 'https://gdurl.com/NxSy')
+INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Silk Porter', 5, 'Dark, robust and silky-smooth, with many flavors of roasted, toasted and caramel malts. Porter is an old-world beer style that fueled the industrial revolution.', 6.5, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/ln5c2rjdtsi5eunjdkqkh1rlp94pabs9/1555524000000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK ')
+INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Gangster Frog IPA', 1, 'Crisp and satisfying American I.P.A. with a skillfully assertive American hop aroma & flavor. Bright spicy citrus hop character up front, with a distinct orange & tropical fruit bouquet to add a welcome complexity & strike the perfect balance.', 7.5, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/ln5c2rjdtsi5eunjdkqkh1rlp94pabs9/1555524000000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
 
 ----Boss Dog
---INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Dog Pound Brown', 3, 'Traditional brown ale enlivened with nutty biscuit and mild chocolate aromas.', 6.2, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/brh918c91gqdk5ncm768doa0ksonl64h/1555531200000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
---INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Cuyahoga Porter', 5, 'Robust and roasted. Slight sweetness a touch of chocolate', 5.8, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/brh918c91gqdk5ncm768doa0ksonl64h/1555531200000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
---INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Buck IPA', 1, 'Deep piney, resinous flavor augmented by sweet melon.', 7.2, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/brh918c91gqdk5ncm768doa0ksonl64h/1555531200000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
+INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Dog Pound Brown', 3, 'Traditional brown ale enlivened with nutty biscuit and mild chocolate aromas.', 6.2, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/brh918c91gqdk5ncm768doa0ksonl64h/1555531200000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
+INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Cuyahoga Porter', 5, 'Robust and roasted. Slight sweetness a touch of chocolate', 5.8, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/brh918c91gqdk5ncm768doa0ksonl64h/1555531200000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
+INSERT INTO beers (name, style_id, description, abv, imgSrc) VALUES ('Buck IPA', 1, 'Deep piney, resinous flavor augmented by sweet melon.', 7.2, 'https://doc-0s-ak-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/brh918c91gqdk5ncm768doa0ksonl64h/1555531200000/07855601184608224584/*/16jpPF8vDeclNnMQepLNkP83JuKbiJTNK')
 
 
 

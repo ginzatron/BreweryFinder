@@ -20,15 +20,15 @@ namespace SampleApi.DAL
             IList<Brewery> breweries = new List<Brewery>();
             bool isBar = brewOrBar != "brewery";
             bool isBrewery = brewOrBar != "bar";
-            string sql = "select br.* from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where  (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom)) and (@beerName='' or b.name LIKE @beerName)" +
-                         " group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
+            string sql = "select distinct br.* from breweries br left join beers_breweries bb ON br.id=bb.brewery_id left JOIN beers b ON b.id = bb.beer_id where  (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom)) and (@beerName='%%' or b.name LIKE @beerName)";
+                         //" group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
 
             if (range != 0)
             {
                 sql = "declare @source geography = geography::STPointFromText('Point(' + @lat + ' ' + @lng + ')', 4326)" +
-                      " select br.* from breweries br join beers_breweries bb ON br.id=bb.brewery_id JOIN beers b ON b.id = bb.beer_id where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
-                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range) and (@beerName='' or b.name LIKE @beerName)" +
-                      " group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
+                      " select distinct br.* from breweries br left join beers_breweries bb ON br.id=bb.brewery_id left JOIN beers b ON b.id = bb.beer_id where (@zip = 0 or zip = @zip) and isbar = @bar and isbrewery = @brewery and br.name like @name and (@happyHour = '00:00' or (@happyHour <= happyHourTo and @happyHour >= happyHourFrom))" +
+                      " and (@range = 0 or @source.STDistance(geography::STPointFromText('Point(' + cast(br.latitude as nvarchar(25)) + ' ' + cast(br.longitude as nvarchar(25)) + ')', 4326)) * 0.000621371 <= @range) and (@beerName='%%' or b.name LIKE @beerName)";
+                      //" group by br.id, br.name, br.happyHourFrom, br.happyHourTo, br.established, br.address, br.city, br.state, br.zip, br.latitude, br.longitude, br.siteURL, br.description, br.isBar, br.isBrewery, br.imgSrc";
             }
 
             try
@@ -37,7 +37,7 @@ namespace SampleApi.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);  
+                    SqlCommand cmd = new SqlCommand(sql, conn);
 
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@bar", isBar);
@@ -55,7 +55,7 @@ namespace SampleApi.DAL
                         Brewery brewery = ConvertReaderToBrewery(reader);
                         breweries.Add(brewery);
                     }
-                
+
                 }
             }
             catch (SqlException)
@@ -72,11 +72,17 @@ namespace SampleApi.DAL
 
             brewery.Id = Convert.ToInt32(reader["id"]);
             brewery.Name = Convert.ToString(reader["name"]);
-            brewery.Established = Convert.ToInt32(reader["established"]);
+            if (!(reader["established"] is DBNull))
+            {
+                brewery.Established = Convert.ToInt32(reader["established"]);
+            }
             brewery.Address = Convert.ToString(reader["address"]);
             brewery.City = Convert.ToString(reader["city"]);
             brewery.State = Convert.ToString(reader["state"]);
-            brewery.Zip = Convert.ToInt32(reader["zip"]);
+            if (!(reader["zip"] is DBNull))
+            {
+                brewery.Zip = Convert.ToInt32(reader["zip"]);
+            }
             brewery.SiteURL = Convert.ToString(reader["siteurl"]);
             brewery.Description = Convert.ToString(reader["description"]);
             brewery.IsBar = Convert.ToBoolean(reader["isbar"]);
@@ -84,7 +90,7 @@ namespace SampleApi.DAL
             brewery.imgSrc = Convert.ToString(reader["imgSrc"]);
             brewery.Latitude = Convert.ToDecimal(reader["latitude"]);
             brewery.Longitude = Convert.ToDecimal(reader["longitude"]);
-            
+
             if (!String.IsNullOrEmpty(Convert.ToString(reader["happyhourfrom"])))
             {
                 brewery.HappyHourFrom = TimeSpan.Parse(Convert.ToString(reader["happyhourfrom"]));
@@ -110,7 +116,7 @@ namespace SampleApi.DAL
                     {
                         brewery = ConvertReaderToBrewery(reader);
                     }
-     
+
 
                 }
 
@@ -164,14 +170,20 @@ namespace SampleApi.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO breweries(name, address, city, latitude, longitude, siteUrl) VALUES (@name, @address, @city,  @latitude, @longitude, @siteUrl); SELECT @@IDENTITY;", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO breweries(name, address, city, state, zip, latitude, longitude, siteUrl, imgSrc, established, description, isBar, isBrewery) VALUES (@name, @address, @city, @state, @zip, @latitude, @longitude, @siteUrl, @imgSrc, @established, @description, @isBar, @isBrewery); SELECT @@IDENTITY;", conn);
                     cmd.Parameters.AddWithValue("@name", brewery.Name);
                     cmd.Parameters.AddWithValue("@address", brewery.Address);
-                    cmd.Parameters.AddWithValue("@city", brewery.State);
+                    cmd.Parameters.AddWithValue("@city", brewery.City);
+                    cmd.Parameters.AddWithValue("@state", brewery.State);
                     cmd.Parameters.AddWithValue("@zip", brewery.Zip);
                     cmd.Parameters.AddWithValue("@latitude", brewery.Longitude);
                     cmd.Parameters.AddWithValue("@longitude", brewery.Latitude);
                     cmd.Parameters.AddWithValue("@siteUrl", brewery.SiteURL);
+                    cmd.Parameters.AddWithValue("@imgSrc", brewery.imgSrc);
+                    cmd.Parameters.AddWithValue("@established", brewery.Established);
+                    cmd.Parameters.AddWithValue("@description", brewery.Description);
+                    cmd.Parameters.AddWithValue("@isBar", brewery.IsBar);
+                    cmd.Parameters.AddWithValue("@isBrewery", brewery.IsBrewery);
 
                     int id = Convert.ToInt32(cmd.ExecuteScalar());
                     brewery.Id = id;
@@ -186,7 +198,6 @@ namespace SampleApi.DAL
                 throw;
             }
         }
-
         public IList<Brewery> GetWithinRadiusMiles(string userLat, string userLng, int miles)
         {
             IList<Brewery> breweries = new List<Brewery>();
@@ -220,6 +231,38 @@ namespace SampleApi.DAL
             }
 
             return breweries;
+        }
+
+        public Brewery GetBreweryByNameAddress(string name, string address)
+        {
+            Brewery brewery = null;
+
+            string sql = "select * from breweries where name like @name OR @address = trim(address)";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+
+
+                    cmd.Parameters.AddWithValue("@name", '%' + name.Trim() + '%');
+                    cmd.Parameters.AddWithValue("@address", address.Trim());
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        brewery = ConvertReaderToBrewery(reader);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return brewery;
+
         }
     }
 }
