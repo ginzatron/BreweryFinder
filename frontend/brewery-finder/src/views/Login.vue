@@ -153,13 +153,16 @@ section {
   justify-content: center;
 }
 
-input[type="text"],
+input[type="text"]{
+  margin-right: 24px;
+}
+
 input[type="password"] {
-  margin-right: 25px;
+  margin-right: 22px;
 }
 
 input[name="confirmPassword"] {
-  margin-right: 90px;
+  margin-right: 83px;
 }
 
 .form-div {
